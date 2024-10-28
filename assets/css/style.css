@@ -1944,4 +1944,30 @@ a:hover {
   a, .accent, .button {
     color: var(--primary-red);
   }
+  /* Darken text color for better visibility */
+.about-text, .about-text p, .about-text .contact-title, .about-text .contact-info, .sidebar-info_more {
+  color: var(--text-dark-gray); /* Ensure readability */
+}
+
+/* Specifically target "Email," "Phone," "Birthday," and similar labels */
+.contact-title, .contact-item p, .contact-info p {
+  color: var(--text-dark-gray);
+}
+
+/* General adjustments to catch any remaining light text */
+h1, h2, h3, h4, h5, h6, p, .main-content, .sidebar, .about-element, .contact-info, .sidebar-info {
+  color: var(--text-dark-gray);
+}
+
+/* Apply dark color to all text within the resume section */
+.resume, .resume p, .resume .timeline-item, .timeline-text {
+  color: var(--text-dark-gray);
+}
+
+/* If there are specific titles or sections within resume, target them too */
+.resume h2, .resume h3, .resume h4, .resume h5, .resume h6 {
+  color: var(--text-dark-gray);
+}
+
+
 }

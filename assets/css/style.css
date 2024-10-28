@@ -1922,3 +1922,26 @@ a:hover {
 }
 
 }
+
+/* Mobile styles for better readability */
+@media (max-width: 768px) {
+  /* Set a darker color for general text */
+  body, .resume-description, .contact-info p, .contact-title, .blog-text, .secondary-text {
+    color: var(--text-dark-gray); /* Ensure readability */
+  }
+
+  /* Specific styles for labels like "Email", "Phone", "Birthday" */
+  .contact-item .contact-title, .contact-info {
+    color: var(--text-dark-gray);
+  }
+
+  /* Adjust other light gray text on white backgrounds */
+  .main-content, .main-content p, .navbar, h1, h2, h3, h4, h5, h6 {
+    color: var(--text-dark-gray);
+  }
+
+  /* Links and accent colors */
+  a, .accent, .button {
+    color: var(--primary-red);
+  }
+}

@@ -157,3 +157,62 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+document.querySelectorAll('[data-blog-post="true"]').forEach(post => {
+  post.addEventListener('click', (event) => {
+    event.preventDefault(); // Prevent default link behavior
+
+    // Hide all main content articles
+    document.querySelectorAll('article').forEach(section => {
+      section.style.display = 'none';
+    });
+
+    // Show the blog editor
+    document.getElementById('blog-editor').style.display = 'block';
+  });
+});
+
+// Optional: function to handle saving the blog post
+function saveBlogPost() {
+  const imageFile = document.getElementById('blog-image').files[0];
+  const content = document.getElementById('blog-content').value;
+  alert('Blog post saved with content: ' + content);
+}
+
+
+document.querySelectorAll('[data-nav-link]').forEach((navLink, index) => {
+  navLink.addEventListener('click', () => {
+    // Hide the blog editor and all sections first
+    document.getElementById('blog-editor').style.display = 'none';
+    document.querySelectorAll('article').forEach(section => {
+      section.style.display = 'none';
+    });
+
+    // Show the selected section based on nav order
+    document.querySelectorAll('article')[index].style.display = 'block';
+
+    // Update nav active state
+    document.querySelectorAll('[data-nav-link]').forEach(link => link.classList.remove('active'));
+    navLink.classList.add('active');
+  });
+});
+
+
+document.querySelectorAll('[data-blog-post="true"]').forEach((post, index) => {
+  post.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    // Hide all main content sections and the blog editor
+    document.querySelectorAll('article, #blog-editor').forEach(section => {
+      section.style.display = 'none';
+    });
+
+    // Hide all individual blog post sections
+    document.querySelectorAll('[id^="post-"]').forEach(postContent => {
+      postContent.style.display = 'none';
+    });
+
+    // Show the content section corresponding to the clicked post
+    document.getElementById(`post-${index + 1}-content`).style.display = 'block';
+  });
+});

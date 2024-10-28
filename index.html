@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +43,7 @@
       <div class="sidebar-info">
 
         <figure class="avatar-box">
-          <img src="./assets/images/my-avatar.png" alt="Alice Jiang" width="80">
+          <img src="./assets/images/pop.jpg" alt="Alice Jiang" width="80">
         </figure>
 
         <div class="info-content">
@@ -74,7 +75,7 @@
             <div class="contact-info">
               <p class="contact-title">Email</p>
 
-              <a href="mailto:w.ajiang.a@gmail.com" class="contact-link">w.ajiang.a@gmail.com</a>
+              <a href="w.ajiang.a@gmail.com" class="contact-link">w.ajiang.a@gmail.com</a>
             </div>
 
           </li>
@@ -88,7 +89,7 @@
             <div class="contact-info">
               <p class="contact-title">Phone</p>
 
-              <a href="tel:+12133522795" class="contact-link">+1 (734) 905-0425</a>
+              <a href="tel:+17349050425" class="contact-link">+1 (734) 905-0425</a>
             </div>
 
           </li>
@@ -149,7 +150,23 @@
 
       </div>
 
+      <div id="blog-editor" style="display: none;">
+        <h2 class="h2">Edit Blog Post</h2>
+        <form id="blog-edit-form">
+          <label for="blog-image">Upload Image:</label>
+          <input type="file" id="blog-image" accept="image/*">
+          
+          <label for="blog-content">Content:</label>
+          <textarea id="blog-content" placeholder="Enter blog content here..."></textarea>
+          
+          <button type="button" onclick="saveBlogPost()">Save</button>
+        </form>
+      </div>
+      
+
     </aside>
+
+
 
 
 
@@ -177,14 +194,15 @@
             <button class="navbar-link" data-nav-link>Resume</button>
           </li>
 
+         
+
+         
+
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Portfolio</button>
+            <button class="navbar-link" data-nav-link>Blog</button>
           </li>
 
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Contact</button>
-          </li>
+   
 
         </ul>
 
@@ -212,8 +230,7 @@
           <p>
             In my free time I love assembling music boxes and talking strolls around the neighborhood with my family. 
             
-            I hope to become a Product Manager and also pursue entrepreneurship in the future. 
-
+            I hope to become a Product Manager and also pursue entrepreneurship in the future.
           </p>
         </section>
 
@@ -224,7 +241,7 @@
 
         <section class="service">
 
-          <h3 class="h3 service-title">What i'm doing</h3>
+          <h3 class="h3 service-title">What i'm doing (more on blogs)</h3>
 
           <ul class="service-list">
 
@@ -236,10 +253,10 @@
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Web design</h4>
+                <h4 class="h4 service-item-title">Bridges</h4>
 
                 <p class="service-item-text">
-                  The most modern and high-quality design made at a professional level.
+                  Designing bridges that can hold over a thousand times their weight
                 </p>
               </div>
 
@@ -252,10 +269,10 @@
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Web development</h4>
+                <h4 class="h4 service-item-title">SoloStep</h4>
 
                 <p class="service-item-text">
-                  High-quality development of sites at the professional level.
+                  Assisting individuals with mobility problems
                 </p>
               </div>
 
@@ -264,14 +281,14 @@
             <li class="service-item">
 
               <div class="service-icon-box">
-                <img src="./assets/images/icon-app.svg" alt="mobile app icon" width="40">
+                <img src="./assets/images/maily.svg" alt="mobile app icon" width="40">
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Mobile apps</h4>
+                <h4 class="h4 service-item-title">HoloGlitterPacks</h4>
 
                 <p class="service-item-text">
-                  Professional development of applications for iOS and Android.
+                  Customized glitter packs at hologlitterpacks.etsy.com
                 </p>
               </div>
 
@@ -284,10 +301,10 @@
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Photography</h4>
+                <h4 class="h4 service-item-title">Senior Community</h4>
 
                 <p class="service-item-text">
-                  I make high-quality photos of any category at a professional level.
+                  Performance group: Music for Seniors and Tech Town Hall
                 </p>
               </div>
 
@@ -296,6 +313,82 @@
           </ul>
 
         </section>
+
+
+        <!--
+          - testimonials
+        -->
+
+        
+
+
+        
+
+        <div class="modal-container" data-modal-container>
+
+          <div class="overlay" data-overlay></div>
+
+          <section class="testimonials-modal">
+
+            <button class="modal-close-btn" data-modal-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+
+            <div class="modal-img-wrapper">
+              <figure class="modal-avatar-box">
+                <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="80" data-modal-img>
+              </figure>
+
+              <img src="./assets/images/icon-quote.svg" alt="quote icon">
+            </div>
+
+            <div class="modal-content">
+
+              <h4 class="h3 modal-title" data-modal-title>Daniel lewis</h4>
+
+              <time datetime="2021-06-14">14 June, 2021</time>
+
+              <div data-modal-text>
+                <p>
+                  Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
+                  lot of experience
+                  and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
+                  consectetur adipiscing
+                  elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
+                </p>
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+
+        
+
+      </article>
+
+
+
+
+
+      <!--
+        - #POSTS!!! TESTING EXPERIMENTAL
+      -->
+
+      
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -323,41 +416,50 @@
 
             <li class="timeline-item">
 
-              <h4 class="h4 timeline-item-title">University school of the arts</h4>
+              <h4 class="h4 timeline-item-title">Saline High School</h4>
 
-              <span>2007 — 2008</span>
+              <span>2021 — 2025</span>
 
               <p class="timeline-text">
-                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
-                quas molestias
-                exceptur.
+                4.43 GPA (weighted) / 4.0 GPA (unweighted) 
+                <br>
+                <br>
+                SAT Test Scores: 1560 (Math 800, Reading/Writing 760) 
+                <br>
+                <br>
+                AP Test Scores: Calculus BC (5); Chemistry (5); Chinese (5); Computer Science (5); 
+                Language and Composition (5); U.S. Government (5); U.S History (4); Psychology (5)
+                <br>
+                <br>
+              
+                Current AP courses: Literature, Macroeconomics, Microeconomics, Physics C: Mechanics, Statistics
               </p>
 
             </li>
 
             <li class="timeline-item">
 
-              <h4 class="h4 timeline-item-title">New york academy of art</h4>
+              <h4 class="h4 timeline-item-title">Oakland University - Summer Mathematics Institute</h4>
 
-              <span>2006 — 2007</span>
+              <span>2024</span>
 
               <p class="timeline-text">
-                Ratione voluptatem sequi nesciunt, facere quisquams facere menda ossimus, omnis voluptas assumenda est
-                omnis..
+                MTH2775: Linear Algebra
+                <br>
+                MTH3002: Introduction to Advanced Mathematical Thinking
+
               </p>
 
             </li>
 
             <li class="timeline-item">
 
-              <h4 class="h4 timeline-item-title">High school of art and design</h4>
+              <h4 class="h4 timeline-item-title">Washtenaw Community College</h4>
 
-              <span>2002 — 2004</span>
+              <span>2024</span>
 
               <p class="timeline-text">
-                Duis aute irure dolor in reprehenderit in voluptate, quila voluptas mag odit aut fugit, sed consequuntur
-                magni dolores
-                eos.
+                MTH293: Multivariable Calculus
               </p>
 
             </li>
@@ -370,7 +472,7 @@
 
           <div class="title-wrapper">
             <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
             </div>
 
             <h3 class="h3">Experience</h3>
@@ -380,42 +482,133 @@
 
             <li class="timeline-item">
 
-              <h4 class="h4 timeline-item-title">Creative director</h4>
+              <h4 class="h4 timeline-item-title">EMUiNVENT InvenTeam</h4>
 
-              <span>2015 — Present</span>
+              <span>2024</span>
 
               <p class="timeline-text">
-                Nemo enim ipsam voluptatem blanditiis praesentium voluptum delenit atque corrupti, quos dolores et qvuas
-                molestias
-                exceptur.
+                Team Co-Lead
+                <br><br>
+                Developed a working, life-size prototype of a mobility device for seniors, patent pending (sponsored by Microsoft’s Make-What’s-Next program)
+                <br>
+                <br>
+                Selected to be a Lemelson-MIT Grant Initiative InvenTeam ($7,500) and traveled to MIT to present at Eureka Fest in June 2024.
+                <br>
+                <br>
+                Winner of the Lemelson-MIT Eureka Essay Contest.
+            
+                
               </p>
 
             </li>
 
             <li class="timeline-item">
 
-              <h4 class="h4 timeline-item-title">Art director</h4>
+              <h4 class="h4 timeline-item-title">HoloGlitterPacks</h4>
 
-              <span>2013 — 2015</span>
+              <span>2020 - 2024</span>
 
               <p class="timeline-text">
-                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
-                quas molestias
-                exceptur.
+                Founder
+                <br><br>
+                Achieved $65,000 net income and 14,792 sales by offering customizable sustainable glitter bundles that reduce waste and save customers money. 
+                <br>
+                <br>
+                Earned over 2,500 five-star reviews by delivering exceptional customer service and quality products, enhancing customer satisfaction and loyalty.
+
               </p>
 
             </li>
 
+            
+
             <li class="timeline-item">
 
-              <h4 class="h4 timeline-item-title">Web designer</h4>
+              <h4 class="h4 timeline-item-title">Science Olympiad</h4>
 
-              <span>2010 — 2013</span>
+              <span>2021 - 2024</span>
 
               <p class="timeline-text">
-                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
-                quas molestias
-                exceptur.
+                Team Captain
+                <br>
+                <br>
+                Designed engaging activities at the Extracurricular Night including a trophy showcase from previous years, air trajectory demos, and tested a 10-gram bridge that held a weight of 15,000 grams.
+                <br>
+                <br>
+                Represented and spoke at the STEAM building groundbreaking ceremony, providing input on changes to be made in the STEAM building and additions would help the team thrive.
+                <br>
+                <br>
+                Represented our club and spoke at annual Saline Education Board meetings along with lead our summer camps
+              </p>
+
+            </li>
+            
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">National Honors Society</h4>
+
+              <span>2021 - 2024</span>
+
+              <p class="timeline-text">
+                President
+                <br>
+                <br>
+                Organized successful fundraising events for the National Honor Society, including a flower sale and local business partnerships, generating $450 for the annual club banquet.                <br>
+                <br>
+                Lead chapter meetings, supervise committee members, communicate announcements, and coordinate volunteering opportunities, enhancing member engagement and organizational efficiency.
+              </p>
+
+            </li>
+            
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">Saline Youth Council</h4>
+
+              <span>2023 - 2024</span>
+
+              <p class="timeline-text">
+                Co-Chair
+                <br>
+                <br>
+                Initiated and managed a snow shoveling program to assist senior citizens during winter, thereby improving community support for the elderly. 
+                <br>
+                Create agenda plans and oversee council activities.
+              </p>
+
+            </li>
+
+            <li class="timeline-item"></li>
+
+              <h4 class="h4 timeline-item-title">Business Professionals of America</h4>
+
+              <span>2022 - 2024</span>
+
+              <p class="timeline-text">
+                President
+                <br>
+                <br>
+                Implemented a Google Drive system to organize team resources, boosting state event qualifications and securing a 3rd-place national finish.
+                <br><br>
+                Planned icebreaker activities and event meetings to enhance team culture.
+                <br>
+                <br>
+
+
+              </p>
+
+            </li>
+            <li class="timeline-item">
+
+              <h4 class="h4 timeline-item-title">SHS E-Commerce Club</h4>
+
+              <span>2023 — 2024</span>
+
+              <p class="timeline-text">
+                Co-Founder & President 
+                <br><br>
+
+                Mentor students on e-commerce and related topics, and lead teams to participate in business design competitions
+
               </p>
 
             </li>
@@ -424,75 +617,461 @@
 
         </section>
 
-        <section class="skill">
+        
+        <section class="timeline"></section>
 
-          <h3 class="h3 skills-title">My skills</h3>
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="briefcase-outline"></ion-icon>
+            </div>
 
-          <ul class="skills-list content-card">
+            <h3 class="h3">Other</h3>
+          </div>
 
-            <li class="skills-item">
+          <ol class="timeline-list">
 
-              <div class="title-wrapper">
-                <h5 class="h5">Web design</h5>
-                <data value="80">80%</data>
-              </div>
+            <li class="timeline-item">
 
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
-              </div>
+
+              <p class="timeline-text">
+                SHS Debate
+<br>
+<br>
+SHS Tennis (Varsity, JV Co-Captian)
+<br>
+<br>
+SHS TEDxYouth (Co-leader)
+<br>
+<br>
+Washtenaw County Youth Commission (Saline District Commissioner)
+<br>
+<br>
+Tech Town Hall (Founder)
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Organize student musicians in Saline and Ann Arbor schools to perform at 2 retirement <br>
+&nbsp;&nbsp;&nbsp;&nbsp;homes each month.
+<br>
+<br>
+Music for Seniors (Founder)
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Organize student musicians in Saline and Ann Arbor schools to perform at 2 retirement <br>
+&nbsp;&nbsp;&nbsp;&nbsp;homes each month.
+<br>
+<br>
+ALLY (Secretary)
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Foster inclusivity and cultural connection among students from different high schools.
+<br>
+<br>
+SHS Poetry Club
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Write and share poetry in the morning among 12 other students.
+<br>
+<br>
+Wharton Global Youth High School Program  (2022)
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Essentials of Leadership 
+<br>
+<br>
+University of Michigan Summer Discovery Program (2023)
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Personal Finance and Entrepreneurship
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Public Speaking and Presentation Skills
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+College Essay Writing
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Social Psychology
+<br>
+<br>
+Michigan Institute for Data and  AI in Society, University of Michigan - High School Summer Camp (2024)
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Introduction to Data Science and AI
+<br><br>
+
+Host at Applebees
+<Br><br>
+
+              </p>
 
             </li>
 
-            <li class="skills-item">
+          </ol>
 
-              <div class="title-wrapper">
-                <h5 class="h5">Graphic design</h5>
-                <data value="70">70%</data>
-              </div>
+        </section>
 
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 70%;"></div>
-              </div>
 
+        <section class="timeline"></section>
+
+        <div class="title-wrapper">
+          <div class="icon-box">
+            <ion-icon name="trophy"></ion-icon>
+          </div>
+
+          <h3 class="h3">Awards/Achievements</h3>
+        </div>
+
+        <ol class="timeline-list">
+
+          <li class="timeline-item">
+
+
+            <p class="timeline-text">
+              
+              BPA (Business Professionals of America)
+              <br>&nbsp;&nbsp;&nbsp;&nbsp;
+              Regionals: 
+              <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Administrative Support- open event (2022-2023) 5th place. 
+              <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Administrative Support- open event (2023-2024) 1st place.
+              <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Management, Marketing, and Human Resources Concepts (2023-2024) 1st place.
+              <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Entrepreneurship (2023-2024) 3rd place.
+              <br>&nbsp;&nbsp;&nbsp;&nbsp;
+              States: 
+              <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Health Administration Concepts - open event (2023-2024) 4th place.
+              <br>&nbsp;&nbsp;&nbsp;&nbsp;
+              Nationals: 
+              <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Start-Up Enterprise Team [team captain] (2023-2024) - 3rd place.
+              
+<br>
+<br>
+Debate
+<br>&nbsp;&nbsp;&nbsp;&nbsp;
+
+States:
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+Pappas Invitational DUDL 2 (2021-2022) Finalist.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+UofM Debate Tournament (2022-2023) Octofinalist.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;
+
+Nationals: 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+Pro-Con Challenge (2021-2022) 5th place.
+
+<br>
+<br>
+Science Olympiad
+<br>&nbsp;&nbsp;&nbsp;&nbsp;
+
+Regionals (2021-2022):
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Bridge 2nd place, Experimental Design 1st place, Wright Stuff 1st place.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;
+
+States (2021-2022): <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Bridge 7th place, Experimental Design 1st place, Wright stuff 4th place. 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;
+Regionals (2022-2023): <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Bridge 3rd, Chemistry Lab 3rd, Experimental Design 2nd, Forensics 2nd. 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;
+States (2022-2023): <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Bridge 2nd place, Forensics 7th place. 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;
+Regionals (2023-2024): <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Anatomy & Physiology 1st, Experimental Design 1st, Forensics 2nd place.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;
+States (2023-2024): <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Ecology 2nd place
+<br>
+<br>
+Music
+<br>&nbsp;&nbsp;&nbsp;&nbsp;
+Passed level 10 of Student Achievement Testing (Music Teachers Association). 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;
+1st division performance for Michigan School Band and Orchestra Association solo and 
+<br>&nbsp;&nbsp;&nbsp;&nbsp;ensemble in the flute and piano categories.<br>
+<br>
+Winner in the Kappy Family Anne Frank Art & Writing Competition at the Zekelman Holocaust Center.
+
+<br>
+<br>
+2025 National Merit Semifinalist 
+<br>
+Lemelson-MIT EurekaFest Essay Winner
+
+<br>
+<br>
+AP Scholar with Distinction 
+<br>
+<br>
+Global Seal of Biliteracy - Gold Seal for Chinese and English
+
+<Br><br>
+
+            </p>
+
+          </li>
+
+        </ol>
+
+      </section>
+
+      </article>
+
+
+     
+
+
+
+     
+
+
+
+ <!--
+        - #BLOG
+      -->
+
+      <article class="blog" data-page="blog">
+
+        <header>
+          <h2 class="h2 article-title">Blog</h2>
+        </header>
+
+        <section class="blog-posts">
+
+          <ul class="blog-posts-list">
+
+            <li class="blog-post-item" data-blog-post="true">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/bridge2.png" alt="Design conferences in 2022" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                
+
+
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Bridges</h3>
+
+                  <p class="blog-text">
+                    Bridge design and more
+                  </p>
+
+                </div>
+
+              </a>
             </li>
 
-            <li class="skills-item">
+            <li class="blog-post-item" data-blog-post="true">
+              <a href="#">
 
-              <div class="title-wrapper">
-                <h5 class="h5">Branding</h5>
-                <data value="90">90%</data>
-              </div>
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/MIT3.jpg" alt="Best fonts every designer" loading="lazy">
+                </figure>
 
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 90%;"></div>
-              </div>
+                <div class="blog-content">
 
+                  <div class="blog-meta">
+                    
+
+                    
+                  </div>
+
+                  <h3 class="h3 blog-item-title">EMUiNVENT InvenTeam</h3>
+
+                  <p class="blog-text">
+                    Solostep - a mobility robot
+                  </p>
+
+                </div>
+
+              </a>
             </li>
 
-            <li class="skills-item">
+            <li class="blog-post-item" data-blog-post="true">
+              <a href="#">
 
-              <div class="title-wrapper">
-                <h5 class="h5">WordPress</h5>
-                <data value="50">50%</data>
-              </div>
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/etsy2.png" alt="Design digest #80" loading="lazy">
+                </figure>
 
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 50%;"></div>
-              </div>
+                <div class="blog-content">
 
+                  <div class="blog-meta">
+                    
+
+                   
+                  </div>
+
+                  <h3 class="h3 blog-item-title">HoloGlitterPack</h3>
+
+                  <p class="blog-text">
+                    My entrepreneurial project - customizable glitter packs
+                  </p>
+
+                </div>
+
+              </a>
             </li>
+
+            <li class="blog-post-item" data-blog-post="true">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/sen3.JPEG" alt="UI interactions of the week" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Senior Community</h3>
+
+                  <p class="blog-text">
+                    Music for Seniors & Tech Town Hall
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+            <li class="blog-post-item" data-blog-post="true">
+              <a href="#">
+
+                <figure class="blog-banner-box">
+                  <img src="./assets/images/fun2.png" alt="The forgotten art of spacing" loading="lazy">
+                </figure>
+
+                <div class="blog-content">
+
+                  <div class="blog-meta">
+                    
+                  </div>
+
+                  <h3 class="h3 blog-item-title">Music Boxes</h3>
+
+                  <p class="blog-text">
+                    My fun little hobby
+                  </p>
+
+                </div>
+
+              </a>
+            </li>
+
+           
 
           </ul>
+
+          <div id="blog-editor" style="display: none;">
+            <h2 class="h2">Edit Blog Post</h2>
+            <form id="blog-edit-form">
+              <label for="blog-image">Upload Image:</label>
+              <input type="file" id="blog-image" accept="image/*">
+              
+              <label for="blog-content">Content:</label>
+              <textarea id="blog-content" placeholder="Enter blog content here..."></textarea>
+              
+              <button type="button" onclick="saveBlogPost()">Save</button>
+            </form>
+          </div>
+          
+
+
 
         </section>
 
       </article>
 
+      <div id="post-1-content" style="display: none;">
+        <h2>Bridges</h2>
+        <img src="./assets/images/bridge1.png" alt="Blog Post 1 Image" width="300" style="max-width: 100%; height: auto;">
+        <img src="./assets/images/bridge7.JPG" alt="Blog Post 1 Image" width="300" style="max-width: 100%; height: auto;">
+        <p>One Science Olympiad event I’m in is Bridge. I spent a lot of time perfecting these bridges. The purpose of this event is to build the lightest wooden bridge that can still hold the whole weight of 15,000g. I used a combination of balsa (compression members) and basswood (tension members)
+            <br><br>
+            By testing out different designs, making tension members very thin, only having bracing in the more critical spots, and finding the optimal density for each wood piece, I was able to make a 9.6g bridge that held 15,000g. In terms of weight, that would be around 2 pieces of paper holding up two bicycles. (And, big shout out to my teammates who always help me test my bridges!)
+            </p>
+      </div>
+
+      <div id="post-2-content" style="display: none;">
+        <h2>SoloStep</h2>
+        <img src="./assets/images/MIT1.png" alt="Blog Post 1 Image" width="300" style="max-width: 100%; height: auto;">
+        <img src="./assets/images/MIT2.heic" alt="Blog Post 1 Image" width="300" style="max-width: 100%; height: auto;">
+        <video width="300" controls style="max-width: 100%; border-radius: 5px;">
+            <source src="./assets/images/MIT4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          
+        <p>In collaboration with MIT, The Lemelson Foundation sponsors Lemelson-MIT InvenTeams™, where high school students, educators, and mentors come together to tackle real-world challenges with grants of up to $7,500.
+            <br><br>
+            Our EMUiNVENT InvenTeam was 1 of 8 teams nationwide selected to receive this grant, allowing us to develop a tech-driven invention that addresses local issues. The problem we picked was mobility issues. With the U.S. elderly population expected to double to 95 million by 2060, seniors are increasingly facing challenges in maintaining mobility and independence, leading to a range of health risks and psychological impacts. Many older adults rely on others for basic movement and positional changes, which reduces physical activity and results in medical consequences, such as heart disease, obesity, and elevated blood pressure, as well as increased caregiver costs and mental health effects like depression and loneliness.
+            <br><br>
+
+            We created a mini, fully-functioning prototype and worked with an outside fabricator (Mr. Chris Trager)  to help us assemble a limited-functioning, full scale prototype. 
+            </p>
+      </div>
+
+      <div id="post-3-content" style="display: none;">
+        <h2>HoloGlitterPacks</h2>
+        <img src="./assets/images/etsy1.png" alt="Blog Post 1 Image" width="300" style="max-width: 100%; height: auto;">
+        <img src="./assets/images/etsy3.png" alt="Blog Post 1 Image" width="300" style="max-width: 100%; height: auto;">
+        <img src="./assets/images/etsy4.png" alt="Blog Post 1 Image" width="700" style="max-width: 100%; height: auto;">
+        <p>I created an Etsy Shop in 8th grade, offering customizable glitter bundles to reduce waste from premadse sets. I make my own ratios in my glitter mixes, and have had my fair share of being part of funny experiences. I enjoy seeing all the things my customers create, whether that's making slime, nail art, or glitter bombing an ex. 
+            <br><br>
+            Running an Etsy Shop under a pseudonym has been a real-life business boot camp for me. Every interaction (between customers or suppliers) has taught me something new, and customer service? Let’s just say it's made me tougher and quicker on my feet than I ever imagined.
+            </p>
+      </div>
 
 
+      <div id="post-4-content" style="display: none;">
+        <h2>Music for Seniors & Tech Town Hall</h2>
+        <img src="./assets/images/sen2.PNG" alt="Blog Post 1 Image" width="300" style="max-width: 100%; height: auto;">
+        <video width="500" controls style="max-width: 100%; border-radius: 5px;">
+            <source src="./assets/images/412.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        <p>I co-founded Music for Seniors, which is a group that performs at retirement homes (StoryPoint and University Living) twice a month during the school year and weekly in the summer.
+           <br><br>
+            When interviewing seniors about their mobility issues in the EMUiNVENT InvenTeam, we learned that they would appreciate some help with technology. This is why I also co-founded Tech Town Hall at the Saline Senior Center. We meet every month to help seniors with tech-related inquiries and to help them set up things.</p>
+      </div>
 
 
-      <!--
+      <div id="post-5-content" style="display: none;">
+        <h2>Music Boxes!</h2>
+        <video width="500" controls style="max-width: 100%; border-radius: 5px;">
+            <source src="./assets/images/fun1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          
+          <video width="500" controls style="max-width: 100%; border-radius: 5px;">
+            <source src="./assets/images/fun3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+
+          <video width="500" controls style="max-width: 100%; border-radius: 5px;">
+            <source src="./assets/images/fun4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        <p>One of my favorite hobbies is assembling these music boxes. When I get tired, I jam out to some pop songs and start building. I also love 3D puzzles and right now I’m working on a train.</p>
+      </div>
+
+ <!--
         - #PORTFOLIO
       -->
 
@@ -730,200 +1309,6 @@
 
 
 
-
-
-      <!--
-        - #BLOG
-      -->
-
-      <article class="blog" data-page="blog">
-
-        <header>
-          <h2 class="h2 article-title">Blog</h2>
-        </header>
-
-        <section class="blog-posts">
-
-          <ul class="blog-posts-list">
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-1.jpg" alt="Design conferences in 2022" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design conferences in 2022</h3>
-
-                  <p class="blog-text">
-                    Veritatis et quasi architecto beatae vitae dicta sunt, explicabo.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-2.jpg" alt="Best fonts every designer" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Best fonts every designer</h3>
-
-                  <p class="blog-text">
-                    Sed ut perspiciatis, nam libero tempore, cum soluta nobis est eligendi.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-3.jpg" alt="Design digest #80" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design digest #80</h3>
-
-                  <p class="blog-text">
-                    Excepteur sint occaecat cupidatat no proident, quis nostrum exercitationem ullam corporis suscipit.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-4.jpg" alt="UI interactions of the week" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">UI interactions of the week</h3>
-
-                  <p class="blog-text">
-                    Enim ad minim veniam, consectetur adipiscing elit, quis nostrud exercitation ullamco laboris nisi.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-5.jpg" alt="The forgotten art of spacing" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">The forgotten art of spacing</h3>
-
-                  <p class="blog-text">
-                    Maxime placeat, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-            <li class="blog-post-item">
-              <a href="#">
-
-                <figure class="blog-banner-box">
-                  <img src="./assets/images/blog-6.jpg" alt="Design digest #79" loading="lazy">
-                </figure>
-
-                <div class="blog-content">
-
-                  <div class="blog-meta">
-                    <p class="blog-category">Design</p>
-
-                    <span class="dot"></span>
-
-                    <time datetime="2022-02-23">Fab 23, 2022</time>
-                  </div>
-
-                  <h3 class="h3 blog-item-title">Design digest #79</h3>
-
-                  <p class="blog-text">
-                    Optio cumque nihil impedit uo minus quod maxime placeat, velit esse cillum.
-                  </p>
-
-                </div>
-
-              </a>
-            </li>
-
-          </ul>
-
-        </section>
-
-      </article>
-
-
-
-
-
       <!--
         - #CONTACT
       -->
@@ -987,6 +1372,19 @@
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+  
 </body>
 
 </html>

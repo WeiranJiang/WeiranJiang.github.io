@@ -23,51 +23,47 @@
 
   /* gradient */
 
-  --bg-gradient-onyx: linear-gradient(
+  --bg-gradient-primary: linear-gradient(
     to bottom right, 
-    hsl(240, 1%, 25%) 3%, 
-    hsl(0, 0%, 19%) 97%
+    hsl(0, 85%, 60%) 3%,      /* Light red */
+    hsl(0, 70%, 50%) 97%      /* Deeper red */
   );
-  --bg-gradient-jet: linear-gradient(
+  --bg-gradient-secondary: linear-gradient(
     to bottom right, 
-    hsla(240, 1%, 18%, 0.251) 0%, 
-    hsla(240, 2%, 11%, 0) 100%
-  ), hsl(240, 2%, 13%);
-  --bg-gradient-yellow-1: linear-gradient(
+    hsla(215, 70%, 60%, 0.4) 0%, /* Soft blue */
+    hsla(215, 80%, 30%, 0) 100%  /* Dark blue */
+  ), hsl(215, 60%, 40%);          /* Solid dark blue */
+  --bg-gradient-accent: linear-gradient(
     to bottom right, 
-    hsl(45, 100%, 71%) 0%, 
-    hsla(36, 100%, 69%, 0) 50%
+    hsl(0, 85%, 75%) 0%,          /* Accent light red */
+    hsla(0, 85%, 65%, 0) 50%
   );
-  --bg-gradient-yellow-2: linear-gradient(
-    135deg, 
-    hsla(45, 100%, 71%, 0.251) 0%, 
-    hsla(35, 100%, 68%, 0) 59.86%
-  ), hsl(240, 2%, 13%);
-  --border-gradient-onyx: linear-gradient(
+  --border-gradient-primary: linear-gradient(
     to bottom right, 
-    hsl(0, 0%, 25%) 0%, 
-    hsla(0, 0%, 25%, 0) 50%
+    hsl(0, 70%, 40%) 0%,          /* Darker red for border */
+    hsla(0, 70%, 40%, 0) 50%
   );
-  --text-gradient-yellow: linear-gradient(
+  --text-gradient-accent: linear-gradient(
     to right, 
-    hsl(45, 100%, 72%), 
-    hsl(35, 100%, 68%)
+    hsl(0, 85%, 65%),             /* Lighter red */
+    hsl(0, 85%, 55%)
   );
 
   /* solid */
 
-  --jet: hsl(0, 0%, 22%);
-  --onyx: hsl(240, 1%, 17%);
-  --eerie-black-1: hsl(240, 2%, 13%);
-  --eerie-black-2: hsl(240, 2%, 12%);
-  --smoky-black: hsl(0, 0%, 7%);
-  --white-1: hsl(0, 0%, 100%);
-  --white-2: hsl(0, 0%, 98%);
-  --orange-yellow-crayola: hsl(45, 100%, 72%);
-  --vegas-gold: hsl(45, 54%, 58%);
-  --light-gray: hsl(0, 0%, 84%);
-  --light-gray-70: hsla(0, 0%, 84%, 0.7);
-  --bittersweet-shimmer: hsl(0, 43%, 51%);
+  --primary-red: hsl(0, 85%, 55%);
+  --secondary-blue: hsl(215, 65%, 45%);
+  --dark-blue-1: hsl(215, 60%, 40%);
+  --dark-blue-2: hsl(215, 60%, 35%);
+  --text-dark-gray: hsl(0, 0%, 20%);        /* Dark gray for primary text */
+  --text-light-gray: hsl(0, 0%, 40%);       /* Lighter gray for secondary text */
+  --white-bg: hsl(0, 0%, 100%);
+  --white-text: hsl(0, 0%, 98%);
+  --accent-light-red: hsl(0, 85%, 75%);
+  --accent-soft-blue: hsl(215, 70%, 60%);
+  --light-gray: hsl(0, 0%, 90%);
+  --light-gray-70: hsla(0, 0%, 90%, 0.7);
+  --accent-dark-red: hsl(0, 85%, 50%);
 
   /**
    * typography
@@ -110,6 +106,7 @@
   --transition-2: 0.5s ease-in-out;
 
 }
+
 
 
 
@@ -1878,5 +1875,50 @@ textarea.form-input::-webkit-resizer { display: none; }
 	 */
 
   .timeline-text { max-width: 700px; }
+
+
+  [id^="post-"] {
+    padding: 20px;
+    background-color: var(--eerie-black-2);
+    border-radius: 10px;
+    color: var(--white-2);
+  }
+
+  /* Set general body text color */
+body {
+  color: var(--text-dark-gray);
+}
+
+/* Primary heading color */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-dark-gray);
+}
+
+/* Secondary text for less prominent text */
+.secondary-text, p {
+  color: var(--text-light-gray);
+}
+
+/* Links and other accent elements */
+a, .accent {
+  color: var(--primary-red);
+}
+a:hover {
+  color: var(--secondary-blue);
+}
+/* Darken text for resume descriptions and other lighter text elements */
+.resume-description, .contact-info p, .contact-title, .blog-text, .secondary-text {
+  color: var(--text-dark-gray); /* Darker color for readability */
+}
+
+/* Set a darker color for labels like "Email", "Phone", "Birthday" */
+.contact-item .contact-title, .contact-info {
+  color: var(--text-dark-gray); /* Ensure readability */
+}
+
+/* Additional rule for any remaining light text within the main content */
+.main-content, .main-content p {
+  color: var(--text-dark-gray);
+}
 
 }

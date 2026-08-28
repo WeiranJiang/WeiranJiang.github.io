@@ -19,7 +19,10 @@
  */
 
 import { createCharacter } from "./character.js";
-import { el } from "./render.js";
+import { el, entryHref } from "./render.js";
+
+/* Anchors have to work from item.html as well as from the homepage. */
+const HOME = /\/item\.html$/.test(location.pathname) ? "index.html" : "";
 
 const MAX_QUESTION = 500;
 const MAX_PASSAGES = 6;
@@ -42,13 +45,13 @@ function passage(title, href, section, parts, keywords = "") {
 }
 
 export function buildKnowledge(data) {
-  const { site, intro, experience, atPenn, work, archive, about } = data;
+  const { site, intro, experience, atPenn, work, archive, about, press } = data;
   const out = [];
 
   out.push(
     passage(
       "Introduction",
-      "#intro",
+      `${HOME}#intro`,
       "Introduction",
       [site.description, ...(intro.paragraphs || [])],
       "who bio background overview summary studying major school college university now currently"
@@ -57,14 +60,17 @@ export function buildKnowledge(data) {
 
   for (const block of intro.sidebar || []) {
     out.push(
-      passage(block.label, "#intro", "Introduction", [`${block.label}: ${(block.lines || []).join("; ")}.`])
+      passage(block.label, `${HOME}#intro`, "Introduction", [
+        `${block.label}: ${(block.lines || []).join("; ")}.`,
+      ])
     );
   }
 
   /* Substance first, metadata last — the local answer quotes the opening
      sentences, and they should say something. */
-  const entryPassage = (item, sectionId, sectionName) =>
-    passage(item.org || item.name, `#${sectionId}`, sectionName, [
+  /* Sources link to the entry's own page, which is where the detail lives. */
+  const entryPassage = (item, sectionName) =>
+    passage(item.org || item.name, entryHref(item), sectionName, [
       item.summary,
       ...(item.body || []),
       ...(item.points || []),
@@ -73,32 +79,46 @@ export function buildKnowledge(data) {
       item.place ? `Location: ${item.place}.` : "",
     ]);
 
-  for (const item of experience) out.push(entryPassage(item, "experience", "Experience"));
-  for (const item of atPenn) out.push(entryPassage(item, "penn", "At Penn"));
-  for (const item of work) out.push(entryPassage(item, "work", "Selected work"));
+  for (const item of experience) out.push(entryPassage(item, "Experience"));
+  for (const item of atPenn) out.push(entryPassage(item, "At Penn"));
+  for (const item of work) out.push(entryPassage(item, "Selected work"));
 
   for (const group of archive) {
     out.push(
-      passage(`Archive — ${group.year}`, "#archive", "Archive", [
+      passage(`Archive — ${group.year}`, `${HOME}#archive`, "Archive", [
         `${group.year}:`,
         ...(group.entries || []).map((e) => `${e.when ? e.when + ": " : ""}${e.what}`),
       ])
     );
   }
 
+  if (press && press.length) {
+    out.push(
+      passage(
+        "Press",
+        `${HOME}#archive`,
+        "Archive",
+        press.map((row) =>
+          `${row.publication}${row.date ? ` (${row.date})` : ""}: “${row.title}”.`
+        ),
+        "press news article media coverage featured interview newspaper published"
+      )
+    );
+  }
+
   out.push(
     passage(
       "About",
-      "#about",
+      `${HOME}#about`,
       "About & contact",
       about.paragraphs || [],
-      "personal hobbies interests hometown michigan fun outside free time"
+      "personal hobbies interests hometown michigan fun outside free time puzzles"
     )
   );
   out.push(
     passage(
       "Contact",
-      "#about",
+      `${HOME}#about`,
       "About & contact",
       [(about.contact || []).map((c) => `${c.label}: ${c.value}`).join(". ") + "."],
       "contact email reach touch message hire recruit resume cv linkedin hello connect"

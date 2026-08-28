@@ -2,7 +2,8 @@
  * Renderer. Turns the plain data in content/content.js into the page.
  *
  * Nothing here knows about any particular entry — add an object to an array in
- * content.js and it picks up the same layout, spacing, and type automatically.
+ * content.js and it picks up the same layout, spacing, and type automatically,
+ * including its own page at item.html?id=<its id>.
  */
 
 /* ---------- small DOM helpers ---------- */
@@ -30,31 +31,62 @@ export function slug(value) {
     .replace(/^-|-$/g, "");
 }
 
-/* Missing image files remove their own figure rather than showing a broken icon,
-   so a half-filled content file still looks finished. */
-function figure(image) {
-  if (!image || !image.src) return null;
-  const img = el("img", {
-    src: image.src,
-    alt: image.alt || "",
-    loading: "lazy",
-    decoding: "async",
-  });
-  const fig = el("figure", { class: "shot" }, [
-    img,
-    image.caption ? el("figcaption", { text: image.caption }) : null,
+/** Stable id for an entry — its own `id` if set, otherwise from its name. */
+export function entryId(item) {
+  return item.id || slug(item.org || item.name);
+}
+
+export function entryHref(item) {
+  return `item.html?id=${encodeURIComponent(entryId(item))}`;
+}
+
+const VIDEO = /\.(mp4|webm|mov|m4v)$/i;
+
+/* Missing files remove their own figure rather than showing a broken icon, so a
+   half-filled content file still looks finished. */
+function figure(media) {
+  if (!media || !media.src) return null;
+
+  const isVideo = VIDEO.test(media.src);
+
+  /* preload="none" means the poster is all that loads until someone presses
+     play — three clips on a page cost nothing to arrive at. */
+  const inner = isVideo
+    ? el("video", {
+        src: media.src,
+        poster: media.poster || null,
+        controls: true,
+        preload: "none",
+        playsinline: true,
+        "aria-label": media.alt || media.caption || "Video",
+      })
+    : el("img", {
+        src: media.src,
+        alt: media.alt || "",
+        loading: "lazy",
+        decoding: "async",
+      });
+
+  const fig = el("figure", { class: isVideo ? "shot shot--video" : "shot" }, [
+    inner,
+    media.caption ? el("figcaption", { text: media.caption }) : null,
   ]);
-  img.addEventListener("error", () => fig.remove(), { once: true });
+
+  /* A missing image quietly removes itself. Videos keep their poster — a browser
+     that can't play the file should still show the still. */
+  if (!isVideo) inner.addEventListener("error", () => fig.remove(), { once: true });
   return fig;
 }
 
-function figures(images) {
-  const list = (images || []).map(figure).filter(Boolean);
-  if (!list.length) return null;
+/** Accepts `images`, `videos`, or `media` — anything with a src. */
+export function figures(...lists) {
+  const items = lists.flatMap((list) => list || []);
+  const built = items.map(figure).filter(Boolean);
+  if (!built.length) return null;
   return el(
     "div",
-    { class: list.length === 1 ? "figures figures--single" : "figures" },
-    list
+    { class: built.length === 1 ? "figures figures--single" : "figures" },
+    built
   );
 }
 
@@ -103,6 +135,29 @@ function tags(items) {
   return el("ul", { class: "entry__tags" }, items.map((t) => el("li", { text: t })));
 }
 
+/* ---------- press ---------- */
+
+export function renderPressList(items, className = "press-list") {
+  if (!items || !items.length) return null;
+  return el(
+    "ul",
+    { class: className },
+    items.map((row) =>
+      el("li", {}, [
+        el("span", { class: "press-list__pub", text: row.publication || "" }),
+        el("a", {
+          class: "press-list__title",
+          href: row.href,
+          text: row.title,
+          target: "_blank",
+          rel: "noreferrer noopener",
+        }),
+        el("span", { class: "press-list__date", text: row.date || "" }),
+      ])
+    )
+  );
+}
+
 /* ---------- introduction ---------- */
 
 export function renderIntro(host, { site, intro }) {
@@ -143,36 +198,40 @@ function sectionShell(id, heading, note) {
   return { section, body: section.querySelector(".wrap") };
 }
 
-/* ---------- entry list (Experience, At Penn, Selected work) ---------- */
+/* ---------- entry list ----------
+   The homepage shows the short version. Photos, videos, press, and the longer
+   write-up live on the entry's own page. */
 
-function entryRow(item, kind) {
+function entryRow(item) {
   const rail = el("div", { class: "entry__rail" }, [
     item.date ? el("span", { class: "meta", text: item.date }) : null,
     item.place ? el("span", { class: "label", text: item.place }) : null,
   ]);
 
   const main = el("div", { class: "entry__main" }, [
-    el("h3", { class: "entry__title", text: item.org || item.name }),
+    el("h3", { class: "entry__title" }, [
+      el("a", { class: "entry__link", href: entryHref(item) }, [
+        item.org || item.name,
+        el("span", { class: "entry__arrow", text: "↗", "aria-hidden": "true" }),
+      ]),
+    ]),
     item.role || item.kind ? el("p", { class: "entry__role", text: item.role || item.kind }) : null,
     item.summary ? el("p", { class: "entry__summary", text: item.summary }) : null,
-    paragraphs(item.body, "entry__body"),
     bullets(item.points),
     tags(item.tags),
-    figures(item.images),
-    linkButtons(item.links),
   ]);
 
-  return el("article", { class: "entry", id: `${kind}-${slug(item.org || item.name)}` }, [rail, main]);
+  return el("article", { class: "entry", id: entryId(item) }, [rail, main]);
 }
 
-export function renderEntries(items, kind) {
-  return el("div", { class: "entries" }, items.map((item) => entryRow(item, kind)));
+export function renderEntries(items) {
+  return el("div", { class: "entries" }, items.map(entryRow));
 }
 
 /* ---------- archive ---------- */
 
-export function renderArchive(groups) {
-  return el(
+export function renderArchive(groups, press) {
+  const node = el(
     "div",
     { class: "archive" },
     groups.map((group) =>
@@ -200,39 +259,56 @@ export function renderArchive(groups) {
       ])
     )
   );
+
+  const list = renderPressList(press);
+  if (list) {
+    node.append(
+      el("div", { class: "archive-year" }, [
+        el("div", { class: "archive-year__label", text: "Press" }),
+        el("div", {}, [list]),
+      ])
+    );
+  }
+  return node;
 }
 
 /* ---------- about & contact ---------- */
 
 export function renderAbout(about) {
+  const media = figures(about.media);
+  if (media) media.classList.add("figures--strip");
+
   return el("div", { class: "about-grid" }, [
     el("div", {}),
-    el("div", { class: "about-body" }, [
-      el("div", { class: "about-text" }, [paragraphs(about.paragraphs, "")]),
-      el("div", { class: "about-side" }, [
-        about.portrait
-          ? el("div", { class: "about-portrait" }, [figure(about.portrait)].filter(Boolean))
-          : null,
-        el("p", { class: "label", text: "Contact" }),
-        el(
-          "ul",
-          { class: "contact-list" },
-          (about.contact || []).map((row) =>
-            el("li", {}, [
-              el("span", { class: "k", text: row.label }),
-              row.href
-                ? el("a", {
-                    class: "v",
-                    href: row.href,
-                    text: row.value,
-                    target: /^https?:/.test(row.href) ? "_blank" : null,
-                    rel: /^https?:/.test(row.href) ? "noreferrer noopener" : null,
-                  })
-                : el("span", { class: "v", text: row.value }),
-            ])
-          )
-        ),
+    el("div", {}, [
+      el("div", { class: "about-body" }, [
+        el("div", { class: "about-text" }, [paragraphs(about.paragraphs, "")]),
+        el("div", { class: "about-side" }, [
+          about.portrait
+            ? el("div", { class: "about-portrait" }, [figure(about.portrait)].filter(Boolean))
+            : null,
+          el("p", { class: "label", text: "Contact" }),
+          el(
+            "ul",
+            { class: "contact-list" },
+            (about.contact || []).map((row) =>
+              el("li", {}, [
+                el("span", { class: "k", text: row.label }),
+                row.href
+                  ? el("a", {
+                      class: "v",
+                      href: row.href,
+                      text: row.value,
+                      target: /^https?:/.test(row.href) ? "_blank" : null,
+                      rel: /^https?:/.test(row.href) ? "noreferrer noopener" : null,
+                    })
+                  : el("span", { class: "v", text: row.value }),
+              ])
+            )
+          ),
+        ]),
       ]),
+      media,
     ]),
   ]);
 }
@@ -240,14 +316,14 @@ export function renderAbout(about) {
 /* ---------- page assembly ---------- */
 
 export function renderSections(host, data) {
-  const { sections, experience, atPenn, work, archive, about } = data;
+  const { sections, experience, atPenn, work, archive, about, press } = data;
   const built = [];
 
   const bodies = {
-    experience: () => (experience.length ? renderEntries(experience, "experience") : null),
-    penn: () => (atPenn.length ? renderEntries(atPenn, "penn") : null),
-    work: () => (work.length ? renderEntries(work, "work") : null),
-    archive: () => (archive.length ? renderArchive(archive) : null),
+    experience: () => (experience.length ? renderEntries(experience) : null),
+    penn: () => (atPenn.length ? renderEntries(atPenn) : null),
+    work: () => (work.length ? renderEntries(work) : null),
+    archive: () => (archive.length ? renderArchive(archive, press) : null),
     about: () => renderAbout(about),
   };
 
@@ -270,9 +346,11 @@ export function renderSections(host, data) {
   return built.map((b) => b.spec);
 }
 
-export function renderNav(host, specs) {
+export function renderNav(host, specs, { absolute = false } = {}) {
   host.replaceChildren(
-    ...specs.map((spec) => el("a", { href: `#${spec.id}`, text: spec.label }))
+    ...specs.map((spec) =>
+      el("a", { href: `${absolute ? "index.html" : ""}#${spec.id}`, text: spec.label })
+    )
   );
 }
 

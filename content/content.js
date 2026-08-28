@@ -38,6 +38,8 @@ export const intro = {
     /* action: "ask" opens the assistant instead of navigating. */
     { label: "Ask about Alice", action: "ask" },
     { label: "Résumé", href: "assets/files/alice-jiang-resume.pdf", external: true },
+    { label: "GitHub", href: "https://github.com/WeiranJiang", external: true },
+    { label: "Stock pitches", href: "pitches.html" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/weiran-jiang", external: true },
     { label: "Email", href: "mailto:wajiang@wharton.upenn.edu" },
   ],
@@ -263,16 +265,16 @@ export const work = [
     ],
   },
   {
-    id: "bridge-design",
-    name: "Bridge Design",
-    kind: "Science Olympiad",
+    id: "science-olympiad",
+    name: "Science Olympiad",
+    kind: "Saline High School",
     date: "2021 — 2025",
     place: "Saline, MI",
     summary:
-      "Years of building balsa bridges that weighed almost nothing and held a great deal.",
+      "Four years of build events — mostly balsa bridges that weighed almost nothing and held a great deal.",
     body: [
-      "Structure, material choice, and joint geometry, tested to failure over and over. Every build started as a drawing with the member sizes worked out first, because balsa is unforgiving about weight you spend in the wrong place.",
-      "Part of 56 Science Olympiad placements across invitational, regional, state, and national competitions.",
+      "Bridge was the event I kept coming back to: structure, material choice, and joint geometry, tested to failure over and over. Every build started as a drawing with the member sizes worked out first, because balsa is unforgiving about weight you spend in the wrong place. Testing meant hanging a sand-filled jug off the middle and adding load until something gave.",
+      "56 placements across invitational, regional, state, and national competitions.",
     ],
     images: [
       {
@@ -286,9 +288,14 @@ export const work = [
         caption: "Plans for a 47 × 14 cm build, drawn before cutting anything.",
       },
       {
+        src: "assets/img/bridge-load-test.jpg",
+        alt: "A balsa bridge on a test rig, loaded through a chain hung from its centre",
+        caption: "Load testing, with the weight hung from the middle.",
+      },
+      {
         src: "assets/img/science-olympiad-medals.jpg",
         alt: "A pile of Science Olympiad medals, lanyards, and place ribbons spread across a table",
-        caption: "Four years of Science Olympiad, in one box.",
+        caption: "Four years of it, in one box.",
       },
     ],
   },
@@ -303,6 +310,19 @@ export const work = [
         src: "assets/img/nhs-food-drive.jpg",
         alt: "Students sorting donated cans and boxes into postal bins at a food pantry",
         caption: "Sorting a food drive into the pantry’s bins.",
+      },
+    ],
+  },
+  {
+    id: "music-for-seniors",
+    name: "Music for seniors",
+    kind: "Community",
+    summary: "Playing flute for residents at a senior living community.",
+    images: [
+      {
+        src: "assets/img/music-for-seniors.jpg",
+        alt: "Alice playing flute from sheet music, seated in front of an audience in a common room",
+        caption: "An afternoon set in the common room.",
       },
     ],
   },
@@ -382,7 +402,7 @@ export const press = [
     publication: "The Saline Post",
     title: "Saline High School Science Olympiad qualifies for states",
     href: "https://thesalinepost.com/g/saline-mi/n/150372/saline-high-school-science-olympiad-qualifies-states-saline-middle-school-team",
-    item: "bridge-design",
+    item: "science-olympiad",
   },
   {
     publication: "The Sun Times News",
@@ -398,6 +418,32 @@ export const press = [
 ];
 
 /* ---------------------------------------------------------------------------
+ * Stock pitches — its own page at pitches.html.
+ *
+ * While `pitches` is empty the page shows `pitchesPage.note` and nothing else.
+ * Add an entry and the note disappears on its own; the list is rendered with
+ * the same rows as the rest of the site.
+ *
+ *   {
+ *     company: "Acme Corporation",
+ *     ticker: "ACME",                       // optional
+ *     date: "Mar 2027",                     // optional
+ *     summary: "The one-line thesis.",      // optional
+ *     link: { label: "Deck", href: "assets/files/acme-pitch.pdf" },  // optional
+ *   }
+ *
+ * Only commit a PDF you're happy to have public — anything in the repo is
+ * downloadable whether or not it's linked.
+ * ------------------------------------------------------------------------ */
+
+export const pitchesPage = {
+  heading: "Stock pitches",
+  note: "Offline for now. Will be back!",
+};
+
+export const pitches = [];
+
+/* ---------------------------------------------------------------------------
  * 6. About & contact
  * ------------------------------------------------------------------------ */
 
@@ -411,6 +457,21 @@ export const about = {
   portrait: null,
   /* Videos and photos shown under the About text. */
   media: [
+    {
+      src: "assets/img/puzzle-magic-cello.jpg",
+      alt: "An assembled wooden Magic Cello music box, gears and carved leaves visible through the body, standing on a book-shaped base",
+      caption: "The Magic Cello, built. It plays itself with a bow.",
+    },
+    {
+      src: "assets/img/puzzle-piano-bear.jpg",
+      alt: "The finished wooden grand piano music box, lid open on its gearing, beside a small teddy bear in a Penn shirt",
+      caption: "The piano, finished, with an audience.",
+    },
+    {
+      src: "assets/img/puzzle-wiring.jpg",
+      alt: "Hands connecting a small circuit board to the motor and gearing inside a half-built wooden kit",
+      caption: "The part of a kit that isn’t a jigsaw.",
+    },
     {
       src: "assets/media/puzzle-piano.mp4",
       poster: "assets/media/puzzle-piano.jpg",

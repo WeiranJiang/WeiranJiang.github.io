@@ -12,6 +12,7 @@ const data = {
   work: content.work,
   archive: content.archive,
   about: content.about,
+  press: content.press,
   sections: content.sections,
 };
 

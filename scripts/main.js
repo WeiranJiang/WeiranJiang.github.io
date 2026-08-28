@@ -2,6 +2,7 @@
 
 import * as content from "../content/content.js";
 import { renderIntro, renderSections, renderNav, trackNav } from "./render.js";
+import { attachTimelines } from "./timeline.js";
 import { mountAssistant } from "./assistant.js";
 
 const data = {
@@ -29,5 +30,8 @@ const published = renderSections(document.getElementById("sections"), data);
 const nav = document.getElementById("site-nav");
 renderNav(nav, published);
 trackNav(nav, published);
+
+/* One reading line per entry list — Experience, At Penn, Selected work. */
+attachTimelines(".entries");
 
 mountAssistant(document.getElementById("assistant-root"), data);

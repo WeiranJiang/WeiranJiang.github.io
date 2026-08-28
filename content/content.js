@@ -160,6 +160,11 @@ export const atPenn = [
         alt: "WUEC members around a boardroom table during the NYC trek",
         caption: "26 students, four firms, one long day of meetings.",
       },
+      {
+        src: "assets/img/wuec-trek-poster.jpg",
+        alt: "Poster for the WUEC NY VC Trek on April 3rd, listing visits to Primary Ventures, a16z, M13, and Picus Capital",
+        caption: "The sign-up poster that started it.",
+      },
     ],
   },
   {
@@ -250,6 +255,11 @@ export const work = [
         alt: "Four members of the EMUiNVENT InvenTeam standing beside the SoloStep poster at EurekaFest",
         caption: "The EMUiNVENT InvenTeam at EurekaFest, MIT.",
       },
+      {
+        src: "assets/img/solostep-sticker.jpg",
+        alt: "A SoloStep sticker: a line drawing of a foot stepping, above the words SoloStep — Seize the Movement",
+        caption: "The team’s mark. Seize the movement.",
+      },
     ],
   },
   {
@@ -275,6 +285,25 @@ export const work = [
         alt: "Hand-drawn top, side, and bottom views of a bridge with dimensions and member sizes",
         caption: "Plans for a 47 × 14 cm build, drawn before cutting anything.",
       },
+      {
+        src: "assets/img/science-olympiad-medals.jpg",
+        alt: "A pile of Science Olympiad medals, lanyards, and place ribbons spread across a table",
+        caption: "Four years of Science Olympiad, in one box.",
+      },
+    ],
+  },
+  {
+    id: "saline-nhs",
+    name: "Saline National Honor Society",
+    kind: "Community",
+    place: "Saline, MI",
+    summary: "Volunteering through high school, including food-drive sorting at a local pantry.",
+    images: [
+      {
+        src: "assets/img/nhs-food-drive.jpg",
+        alt: "Students sorting donated cans and boxes into postal bins at a food pantry",
+        caption: "Sorting a food drive into the pantry’s bins.",
+      },
     ],
   },
 ];
@@ -288,6 +317,7 @@ export const archive = [
     year: "2026",
     entries: [
       { when: "May", what: "Started as an investment banking summer analyst at Arbor Lake Capital.", tag: "Work" },
+      { when: "Apr", what: "Led the WUEC venture trek to New York — Primary Ventures, a16z, M13, and Picus Capital.", tag: "Penn" },
       { when: "Feb", what: "Joined Moso Capital as an investment analyst on the Comma Capital team.", tag: "Penn" },
       { when: "Feb", what: "Joined the Operations Committee of the Penn Student Federal Credit Union.", tag: "Penn" },
       { when: "Jan", what: "Wound down HoloGlitterPacks after five and a half years and 15K orders.", tag: "Project" },
@@ -358,6 +388,7 @@ export const press = [
     publication: "The Sun Times News",
     title: "Saline National Honor Society: building a better community one volunteer at a time",
     href: "https://thesuntimesnews.com/saline-national-honor-society-building-a-better-community-one-volunteer-at-a-time/",
+    item: "saline-nhs",
   },
   {
     publication: "The Sun Times News",

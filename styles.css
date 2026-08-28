@@ -587,7 +587,7 @@ button:focus-visible,
 .figures--strip {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
-  max-width: 600px;
+  max-width: 760px;
   margin-top: 30px;
 }
 
@@ -760,6 +760,18 @@ figure.shot figcaption {
 
 .item__main .figures {
   margin-top: 30px;
+}
+
+/* A section that's intentionally empty for now. */
+.status-note {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--muted);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  max-width: 40em;
 }
 
 .item__pager {

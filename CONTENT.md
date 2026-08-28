@@ -14,6 +14,7 @@ assets/media/           videos and their poster frames
 assets/images/          older photos already in the repo
 index.html              the homepage
 item.html               the page behind every title — one file, every entry
+pitches.html            stock pitches
 scripts/render.js       turns content.js into the homepage
 scripts/item.js         turns content.js into the entry pages
 scripts/assistant.js    the Ask about Alice panel
@@ -212,6 +213,36 @@ and says so. Set `assistantEnabled: false` to remove it entirely.
 The assistant reads `content/content.js` and nothing else, so it can only repeat
 what's published here. **If you don't want it said, don't put it in
 `content.js`.** Deployment and cost notes are in `worker/README.md`.
+
+## Stock pitches
+
+`pitches.html` is its own page, linked from the buttons under the introduction.
+It's driven by two things in `content.js`:
+
+```js
+export const pitchesPage = { heading: "Stock pitches", note: "Offline for now. Will be back!" };
+export const pitches = [];
+```
+
+While `pitches` is empty the page shows the note and nothing else. Add an entry
+and the note is replaced by the list — no other change needed:
+
+```js
+{
+  company: "Acme Corporation",
+  ticker: "ACME",                                              // optional
+  date: "Mar 2027",                                            // optional
+  summary: "The one-line thesis.",                             // optional
+  link: { label: "Deck", href: "assets/files/acme-pitch.pdf" },// optional
+}
+```
+
+Empty fields are skipped, so a pitch with only a company name still renders
+cleanly. The page is fully static — no backend, nothing to deploy.
+
+**One warning.** Anything committed to this repo is downloadable by anyone who
+guesses the URL, linked or not. Only commit a pitch PDF you're happy to have
+public; don't rely on leaving it unlinked.
 
 ## The reading line
 

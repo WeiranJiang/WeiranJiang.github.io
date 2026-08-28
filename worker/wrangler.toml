@@ -1,0 +1,15 @@
+name = "ask-about-alice"
+main = "src/index.js"
+compatibility_date = "2026-08-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Sites allowed to call this Worker. Leave the list tight — an open endpoint is
+# an open Claude bill. Add "http://localhost:8000" while developing locally.
+ALLOWED_ORIGINS = "https://weiranjiang.github.io"
+
+# Optional. Defaults to claude-opus-5 if unset.
+# MODEL = "claude-opus-5"
+
+# ANTHROPIC_API_KEY is a secret, never a var:
+#   npx wrangler secret put ANTHROPIC_API_KEY

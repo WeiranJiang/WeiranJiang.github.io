@@ -213,6 +213,30 @@ The assistant reads `content/content.js` and nothing else, so it can only repeat
 what's published here. **If you don't want it said, don't put it in
 `content.js`.** Deployment and cost notes are in `worker/README.md`.
 
+## The reading line
+
+The thin line down the left of Experience, At Penn, and Selected work is
+`scripts/timeline.js`. It draws downward as you scroll into a section, retracts
+as you scroll back up, and fills each dot as the line reaches it. Each section
+tracks itself.
+
+You never have to touch it. It measures nothing up front — the tip of the line
+always sits at the same height on screen, and a dot lights when it passes that
+height — so new entries, taller photos, and longer text are handled on their
+own. It's attached in `scripts/main.js` with one line:
+
+```js
+attachTimelines(".entries");
+```
+
+Point it at another container to add one elsewhere. Two knobs live in
+`styles.css`: `--tl-gutter` (how far the line sits from the text) and
+`--tl-dot-top` (how far below an entry's top its dot sits). The script reads the
+second one, so the dot and the line can't drift apart.
+
+With reduced motion the line is drawn once, fully, and never moves. With
+JavaScript off the CSS still leaves a plain gray rail.
+
 ## The character
 
 `scripts/character.js` holds the pixel drawing and nothing else. `PIXELS` is a

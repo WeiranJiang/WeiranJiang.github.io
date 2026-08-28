@@ -25,6 +25,12 @@
   --gutter: clamp(20px, 5vw, 48px);
   --rail: 132px;      /* date column */
   --aside: 264px;     /* introduction sidebar */
+
+  /* Reading line down the left of each section. --tl-gutter is the space it
+     sits in; --tl-dot-top is how far below an entry's top its dot sits, and is
+     read by scripts/timeline.js so the two can't drift apart. */
+  --tl-gutter: 26px;
+  --tl-dot-top: 36px;
 }
 
 *,
@@ -339,6 +345,15 @@ button:focus-visible,
   padding-bottom: clamp(44px, 6vw, 76px);
 }
 
+/* Everything inside a section is inset by the same amount, so the reading line
+   has room without knocking the columns out of alignment with each other. */
+.section__head,
+.entries,
+.archive,
+.about-grid {
+  padding-left: var(--tl-gutter);
+}
+
 .section__head {
   display: grid;
   grid-template-columns: var(--rail) minmax(0, 1fr);
@@ -368,15 +383,60 @@ button:focus-visible,
    -------------------------------------------------------------------------- */
 
 .entries {
+  position: relative;
   border-top: 1px solid var(--line);
 }
 
 .entry {
+  position: relative;
   display: grid;
   grid-template-columns: var(--rail) minmax(0, 1fr);
   gap: 28px;
   padding: 26px 0;
   border-bottom: 1px solid var(--line);
+}
+
+/* --------------------------------------------------------------------------
+   Reading line
+   -------------------------------------------------------------------------- */
+
+.timeline {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+  pointer-events: none;
+}
+
+.timeline__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  transform: scaleY(0);
+  transform-origin: top center;
+  will-change: transform;
+}
+
+/* The dot belongs to the entry, so it follows the entry however tall it grows. */
+.entries.has-timeline > .entry::before {
+  content: "";
+  position: absolute;
+  /* Back out of the section's inset so the dot centres on the 1px line. */
+  left: calc(-1 * var(--tl-gutter) - 2.5px);
+  top: var(--tl-dot-top);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  transition: background-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.entries.has-timeline > .entry.is-lit::before {
+  background: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
 }
 
 .entry__rail {
@@ -1174,6 +1234,11 @@ figure.shot figcaption {
 }
 
 @media (max-width: 640px) {
+  :root {
+    --tl-gutter: 18px;
+    --tl-dot-top: 30px;
+  }
+
   body {
     font-size: 16px;
   }

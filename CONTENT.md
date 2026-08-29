@@ -21,6 +21,7 @@ scripts/item.js         turns content.js into the entry pages
 scripts/assistant.js    the Ask about Alice panel
 scripts/character.js    the pixel character (artwork only)
 scripts/config.js       assistant endpoint on/off
+scripts/theme.js        the light / dark switch
 styles.css              the whole visual system
 worker/                 the assistant's backend — see worker/README.md
 ```
@@ -306,6 +307,21 @@ cleanly. The page is fully static — no backend, nothing to deploy.
 **One warning.** Anything committed to this repo is downloadable by anyone who
 guesses the URL, linked or not. Only commit a pitch PDF you're happy to have
 public; don't rely on leaving it unlinked.
+
+## Light and dark
+
+`scripts/theme.js` runs in `<head>` before anything paints, so the page never
+flashes the wrong colours. It sets `data-theme="light"` or `"dark"` on `<html>`
+and builds the switch in the header.
+
+A first visit follows the reader's system setting; once they pick a side it's
+remembered and stops following the system.
+
+Every colour on the site comes from a variable at the top of `styles.css`, and
+the `[data-theme="dark"]` block right below re-declares those variables. No
+other rule knows which theme is on — so if you add something new, use the
+variables (`var(--ink)`, `var(--line)`, `var(--paper)`…) and it works in both
+without any extra work.
 
 ## The reading line
 

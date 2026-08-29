@@ -18,8 +18,16 @@
 
   --line: #e6e6e6;
   --line-strong: #d4d4d4;
+  --hairline: #f2f2f2;   /* the faintest rule, between rows inside a block */
   --paper: #ffffff;
   --tint: #fafafa;
+  --header-bg: rgba(255, 255, 255, 0.92);
+  --media-bg: #f2f2f2;
+  --select: #ececec;
+  --danger: #8a3b3b;
+  --shadow-near: rgba(0, 0, 0, 0.04);
+  --shadow-far: rgba(0, 0, 0, 0.07);
+  --pa-hair: #17161c;    /* the character's hair — see scripts/character.js */
 
   --measure: 1080px;
   --gutter: clamp(20px, 5vw, 48px);
@@ -31,6 +39,29 @@
      read by scripts/timeline.js so the two can't drift apart. */
   --tl-gutter: 26px;
   --tl-dot-top: 36px;
+}
+
+/* Dark. scripts/theme.js sets data-theme before the first paint. Only the
+   variables change — no rule below this block knows which theme is on. */
+[data-theme="dark"] {
+  --ink: #f4f4f5;
+  --ink-soft: #d6d6da;
+  --body: #b4b4ba;
+  --muted: #8e8e96;
+  --faint: #6d6d75;
+
+  --line: #27272b;
+  --line-strong: #3b3b42;
+  --hairline: #1d1d21;
+  --paper: #101012;
+  --tint: #17171a;
+  --header-bg: rgba(16, 16, 18, 0.92);
+  --media-bg: #1b1b1f;
+  --select: #2c2c33;
+  --danger: #e09292;
+  --shadow-near: rgba(0, 0, 0, 0.5);
+  --shadow-far: rgba(0, 0, 0, 0.55);
+  --pa-hair: #3d3a46;
 }
 
 *,
@@ -96,7 +127,7 @@ button:focus-visible,
 }
 
 ::selection {
-  background: #ececec;
+  background: var(--select);
 }
 
 .skip-link:focus {
@@ -166,7 +197,7 @@ button:focus-visible,
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--header-bg);
   backdrop-filter: saturate(180%) blur(8px);
   border-bottom: 1px solid var(--line);
 }
@@ -240,19 +271,64 @@ button:focus-visible,
 }
 
 .btn:hover {
-  border-color: #a8a8a8;
+  border-color: var(--muted);
   background: var(--tint);
+}
+
+/* --------------------------------------------------------------------------
+   Light / dark switch — two buttons sharing one border
+   -------------------------------------------------------------------------- */
+
+.theme-toggle {
+  flex: none;
+  display: inline-flex;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.theme-toggle button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--faint);
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.theme-toggle button + button {
+  border-left: 1px solid var(--line-strong);
+}
+
+.theme-toggle button:hover {
+  color: var(--ink-soft);
+}
+
+.theme-toggle button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.theme-toggle button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+  border-radius: 0;
 }
 
 .btn--solid {
   background: var(--ink);
   border-color: var(--ink);
-  color: #fff;
+  color: var(--paper);
 }
 
 .btn--solid:hover {
-  background: #000;
-  border-color: #000;
+  opacity: 0.86;
 }
 
 .btn__glyph {
@@ -261,7 +337,8 @@ button:focus-visible,
 }
 
 .btn--solid .btn__glyph {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--paper);
+  opacity: 0.6;
 }
 
 /* --------------------------------------------------------------------------
@@ -750,7 +827,7 @@ figure.shot video {
   width: 100%;
   display: block;
   border: 1px solid var(--line);
-  background: #f2f2f2;
+  background: var(--media-bg);
 }
 
 figure.shot figcaption {
@@ -841,7 +918,7 @@ figure.shot figcaption {
   font-size: 15.5px;
   line-height: 1.5;
   color: var(--ink-soft);
-  border-bottom: 1px solid #f2f2f2;
+  border-bottom: 1px solid var(--hairline);
 }
 
 .archive-intro {
@@ -872,7 +949,7 @@ figure.shot figcaption {
 }
 
 .press-list li + li {
-  border-top: 1px solid #f2f2f2;
+  border-top: 1px solid var(--hairline);
 }
 
 .press-list__pub {
@@ -1080,7 +1157,7 @@ figure.shot figcaption {
 }
 
 .archive-item + .archive-item {
-  border-top: 1px solid #f2f2f2;
+  border-top: 1px solid var(--hairline);
 }
 
 .archive-item__when {
@@ -1226,7 +1303,7 @@ figure.shot figcaption {
   background: var(--paper);
   border: 1px solid var(--line-strong);
   border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 1px 2px var(--shadow-near), 0 8px 24px var(--shadow-far);
   cursor: pointer;
   font-family: var(--sans);
   font-size: 12.5px;
@@ -1235,8 +1312,8 @@ figure.shot figcaption {
 }
 
 .assistant-launcher:hover {
-  border-color: #b5b5b5;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 10px 28px rgba(0, 0, 0, 0.1);
+  border-color: var(--muted);
+  box-shadow: 0 1px 2px var(--shadow-near), 0 10px 28px var(--shadow-far);
 }
 
 .assistant-launcher[hidden] {
@@ -1269,7 +1346,7 @@ figure.shot figcaption {
   background: var(--paper);
   border: 1px solid var(--line-strong);
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04), 0 18px 48px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 4px var(--shadow-near), 0 18px 48px var(--shadow-far);
   overflow: hidden;
 }
 
@@ -1374,7 +1451,7 @@ figure.shot figcaption {
 }
 
 .msg--error .msg__text {
-  color: #8a3b3b;
+  color: var(--danger);
 }
 
 .msg__sources {
@@ -1455,7 +1532,7 @@ figure.shot figcaption {
 
 .assistant-form textarea:focus {
   outline: none;
-  border-color: #a8a8a8;
+  border-color: var(--muted);
 }
 
 .assistant-send {

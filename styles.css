@@ -712,13 +712,20 @@ button:focus-visible,
   max-width: 620px;
 }
 
-/* A row of small clips — used for the tall phone videos under About, where the
-   natural aspect would otherwise take over the page. */
+/* The personal gallery under About. Photos and phone videos here are a mix of
+   portrait and landscape, so it flows as columns rather than a grid — every
+   picture keeps its own proportions and nothing leaves a gap under it. */
 .figures--strip {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  display: block;
+  column-count: 3;
+  column-gap: 14px;
   max-width: 760px;
   margin-top: 30px;
+}
+
+.figures--strip > figure {
+  break-inside: avoid;
+  margin-bottom: 14px;
 }
 
 figure.shot {
@@ -1065,6 +1072,12 @@ figure.shot figcaption {
 
 .about-portrait {
   margin-bottom: 18px;
+}
+
+/* If the portrait file isn't there yet, its figure removes itself — don't leave
+   the wrapper's margin behind. */
+.about-portrait:empty {
+  display: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -1458,7 +1471,7 @@ figure.shot figcaption {
   }
 
   .figures--strip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-count: 2;
   }
 
   .assistant-launcher {

@@ -25,3 +25,6 @@ Until a file exists its figure removes itself, so the entry still looks finished
 | `puzzle-magic-cello.jpg` | The finished Magic Cello music box |
 | `puzzle-piano-bear.jpg` | The finished wooden piano, with the Penn bear |
 | `puzzle-wiring.jpg` | Wiring a board into a half-built kit |
+| `kayaking.jpg` | Paddling through whitewater |
+| `fruit-tart.jpg` | The fruit tart |
+| `portrait.jpg` | Portrait — shown in the About sidebar, above Contact |

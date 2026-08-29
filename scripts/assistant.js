@@ -83,9 +83,11 @@ export function buildKnowledge(data) {
   for (const item of atPenn) out.push(entryPassage(item, "At Penn"));
   for (const item of work) out.push(entryPassage(item, "Selected work"));
 
+  /* The archive and press aren't sections on the page any more, so these have
+     nowhere to link to — they're still worth knowing about, though. */
   for (const group of archive) {
     out.push(
-      passage(`Archive — ${group.year}`, `${HOME}#archive`, "Archive", [
+      passage(`Archive — ${group.year}`, "", "Archive", [
         `${group.year}:`,
         ...(group.entries || []).map((e) => `${e.when ? e.when + ": " : ""}${e.what}`),
       ])
@@ -96,8 +98,8 @@ export function buildKnowledge(data) {
     out.push(
       passage(
         "Press",
-        `${HOME}#archive`,
-        "Archive",
+        "",
+        "Press",
         press.map((row) =>
           `${row.publication}${row.date ? ` (${row.date})` : ""}: “${row.title}”.`
         ),
@@ -298,7 +300,13 @@ export function mountAssistant(root, data) {
         el(
           "div",
           { class: "msg__sources" },
-          sources.map((s) => el("a", { href: s.href, text: s.title }))
+          /* Some passages have no page to link to — show them as plain labels
+             rather than as links that go nowhere. */
+          sources.map((s) =>
+            s.href
+              ? el("a", { href: s.href, text: s.title })
+              : el("span", { class: "msg__source-plain", text: s.title })
+          )
         )
       );
     }

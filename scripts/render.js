@@ -217,7 +217,6 @@ function entryRow(item) {
     ]),
     item.role || item.kind ? el("p", { class: "entry__role", text: item.role || item.kind }) : null,
     item.summary ? el("p", { class: "entry__summary", text: item.summary }) : null,
-    bullets(item.points),
     tags(item.tags),
   ]);
 
@@ -226,6 +225,106 @@ function entryRow(item) {
 
 export function renderEntries(items) {
   return el("div", { class: "entries" }, items.map(entryRow));
+}
+
+/* ---------- clubs (At Penn) ----------
+   Tabs across the top, one card each. Everything about a club lives on its
+   card — there's no separate page to click through to. */
+
+function pills(item) {
+  const values = [item.role, item.date, item.place, ...(item.tags || [])].filter(Boolean);
+  if (!values.length) return null;
+  return el("ul", { class: "pills" }, values.map((v) => el("li", { class: "pill", text: v })));
+}
+
+function clubCard(item, selected) {
+  const id = entryId(item);
+  return el(
+    "div",
+    {
+      class: "card",
+      id,
+      role: "tabpanel",
+      "aria-labelledby": `tab-${id}`,
+      tabindex: "0",
+      hidden: !selected,
+    },
+    [
+      el("div", { class: "card__head" }, [
+        el("h3", { class: "card__title", text: item.org || item.name }),
+        item.website
+          ? el("div", { class: "card__links" }, [
+              el("a", {
+                href: item.website,
+                target: "_blank",
+                rel: "noreferrer noopener",
+                text: "Website",
+              }),
+            ])
+          : null,
+      ]),
+      el("div", { class: "card__body" }, [
+        item.summary ? el("p", { class: "card__desc", text: item.summary }) : null,
+        pills(item),
+        bullets(item.points),
+        figures(item.images, item.videos, item.media),
+      ]),
+    ]
+  );
+}
+
+export function renderClubs(items) {
+  const tabs = items.map((item, index) => {
+    const id = entryId(item);
+    return el("button", {
+      class: "tab",
+      type: "button",
+      role: "tab",
+      id: `tab-${id}`,
+      "aria-controls": id,
+      "aria-selected": index === 0 ? "true" : "false",
+      tabindex: index === 0 ? "0" : "-1",
+      text: item.short || item.org || item.name,
+    });
+  });
+
+  const cards = items.map((item, index) => clubCard(item, index === 0));
+
+  function select(index) {
+    tabs.forEach((tab, i) => {
+      const on = i === index;
+      tab.setAttribute("aria-selected", on ? "true" : "false");
+      tab.tabIndex = on ? 0 : -1;
+    });
+    cards.forEach((card, i) => {
+      card.hidden = i !== index;
+    });
+  }
+
+  const list = el("div", { class: "tabs", role: "tablist", "aria-label": "Clubs" }, tabs);
+
+  list.addEventListener("click", (event) => {
+    const index = tabs.indexOf(event.target.closest(".tab"));
+    if (index !== -1) select(index);
+  });
+
+  list.addEventListener("keydown", (event) => {
+    const current = tabs.indexOf(document.activeElement);
+    if (current === -1) return;
+    const step = { ArrowRight: 1, ArrowLeft: -1, Home: -Infinity, End: Infinity }[event.key];
+    if (step === undefined) return;
+    event.preventDefault();
+    const next = Math.min(tabs.length - 1, Math.max(0, current + (Number.isFinite(step) ? step : 0)));
+    const target = step === -Infinity ? 0 : step === Infinity ? tabs.length - 1 : next;
+    select(target);
+    tabs[target].focus();
+  });
+
+  /* #wuec and friends open straight onto that club. */
+  const fromHash = items.findIndex((item) => `#${entryId(item)}` === location.hash);
+  if (fromHash > 0) select(fromHash);
+
+  return el("div", { class: "clubs" }, [list, ...cards]);
 }
 
 /* ---------- archive ---------- */
@@ -321,7 +420,7 @@ export function renderSections(host, data) {
 
   const bodies = {
     experience: () => (experience.length ? renderEntries(experience) : null),
-    penn: () => (atPenn.length ? renderEntries(atPenn) : null),
+    penn: () => (atPenn.length ? renderClubs(atPenn) : null),
     work: () => (work.length ? renderEntries(work) : null),
     archive: () => (archive.length ? renderArchive(archive, press) : null),
     about: () => renderAbout(about),

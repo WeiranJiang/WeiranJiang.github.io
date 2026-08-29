@@ -22,48 +22,58 @@
 
 const PALETTE = {
   H: "#17161c", // hair
-  h: "#302c3a", // hair highlight
+  h: "#332f3d", // hair highlight
   S: "#f2d6c0", // skin
   E: "#17161c", // eye
-  M: "#c08a80", // mouth
+  M: "#c07f76", // mouth
+  B: "#f0b7a8", // blush
   P: "#6d4aa8", // purple shirt
   p: "#553a86", // purple shirt, shadow
-  W: "#ffffff", // white placket detail
+  W: "#ffffff", // white collar detail
+  O: "#3b3540", // shoes
 };
 
-/* 16 x 16. "." is transparent; every other character is a key in PALETTE. */
+/* 16 wide x 19 tall. "." is transparent; every other character is a key in
+   PALETTE. Big head, small body — she reads better small that way. */
 const PIXELS = [
+  ".....HHHHHH.....",
   "....HHHHHHHH....",
-  "..HHHHHHHHHHHH..",
-  ".HHHHHHHHHHHHHH.",
-  ".HHhhHHHHHHHHHH.",
-  ".HHHSSSSSSSSHHH.",
-  ".HHHSSSSSSSSHHH.",
-  ".HHHSESSSSESHHH.",
-  ".HHHSSSSSSSSHHH.",
-  ".HHHSSSMMSSSHHH.",
-  ".HHHSSSSSSSSHHH.",
-  ".HHHHSSSSSSHHHH.",
-  ".HHHHHSSSSHHHHH.",
-  ".HHHHPPWWPPHHHH.",
+  "...HHHHHHHHHH...",
+  "..HHhHHHHHHHHH..",
+  "..HHSSSSSSSSHH..",
+  "..HHSSSSSSSSHH..",
+  "..HHSEESSEESHH..",
+  "..HHSEESSEESHH..",
+  "..HHBSSMMSSBHH..",
+  "..HHSSSSSSSSHH..",
+  "..HHHHSSSSHHHH..",
+  ".HHHPPWWWWPPHHH.",
   ".HHHPPPWWPPPHHH.",
-  ".HHPPPPWWPPPPHH.",
-  "..pPPPPPPPPPPp..",
+  ".HHHPPPWWPPPHHH.",
+  ".SHHPPPWWPPPHHS.",
+  "....PPPPPPPP....",
+  ".....SS..SS.....",
+  ".....SS..SS.....",
+  ".....OO..OO.....",
 ];
 
-/* Eyes are drawn separately so they can blink. [column, row] */
+/* Eyes are drawn separately so they can blink. Two pixels square — the single
+   pixel they replaced read as a squint. */
 const EYES = [
-  [5, 6],
-  [10, 6],
+  { x: 5, y: 6, w: 2, h: 2 },
+  { x: 9, y: 6, w: 2, h: 2 },
 ];
 
-/* The waving arm, in the same 16-unit grid. Only shown while waving — the rest
-   of the time she's a tidy bust. */
+/* The waving arm, in the same grid. Only shown while waving — the rest of the
+   time her arms stay at her sides. */
 const ARM = [
   { x: 15, y: 13, w: 1, h: 1, key: "P" },
   { x: 15, y: 12, w: 1, h: 1, key: "P" },
   { x: 15, y: 11, w: 1, h: 1, key: "S" },
 ];
+
+/* x, y, size, height of the drawing area including the thinking dots. */
+const VIEWBOX = { x: 0, y: -3, w: 16, h: 22 };
 
 const STYLE_ID = "pixel-alice-style";
 
@@ -151,9 +161,9 @@ export function createCharacter(options = {}) {
   const size = options.size || 32;
   const svg = document.createElementNS(SVG_NS, "svg");
   svg.setAttribute("class", "pixel-alice");
-  svg.setAttribute("viewBox", "0 -4 16 16");
+  svg.setAttribute("viewBox", `${VIEWBOX.x} ${VIEWBOX.y} ${VIEWBOX.w} ${VIEWBOX.h}`);
   svg.setAttribute("width", String(size));
-  svg.setAttribute("height", String(size * 1.25));
+  svg.setAttribute("height", String(Math.round((size * VIEWBOX.h) / VIEWBOX.w)));
   svg.setAttribute("data-state", "idle");
   svg.setAttribute("role", "img");
   svg.setAttribute("aria-label", options.label || "Pixel drawing of Alice");
@@ -181,16 +191,15 @@ export function createCharacter(options = {}) {
   svg.append(arm);
 
   /* Eyes */
-  EYES.forEach(([x, y]) => {
-    svg.append(rect(x, y, 1, 1, PALETTE.E, "pixel-alice__eye"));
+  EYES.forEach((eye) => {
+    svg.append(rect(eye.x, eye.y, eye.w, eye.h, PALETTE.E, "pixel-alice__eye"));
   });
 
   /* Thinking dots, floating just above her head */
   const dots = document.createElementNS(SVG_NS, "g");
   dots.setAttribute("class", "pixel-alice__dots");
   [4, 7, 10].forEach((x) => {
-    const dot = rect(x, -3, 1.4, 1.4, PALETTE.P, "pixel-alice__dot");
-    dots.append(dot);
+    dots.append(rect(x, -2.7, 1.3, 1.3, PALETTE.P, "pixel-alice__dot"));
   });
   svg.append(dots);
 

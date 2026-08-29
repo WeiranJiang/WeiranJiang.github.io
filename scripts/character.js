@@ -182,14 +182,14 @@ const CSS = `
   --walk-state: paused;
 }
 
+/* She keeps facing the same way the whole time — no flip at the ends. */
 @keyframes pixel-alice-stroll {
-  0%   { transform: translateX(0) scaleX(1); }
-  44%  { transform: translateX(var(--walk-span, 120px)) scaleX(1); }
-  48%  { transform: translateX(var(--walk-span, 120px)) scaleX(1); }
-  50%  { transform: translateX(var(--walk-span, 120px)) scaleX(-1); }
-  94%  { transform: translateX(0) scaleX(-1); }
-  98%  { transform: translateX(0) scaleX(-1); }
-  100% { transform: translateX(0) scaleX(1); }
+  0%   { transform: translateX(0); }
+  4%   { transform: translateX(0); }
+  48%  { transform: translateX(var(--walk-span, 120px)); }
+  52%  { transform: translateX(var(--walk-span, 120px)); }
+  96%  { transform: translateX(0); }
+  100% { transform: translateX(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -325,7 +325,7 @@ export function createCharacter(options = {}) {
  * @returns {{node: HTMLElement, character: object, destroy: () => void}}
  */
 export function createWalker(options = {}) {
-  const size = options.size || 30;
+  const size = options.size || 42;
   const character = createCharacter({ size, label: "" });
   character.setWalking(true);
 

@@ -177,7 +177,7 @@ export function renderIntro(host, { site, intro }) {
   /* She paces along the bottom of the sidebar. Clicking her opens the
      assistant — the walker just carries data-ask-alice, which is all the
      assistant listens for. */
-  const walker = createWalker({ size: 30 });
+  const walker = createWalker({ size: 42 });
   aside.append(el("div", { class: "aside-walk" }, [walker.node]));
 
   host.replaceChildren(

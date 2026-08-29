@@ -902,8 +902,15 @@ figure.shot figcaption {
   padding-bottom: 8px;
 }
 
+.fold__body .figures,
 .fold__body .figures--strip {
   margin-top: 0;
+}
+
+/* A picture fold sits inside an entry or a club card rather than at the end of
+   a section, so it needs less air above it than the About collections do. */
+.fold--media {
+  margin-top: 20px;
 }
 
 /* --------------------------------------------------------------------------

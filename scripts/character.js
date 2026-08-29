@@ -22,43 +22,38 @@
 
 const PALETTE = {
   H: "#17161c", // hair
-  h: "#332f3d", // hair highlight
   S: "#f2d6c0", // skin
   E: "#17161c", // eye
   M: "#c07f76", // mouth
   B: "#f0b7a8", // blush
-  P: "#6d4aa8", // purple shirt
-  p: "#553a86", // purple shirt, shadow
-  W: "#ffffff", // white collar detail
-  O: "#3b3540", // shoes
+  P: "#6d4aa8", // shirt
 };
 
-/* 16 wide x 19 tall. "." is transparent; every other character is a key in
-   PALETTE. Big head, small body — she reads better small that way. */
+/* 16 wide x 18 tall. "." is transparent; every other character is a key in
+   PALETTE. Kept deliberately plain — big head, plain shirt, bare feet. Detail
+   at this size just reads as noise. */
 const PIXELS = [
   ".....HHHHHH.....",
   "....HHHHHHHH....",
   "...HHHHHHHHHH...",
-  "..HHhHHHHHHHHH..",
+  "..HHHHHHHHHHHH..",
   "..HHSSSSSSSSHH..",
   "..HHSSSSSSSSHH..",
-  "..HHSEESSEESHH..",
-  "..HHSEESSEESHH..",
+  "..HHSSSSSSSSHH..",
+  "..HHSSSSSSSSHH..",
   "..HHBSSMMSSBHH..",
   "..HHSSSSSSSSHH..",
   "..HHHHSSSSHHHH..",
-  ".HHHPPWWWWPPHHH.",
-  ".HHHPPPWWPPPHHH.",
-  ".HHHPPPWWPPPHHH.",
-  ".SHHPPPWWPPPHHS.",
+  ".HHHPPPPPPPPHHH.",
+  ".HHHPPPPPPPPHHH.",
+  ".HHHPPPPPPPPHHH.",
+  "..HHPPPPPPPPHH..",
   "....PPPPPPPP....",
   ".....SS..SS.....",
   ".....SS..SS.....",
-  ".....OO..OO.....",
 ];
 
-/* Eyes are drawn separately so they can blink. Two pixels square — the single
-   pixel they replaced read as a squint. */
+/* Eyes are drawn separately so they can look around and blink. */
 const EYES = [
   { x: 5, y: 6, w: 2, h: 2 },
   { x: 9, y: 6, w: 2, h: 2 },
@@ -73,7 +68,7 @@ const ARM = [
 ];
 
 /* x, y, size, height of the drawing area including the thinking dots. */
-const VIEWBOX = { x: 0, y: -3, w: 16, h: 22 };
+const VIEWBOX = { x: 0, y: -3, w: 16, h: 21 };
 
 const STYLE_ID = "pixel-alice-style";
 
@@ -84,6 +79,8 @@ const CSS = `
   image-rendering: pixelated;
   overflow: visible;
 }
+/* Two animations, on two elements, so they don't fight over one transform: the
+   pair slides left and right, each eye squashes on its own to blink. */
 .pixel-alice__eye {
   transform-box: fill-box;
   transform-origin: center;
@@ -91,6 +88,11 @@ const CSS = `
 .pixel-alice[data-state="idle"] .pixel-alice__eye,
 .pixel-alice[data-state="wave"] .pixel-alice__eye {
   animation: pixel-alice-blink 5.6s infinite;
+}
+.pixel-alice[data-state="idle"] .pixel-alice__eyes,
+.pixel-alice[data-state="wave"] .pixel-alice__eyes {
+  /* steps() keeps her looking around a pixel at a time rather than gliding. */
+  animation: pixel-alice-look 7.4s steps(1, end) infinite;
 }
 .pixel-alice__arm {
   transform-box: fill-box;
@@ -110,8 +112,15 @@ const CSS = `
 .pixel-alice[data-state="thinking"] .pixel-alice__dot:nth-child(3) { animation-delay: 0.32s; }
 
 @keyframes pixel-alice-blink {
-  0%, 92%, 100% { transform: scaleY(1); }
-  95%, 97%      { transform: scaleY(0.12); }
+  0%, 88%, 100% { transform: scaleY(1); }
+  93%, 96%      { transform: scaleY(0.22); }
+}
+@keyframes pixel-alice-look {
+  0%, 34%   { transform: translateX(0); }
+  36%, 50%  { transform: translateX(1px); }
+  52%, 66%  { transform: translateX(0); }
+  68%, 82%  { transform: translateX(-1px); }
+  84%, 100% { transform: translateX(0); }
 }
 @keyframes pixel-alice-wave {
   0%, 100% { transform: rotate(-6deg); }
@@ -190,10 +199,13 @@ export function createCharacter(options = {}) {
   ARM.forEach((part) => arm.append(rect(part.x, part.y, part.w, part.h, PALETTE[part.key])));
   svg.append(arm);
 
-  /* Eyes */
+  /* Eyes, grouped so they can look around together */
+  const eyes = document.createElementNS(SVG_NS, "g");
+  eyes.setAttribute("class", "pixel-alice__eyes");
   EYES.forEach((eye) => {
-    svg.append(rect(eye.x, eye.y, eye.w, eye.h, PALETTE.E, "pixel-alice__eye"));
+    eyes.append(rect(eye.x, eye.y, eye.w, eye.h, PALETTE.E, "pixel-alice__eye"));
   });
+  svg.append(eyes);
 
   /* Thinking dots, floating just above her head */
   const dots = document.createElementNS(SVG_NS, "g");

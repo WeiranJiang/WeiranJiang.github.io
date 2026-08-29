@@ -63,10 +63,6 @@ export const intro = {
       ],
     },
     {
-      label: "Working with",
-      lines: ["Python, Java, OCaml, React, Swift", "Firebase, Unity, Cloudflare, Excel"],
-    },
-    {
       label: "Otherwise",
       lines: ["Kayaking, tennis, piano", "Thrifting, doodling, baking, wooden puzzles"],
     },
@@ -127,6 +123,14 @@ export const experience = [
     points: [
       "Processed deposits, withdrawals, and account services, and monitored transaction activity under federal regulations.",
     ],
+  },
+  {
+    id: "applebees",
+    role: "Host, part-time",
+    org: "Applebee’s Neighborhood Grill + Bar",
+    date: "Aug 2024 — Jun 2025",
+    place: "Ann Arbor, MI",
+    summary: "Talked to a lot of cool people and levelled up at folding kid menus.",
   },
 ];
 
@@ -265,14 +269,19 @@ export const work = [
   {
     id: "solostep",
     name: "SoloStep",
-    kind: "Lemelson-MIT InvenTeam",
-    date: "2024",
+    kind: "EMUiNVENT InvenTeam — Co-Team Lead & Community Outreach Lead",
+    date: "2023 — 2024",
     place: "Ypsilanti, MI",
     summary:
-      "A mobility prototype for older adults, built with a high school InvenTeam and presented at EurekaFest.",
+      "A working, life-size mobility device for seniors, built with a high school InvenTeam and presented at MIT.",
     body: [
-      "SoloStep came out of the EMUiNVENT InvenTeam, a Lemelson-MIT funded team of high school students working on a device to help people with limited mobility move between sitting, standing, and lying down without another person there to help.",
-      "I worked with students, mentors, and engineers to take a practical problem through prototyping to a working demonstration, and presented the result at EurekaFest at MIT. I also won the Lemelson-MIT EurekaFest essay award that year.",
+      "SoloStep came out of the EMUiNVENT InvenTeam: a device to help people with limited mobility move between sitting, standing, and lying down without another person there to help. We took it from a practical problem through prototyping to a working, life-size demonstration, and it holds a provisional patent. Microsoft’s Make What’s Next program sponsored the work.",
+      "Getting it funded was half the job. The team was selected as a Lemelson-MIT InvenTeam, which came with a $7,500 grant, and I wrote a grant proposal to Saline Area Schools that brought in another $1,500. We presented at EurekaFest at MIT in June 2024, where I also won the Lemelson-MIT EurekaFest essay contest.",
+    ],
+    points: [
+      "Co-led the team and ran community outreach.",
+      "Secured a $7,500 Lemelson-MIT InvenTeam grant and a further $1,500 from Saline Area Schools.",
+      "Winner, Lemelson-MIT EurekaFest essay contest.",
     ],
     images: [
       {
@@ -292,10 +301,52 @@ export const work = [
       },
     ],
   },
+];
+
+/* ---------------------------------------------------------------------------
+ * 5. Archive — its own page at archive.html, linked from the nav but not part
+ * of the homepage. Everything from before Penn lives here.
+ * ------------------------------------------------------------------------ */
+
+export const archivePage = {
+  heading: "Archive",
+  intro:
+    "Saline High School, 2021 to 2025, and the summers around it. Kept here rather than on the front page — it\u2019s a record, not a pitch.",
+};
+
+/* Schools and coursework. */
+export const education = [
+  {
+    org: "Saline High School",
+    place: "Saline, MI",
+    date: "2021 — 2025",
+    points: [
+      "4.4348 weighted GPA, 4.0 unweighted. Ranked 1 of 396 unweighted, 2 of 396 weighted.",
+      "SAT 1560 — 800 math, 760 reading and writing.",
+      "AP exams: Calculus BC 5, Chemistry 5, Chinese 5, Computer Science 5, Language and Composition 5, U.S. Government 5, Psychology 5, U.S. History 4.",
+      "Further AP coursework: Literature, Macroeconomics, Microeconomics, Physics C: Mechanics, Statistics.",
+    ],
+  },
+  {
+    org: "Oakland University Summer Mathematics Institute",
+    place: "Rochester, MI",
+    date: "2024",
+    points: ["Linear Algebra (MTH 2775) and Introduction to Advanced Mathematical Thinking (MTH 3002)."],
+  },
+  {
+    org: "Washtenaw Community College",
+    place: "Ann Arbor, MI",
+    date: "2024",
+    points: ["Multivariable Calculus (MTH 293)."],
+  },
+];
+
+/* Activities, shown in full — there are no separate pages behind these. */
+export const highSchool = [
   {
     id: "science-olympiad",
-    name: "Science Olympiad",
-    kind: "Saline High School",
+    org: "Science Olympiad",
+    role: "Captain",
     date: "2021 — 2025",
     place: "Saline, MI",
     summary:
@@ -303,6 +354,11 @@ export const work = [
     body: [
       "Bridge was the event I kept coming back to: structure, material choice, and joint geometry, tested to failure over and over. Every build started as a drawing with the member sizes worked out first, because balsa is unforgiving about weight you spend in the wrong place. Testing meant hanging a sand-filled jug off the middle and adding load until something gave.",
       "56 placements across invitational, regional, state, and national competitions.",
+    ],
+    points: [
+      "Organized and led practices and summer camps, and ran the team\u2019s logistics, budget, and schedule.",
+      "Set up the Extracurricular Night table with air trajectory demos and bridge tests.",
+      "Spoke at the STEAM building groundbreaking and at annual Saline School Board meetings.",
     ],
     images: [
       {
@@ -313,7 +369,7 @@ export const work = [
       {
         src: "assets/images/bridge2.png",
         alt: "Hand-drawn top, side, and bottom views of a bridge with dimensions and member sizes",
-        caption: "Plans for a 47 × 14 cm build, drawn before cutting anything.",
+        caption: "Plans for a 47 \u00d7 14 cm build, drawn before cutting anything.",
       },
       {
         src: "assets/img/bridge-load-test.jpg",
@@ -329,22 +385,53 @@ export const work = [
   },
   {
     id: "saline-nhs",
-    name: "Saline National Honor Society",
-    kind: "Community",
+    org: "National Honor Society",
+    role: "President",
+    date: "2021 — 2025",
     place: "Saline, MI",
-    summary: "Volunteering through high school, including food-drive sorting at a local pantry.",
+    summary: "Running the chapter, and the volunteering that came with it.",
+    points: [
+      "Led chapter meetings, supervised committee members, and managed 70+ volunteering opportunities a year.",
+      "Raised $450 for the club banquet with a new fundraising model.",
+    ],
     images: [
       {
         src: "assets/img/nhs-food-drive.jpg",
         alt: "Students sorting donated cans and boxes into postal bins at a food pantry",
-        caption: "Sorting a food drive into the pantry’s bins.",
+        caption: "Sorting a food drive into the pantry\u2019s bins.",
       },
     ],
   },
   {
+    id: "bpa",
+    org: "Business Professionals of America",
+    role: "President",
+    date: "2021 — 2025",
+    place: "Saline, MI",
+    summary: "Michigan\u2019s high school business competition circuit, and the chapter behind it.",
+    points: [
+      "Ran club meetings, organized resources, mentored students, and built bonding events.",
+      "Built a Google Drive system for team resources, which lifted the number of state event qualifications.",
+    ],
+  },
+  {
+    id: "saline-youth-council",
+    org: "Saline Youth Council",
+    role: "Co-Chair",
+    date: "2021 — 2025",
+    place: "Saline, MI",
+    summary: "The city\u2019s youth council, focused on community service.",
+    points: [
+      "Set agendas and oversaw council activities.",
+      "Started and ran a snow-shovelling program for senior citizens.",
+    ],
+  },
+  {
     id: "music-for-seniors",
-    name: "Music for seniors",
-    kind: "Community",
+    org: "Music for Seniors",
+    role: "Founder",
+    date: "2021 — 2025",
+    place: "Saline, MI",
     summary: "Playing flute for residents at a senior living community.",
     images: [
       {
@@ -354,56 +441,103 @@ export const work = [
       },
     ],
   },
-];
-
-/* ---------------------------------------------------------------------------
- * 5. Archive — chronological record, newest year first.
- * ------------------------------------------------------------------------ */
-
-export const archive = [
   {
-    year: "2026",
-    entries: [
-      { when: "May", what: "Started as an investment banking summer analyst at Arbor Lake Capital.", tag: "Work" },
-      { when: "Apr", what: "Led the WUEC venture trek to New York — Primary Ventures, a16z, M13, and Picus Capital.", tag: "Penn" },
-      { when: "Feb", what: "Joined Moso Capital as an investment analyst on the Comma Capital team.", tag: "Penn" },
-      { when: "Feb", what: "Joined the Operations Committee of the Penn Student Federal Credit Union.", tag: "Penn" },
-      { when: "Jan", what: "Wound down HoloGlitterPacks after five and a half years and 15K orders.", tag: "Project" },
-    ],
-  },
-  {
-    year: "2025",
-    entries: [
-      { when: "Oct", what: "Became co-president of the Wharton Undergraduate Entrepreneurship Club.", tag: "Penn" },
-      { when: "Oct", what: "Joined the M&T Innovation Fund, and the Wharton Finance and Hedge Fund clubs.", tag: "Penn" },
-      { when: "Aug", what: "Started at Penn in the Jerome Fisher M&T Program.", tag: "Milestone" },
-      { when: "Jun", what: "Graduated from Saline High School.", tag: "Milestone" },
-      { when: "2025", what: "National Merit Scholarship, and the Swartz Scholarship for Entrepreneurs.", tag: "Award" },
-    ],
-  },
-  {
-    year: "2024",
-    entries: [
-      { when: "2024", what: "Lemelson-MIT EurekaFest essay winner; presented SoloStep with the InvenTeam.", tag: "Award" },
-      { when: "Jun", what: "Began coursework at Oakland University (OUSMI) and Washtenaw Community College.", tag: "Milestone" },
-      { when: "2024", what: "Lila Howard Make-a-Difference Scholarship.", tag: "Award" },
-    ],
-  },
-  {
-    year: "2021 — 2024",
-    entries: [
-      { when: "2021—25", what: "56 Science Olympiad placements across invitational, regional, state, and national competitions.", tag: "Award" },
-      { when: "2023", what: "Third place, BPA Startup Enterprise.", tag: "Award" },
-      { when: "2020", what: "Started HoloGlitterPacks with $50.", tag: "Project" },
-    ],
+    id: "shs-ecommerce",
+    org: "SHS E-commerce Club",
+    role: "Co-Founder & President",
+    date: "2022 — 2025",
+    place: "Saline, MI",
+    summary: "A club for the thing I was already doing after school.",
+    points: ["Mentored students on e-commerce and led teams in business competitions."],
   },
 ];
 
+/* Everything else, as one short list. */
+export const alsoDid = [
+  "SHS Debate",
+  "SHS Tennis — Varsity, JV Co-Captain",
+  "SHS TEDxYouth — Co-leader",
+  "Washtenaw County Youth Commission — Saline District Commissioner",
+  "Tech Town Hall — Founder",
+  "ALLY, Asian Youth Liberty League — Secretary",
+  "SHS Poetry Club",
+];
+
+export const summerPrograms = [
+  {
+    org: "Wharton Global Youth Program",
+    date: "2022",
+    points: ["Essentials of Leadership."],
+  },
+  {
+    org: "University of Michigan Summer Discovery",
+    date: "2023",
+    points: [
+      "Personal Finance and Entrepreneurship, Public Speaking and Presentation Skills, College Essay Writing, and Social Psychology.",
+    ],
+  },
+  {
+    org: "MIDAS, University of Michigan",
+    date: "2024",
+    points: ["Introduction to Data Science and AI."],
+  },
+];
+
+/* Awards, grouped. `when` is the small left column. */
+export const awards = [
+  {
+    group: "Academic",
+    items: [
+      { when: "2025", what: "Swartz Scholarship for Entrepreneurs." },
+      { when: "2024", what: "National Merit Semifinalist." },
+      { when: "2024", what: "AP Scholar with Distinction." },
+      { when: "2024", what: "Lemelson-MIT EurekaFest essay winner." },
+      { when: "2024", what: "Lila Howard Make-a-Difference Scholarship." },
+      { when: "2024", what: "Michigan Impact Award, for volunteering." },
+      { when: "2022", what: "Global Seal of Biliteracy \u2014 Gold Seal, Chinese and English." },
+    ],
+  },
+  {
+    group: "Science Olympiad",
+    items: [
+      { when: "2023—24", what: "Regionals: Anatomy & Physiology 1st, Experimental Design 1st, Forensics 2nd. States: Ecology 2nd." },
+      { when: "2022—23", what: "Regionals: Chemistry Lab 3rd, Bridge 3rd, Experimental Design 2nd, Forensics 2nd. States: Bridge 2nd, Forensics 7th." },
+      { when: "2021—22", what: "Regionals: Experimental Design 1st, Wright Stuff 1st, Bridge 2nd. States: Experimental Design 1st, Wright Stuff 4th, Bridge 7th." },
+      { when: "2021", what: "Caltech National Invitational: Bridge 18th." },
+    ],
+  },
+  {
+    group: "Business Professionals of America",
+    items: [
+      { when: "2023—24", what: "Nationals: Start-Up Enterprise Team 3rd, as team captain." },
+      { when: "2023—24", what: "States: Health Administration Concepts 4th." },
+      { when: "2023—24", what: "Regionals: Administrative Support 1st; Management, Marketing and Human Resources Concepts 1st; Entrepreneurship 3rd." },
+      { when: "2022—23", what: "Regionals: Administrative Support 5th." },
+    ],
+  },
+  {
+    group: "Debate",
+    items: [
+      { when: "2022—23", what: "U-M Debate Tournament: Octofinalist." },
+      { when: "2021—22", what: "Nationals: Pro-Con Challenge 5th. States: Pappas Invitational DUDL 2, Finalist." },
+    ],
+  },
+  {
+    group: "Music & art",
+    items: [
+      { when: "2023", what: "First division, MSBOA Solo and Ensemble, flute and piano." },
+      { when: "2023", what: "Winner, Kappy Family Anne Frank Art & Writing Competition, Zekelman Holocaust Center." },
+      { when: "2022", what: "Level 10, Student Achievement Testing, Music Teachers Association." },
+    ],
+  },
+];
+
 /* ---------------------------------------------------------------------------
- * Press — shown at the end of the Archive.
+ * Press.
  *
- * `item` is optional. When it matches an entry's id, the article also appears on
- * that entry's page. Leave it off and the article only shows in the Archive.
+ * `item` matches an entry's id. Articles about a project show on that project's
+ * page; articles about a high school activity show inside that activity on the
+ * archive page. Anything without an `item` shows at the end of the archive.
  * ------------------------------------------------------------------------ */
 
 export const press = [
@@ -442,6 +576,7 @@ export const press = [
     publication: "The Sun Times News",
     title: "New Saline Youth Council sworn in with a focus on community service",
     href: "https://thesuntimesnews.com/new-saline-youth-council-sworn-in-with-a-focus-on-community-service/",
+    item: "saline-youth-council",
   },
 ];
 
@@ -472,7 +607,7 @@ export const pitchesPage = {
 export const pitches = [];
 
 /* ---------------------------------------------------------------------------
- * 6. About & contact
+ * 6. About & Contact
  * ------------------------------------------------------------------------ */
 
 export const about = {
@@ -484,7 +619,7 @@ export const about = {
     src: "assets/img/portrait.jpg",
     alt: "Alice standing at a fence by the water at sunset",
   },
-  /* Videos and photos shown under the About text. */
+  /* Photos shown under the About text. */
   media: [
     {
       src: "assets/img/kayaking.jpg",
@@ -496,38 +631,48 @@ export const about = {
       alt: "A fruit tart topped with sliced strawberries, kiwi, and blueberries over pastry cream",
       caption: "A fruit tart, the afternoon it came out of the oven.",
     },
+  ],
+  /* Folded away behind a heading you click to open. Add another object here and
+     you get another dropdown. */
+  collections: [
     {
-      src: "assets/img/puzzle-magic-cello.jpg",
-      alt: "An assembled wooden Magic Cello music box, gears and carved leaves visible through the body, standing on a book-shaped base",
-      caption: "The Magic Cello, built. It plays itself with a bow.",
-    },
-    {
-      src: "assets/img/puzzle-piano-bear.jpg",
-      alt: "The finished wooden grand piano music box, lid open on its gearing, beside a small teddy bear in a Penn shirt",
-      caption: "The piano, finished, with an audience.",
-    },
-    {
-      src: "assets/img/puzzle-wiring.jpg",
-      alt: "Hands connecting a small circuit board to the motor and gearing inside a half-built wooden kit",
-      caption: "The part of a kit that isn’t a jigsaw.",
-    },
-    {
-      src: "assets/media/puzzle-piano.mp4",
-      poster: "assets/media/puzzle-piano.jpg",
-      alt: "A finished laser-cut wooden grand piano music box with a candelabra and bench",
-      caption: "A wooden grand piano music box, finished.",
-    },
-    {
-      src: "assets/media/puzzle-train.mp4",
-      poster: "assets/media/puzzle-train.jpg",
-      alt: "The inside of a wooden model locomotive, showing a motor and circuit board wired in",
-      caption: "The locomotive, with its motor and board going in.",
-    },
-    {
-      src: "assets/media/puzzle-1.mp4",
-      poster: "assets/media/puzzle-1.jpg",
-      alt: "A wooden kit with gearing, a driver board, and a string of LEDs lighting up",
-      caption: "Wiring up the lights on a build.",
+      label: "3D wooden puzzles",
+      note: "Photos and clips of the builds.",
+      media: [
+        {
+          src: "assets/img/puzzle-magic-cello.jpg",
+          alt: "An assembled wooden Magic Cello music box, gears and carved leaves visible through the body, standing on a book-shaped base",
+          caption: "The Magic Cello, built. It plays itself with a bow.",
+        },
+        {
+          src: "assets/img/puzzle-piano-bear.jpg",
+          alt: "The finished wooden grand piano music box, lid open on its gearing, beside a small teddy bear in a Penn shirt",
+          caption: "The piano, finished, with an audience.",
+        },
+        {
+          src: "assets/img/puzzle-wiring.jpg",
+          alt: "Hands connecting a small circuit board to the motor and gearing inside a half-built wooden kit",
+          caption: "The part of a kit that isn\u2019t a jigsaw.",
+        },
+        {
+          src: "assets/media/puzzle-piano.mp4",
+          poster: "assets/media/puzzle-piano.jpg",
+          alt: "A finished laser-cut wooden grand piano music box with a candelabra and bench",
+          caption: "A wooden grand piano music box, finished.",
+        },
+        {
+          src: "assets/media/puzzle-train.mp4",
+          poster: "assets/media/puzzle-train.jpg",
+          alt: "The inside of a wooden model locomotive, showing a motor and circuit board wired in",
+          caption: "The locomotive, with its motor and board going in.",
+        },
+        {
+          src: "assets/media/puzzle-1.mp4",
+          poster: "assets/media/puzzle-1.jpg",
+          alt: "A wooden kit with gearing, a driver board, and a string of LEDs lighting up",
+          caption: "Wiring up the lights on a build.",
+        },
+      ],
     },
   ],
   contact: [
@@ -545,11 +690,11 @@ export const sections = [
   { id: "experience", label: "Experience", heading: "Experience" },
   { id: "penn", label: "At Penn", heading: "At Penn" },
   { id: "work", label: "Projects", heading: "Projects" },
-  { id: "about", label: "About", heading: "About & contact" },
+  { id: "about", label: "About", heading: "About & Contact" },
+  /* A page rather than a section: `href` sends the nav link elsewhere. */
+  { id: "archive", label: "Archive", href: "archive.html" },
 ];
 
-/* The archive and the press list are still written below and still feed the
-   assistant, but they aren't sections on the homepage any more — the detail
-   behind each entry lives on that entry's own page. To put the archive back,
-   add { id: "archive", label: "Archive", heading: "Archive" } to the list
-   above; nothing else needs changing. */
+/* An entry with `heading` is a section on the homepage; one with `href` is just
+   a nav link to another page. Only the sections are numbered, and they number
+   themselves from their order here. */

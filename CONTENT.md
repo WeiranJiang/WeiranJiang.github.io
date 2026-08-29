@@ -14,6 +14,7 @@ assets/media/           videos and their poster frames
 assets/images/          older photos already in the repo
 index.html              the homepage
 item.html               the page behind every title — one file, every entry
+archive.html            everything from before Penn
 pitches.html            stock pitches
 scripts/render.js       turns content.js into the homepage
 scripts/item.js         turns content.js into the entry pages
@@ -220,20 +221,51 @@ group at the top.
 `Penn`, `Project`, `Award`, `Milestone`, `Press` — anything you like), and
 `href` is optional and makes the line a link.
 
+## The archive
+
+`archive.html` holds everything from before Penn. It's linked from the nav but
+isn't part of the homepage, and its entries are shown in full where they sit —
+no pages behind them. Four lists in `content.js` feed it:
+
+- `education` — schools and coursework
+- `highSchool` — activities, using the same fields as any other entry
+- `summerPrograms` — same shape again
+- `alsoDid` — a plain list of one-liners for everything else
+- `awards` — `{ group, items: [{ when, what }] }`
+
+A press article whose `item` matches a `highSchool` entry's `id` appears inside
+that entry. Anything with no `item` collects at the bottom of the page.
+
 ## Reordering or removing a section
 
 `sections` at the bottom of `content.js` controls the nav and the section order:
 
 ```js
 export const sections = [
-  { id: "experience", label: "Experience", heading: "Experience" },
-  …
+  { id: "experience", label: "Experience", heading: "Experience" },  // a section
+  { id: "archive", label: "Archive", href: "archive.html" },         // a page
 ];
 ```
 
-Move a line to reorder. Delete a line to drop the section from the page and the
-nav. Section numbers in the left rail renumber themselves. A section whose array
-is empty is skipped automatically — the site never publishes an empty heading.
+An entry with `heading` is a section on the homepage. An entry with `href` is
+just a nav link to another page. Move a line to reorder. Delete a line to drop
+it from the nav. Only sections are numbered, and they renumber themselves. A
+section whose array is empty is skipped — the site never publishes an empty
+heading.
+
+## Dropdowns under About
+
+`about.media` is shown straight away. `about.collections` is a list of things
+folded away behind a heading you click:
+
+```js
+collections: [
+  { label: "3D wooden puzzles", note: "Photos and clips of the builds.", media: [ … ] },
+]
+```
+
+Add another object and you get another dropdown. `media` takes photos and
+videos in the same array.
 
 ## The assistant
 

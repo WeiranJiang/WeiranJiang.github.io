@@ -11,7 +11,11 @@ const data = {
   experience: content.experience,
   atPenn: content.atPenn,
   work: content.work,
-  archive: content.archive,
+  education: content.education,
+  highSchool: content.highSchool,
+  alsoDid: content.alsoDid,
+  summerPrograms: content.summerPrograms,
+  awards: content.awards,
   about: content.about,
   press: content.press,
   sections: content.sections,
@@ -28,7 +32,11 @@ renderIntro(document.getElementById("intro"), data);
 
 const published = renderSections(document.getElementById("sections"), data);
 const nav = document.getElementById("site-nav");
-renderNav(nav, published);
+/* The nav carries the published sections plus any page links (Archive). */
+const publishedIds = new Set(published.map((spec) => spec.id));
+const navSpecs = data.sections.filter((spec) => spec.href || publishedIds.has(spec.id));
+
+renderNav(nav, navSpecs);
 trackNav(nav, published);
 
 /* One reading line per entry list — Experience, At Penn, Selected work. */

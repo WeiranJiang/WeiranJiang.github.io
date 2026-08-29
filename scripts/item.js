@@ -15,7 +15,11 @@ const data = {
   experience: content.experience,
   atPenn: content.atPenn,
   work: content.work,
-  archive: content.archive,
+  education: content.education,
+  highSchool: content.highSchool,
+  alsoDid: content.alsoDid,
+  summerPrograms: content.summerPrograms,
+  awards: content.awards,
   about: content.about,
   press: content.press,
   sections: content.sections,
@@ -25,7 +29,7 @@ const data = {
 const GROUPS = [
   { sectionId: "experience", label: "Experience", items: data.experience },
   { sectionId: "penn", label: "At Penn", items: data.atPenn },
-  { sectionId: "work", label: "Selected work", items: data.work },
+  { sectionId: "work", label: "Projects", items: data.work },
 ];
 
 function find(id) {

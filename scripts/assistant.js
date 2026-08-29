@@ -45,7 +45,10 @@ function passage(title, href, section, parts, keywords = "") {
 }
 
 export function buildKnowledge(data) {
-  const { site, intro, experience, atPenn, work, archive, about, press } = data;
+  const { site, intro, experience, atPenn, work, about, press } = data;
+  const education = data.education || [];
+  const highSchool = data.highSchool || [];
+  const awards = data.awards || [];
   const out = [];
 
   out.push(
@@ -68,9 +71,10 @@ export function buildKnowledge(data) {
 
   /* Substance first, metadata last — the local answer quotes the opening
      sentences, and they should say something. */
-  /* Sources link to the entry's own page, which is where the detail lives. */
-  const entryPassage = (item, sectionName) =>
-    passage(item.org || item.name, entryHref(item), sectionName, [
+  /* Sources link to the entry's own page, which is where the detail lives —
+     unless the caller names a page the entry is shown on in full. */
+  const entryPassage = (item, sectionName, href) =>
+    passage(item.org || item.name, href || entryHref(item), sectionName, [
       item.summary,
       ...(item.body || []),
       ...(item.points || []),
@@ -83,14 +87,25 @@ export function buildKnowledge(data) {
   for (const item of atPenn) out.push(entryPassage(item, "At Penn"));
   for (const item of work) out.push(entryPassage(item, "Selected work"));
 
-  /* The archive and press aren't sections on the page any more, so these have
-     nowhere to link to — they're still worth knowing about, though. */
-  for (const group of archive) {
+  /* Everything from before Penn lives on the archive page. */
+  for (const item of highSchool) out.push(entryPassage(item, "Archive", "archive.html"));
+  for (const item of education) out.push(entryPassage(item, "Education", "archive.html"));
+
+  for (const group of awards) {
     out.push(
-      passage(`Archive — ${group.year}`, "", "Archive", [
-        `${group.year}:`,
-        ...(group.entries || []).map((e) => `${e.when ? e.when + ": " : ""}${e.what}`),
-      ])
+      passage(
+        `Awards — ${group.group}`,
+        "archive.html",
+        "Archive",
+        (group.items || []).map((row) => `${row.when ? row.when + ": " : ""}${row.what}`),
+        "award prize place placement won win honor honour scholarship medal competition"
+      )
+    );
+  }
+
+  if (data.alsoDid && data.alsoDid.length) {
+    out.push(
+      passage("Also did in high school", "archive.html", "Archive", [data.alsoDid.join(". ") + "."])
     );
   }
 

@@ -6,6 +6,8 @@
  * including its own page at item.html?id=<its id>.
  */
 
+import { createWalker } from "./character.js";
+
 /* ---------- small DOM helpers ---------- */
 
 export function el(tag, attrs = {}, children = []) {
@@ -161,6 +163,23 @@ export function renderPressList(items, className = "press-list") {
 /* ---------- introduction ---------- */
 
 export function renderIntro(host, { site, intro }) {
+  const aside = el(
+    "aside",
+    { class: "intro__aside", "aria-label": "Details" },
+    (intro.sidebar || []).map((block) =>
+      el("dl", { class: "aside-block" }, [
+        el("dt", { class: "label", text: block.label }),
+        ...(block.lines || []).map((line) => el("dd", { text: line })),
+      ])
+    )
+  );
+
+  /* She paces along the bottom of the sidebar. Clicking her opens the
+     assistant — the walker just carries data-ask-alice, which is all the
+     assistant listens for. */
+  const walker = createWalker({ size: 30 });
+  aside.append(el("div", { class: "aside-walk" }, [walker.node]));
+
   host.replaceChildren(
     el("div", { class: "intro__grid" }, [
       el("div", { class: "intro__main" }, [
@@ -168,16 +187,7 @@ export function renderIntro(host, { site, intro }) {
         paragraphs(intro.paragraphs, "intro__body"),
         linkButtons(intro.links, "intro__links"),
       ]),
-      el(
-        "aside",
-        { class: "intro__aside", "aria-label": "Details" },
-        (intro.sidebar || []).map((block) =>
-          el("dl", { class: "aside-block" }, [
-            el("dt", { class: "label", text: block.label }),
-            ...(block.lines || []).map((line) => el("dd", { text: line })),
-          ])
-        )
-      ),
+      aside,
     ])
   );
 }

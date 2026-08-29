@@ -10,10 +10,10 @@
  * Secrets / vars (see wrangler.toml and README.md):
  *   GEMINI_API_KEY       secret, required
  *   ALLOWED_ORIGINS      comma-separated list of sites allowed to call this
- *   MODEL                optional, defaults to gemini-2.0-flash
+ *   MODEL                optional, defaults to gemini-3.6-flash
  */
 
-const DEFAULT_MODEL = "gemini-2.0-flash";
+const DEFAULT_MODEL = "gemini-3.6-flash";
 
 const apiKeyFrom = (env) => env.GEMINI_API_KEY;
 
@@ -211,12 +211,15 @@ export default {
 
         /* Gemini reports a bad or unauthorised key as 400 API_KEY_INVALID or
            403, not 401 — tell those apart from a genuinely bad request. */
-        const badKey =
+        /* 404 means the model name is wrong or has been retired — like a bad
+           key, that's this Worker's configuration, not the visitor's question. */
+        const misconfigured =
           response.status === 401 ||
           response.status === 403 ||
+          response.status === 404 ||
           (response.status === 400 && /API_KEY|api key/i.test(detail));
 
-        if (badKey) {
+        if (misconfigured) {
           return json({ error: "The assistant isn't configured correctly." }, 503, cors.headers);
         }
         if (response.status === 429) {

@@ -1,15 +1,16 @@
 name = "ask-about-alice"
 main = "src/index.js"
 compatibility_date = "2026-08-01"
-compatibility_flags = ["nodejs_compat"]
+# No nodejs_compat: the Worker talks to Gemini over plain fetch and pulls in
+# nothing from npm.
 
 [vars]
 # Sites allowed to call this Worker. Leave the list tight — an open endpoint is
 # an open API bill. Add "http://localhost:8000" while developing locally.
 ALLOWED_ORIGINS = "https://weiranjiang.github.io"
 
-# Optional. Defaults to gemini-2.0-flash if unset.
-# MODEL = "gemini-2.0-flash"
+# Optional. Defaults to gemini-3.6-flash if unset.
+# MODEL = "gemini-3.6-flash"
 
 # The API key is a secret, never a var:
 #   npx wrangler secret put GEMINI_API_KEY

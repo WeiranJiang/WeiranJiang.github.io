@@ -2,20 +2,23 @@
  * "Ask about Alice" backend.
  *
  * A Cloudflare Worker that takes a question plus the page passages the browser
- * already matched, and asks Claude to answer using only those passages.
+ * already matched, and asks the model to answer using only those passages.
  *
- * The Anthropic API key lives here as a Worker secret and is never sent to the
+ * The OpenAI API key lives here as a Worker secret and is never sent to the
  * browser. The browser only ever talks to this Worker.
  *
  * Secrets / vars (see wrangler.toml and README.md):
- *   ANTHROPIC_API_KEY   secret, required
+ *   OPENAI_API_KEY      secret, required (CHATGPT_API_KEY is accepted too)
  *   ALLOWED_ORIGINS     comma-separated list of sites allowed to call this
- *   MODEL               optional, defaults to claude-opus-5
+ *   MODEL               optional, defaults to gpt-4o-mini
  */
 
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 
-const DEFAULT_MODEL = "claude-opus-5";
+const DEFAULT_MODEL = "gpt-4o-mini";
+
+/* Either name works, so whichever you typed into `wrangler secret put` is fine. */
+const apiKeyFrom = (env) => env.OPENAI_API_KEY || env.CHATGPT_API_KEY;
 
 /* Request limits — a public endpoint, so everything is bounded. */
 const LIMITS = {
@@ -24,9 +27,10 @@ const LIMITS = {
   passages: 8,
   passageText: 4_000, // characters each
   historyTurns: 8,
-  /* Headroom, not a target — the system prompt asks for two to four sentences.
-     Adaptive thinking is on by default on Opus 5 and its tokens count against
-     max_tokens, so a tight cap here would truncate answers mid-sentence. */
+  /* A ceiling, not a target — the system prompt asks for two to four sentences,
+     so answers cost far less than this. Left roomy because on a reasoning model
+     the thinking counts against the same budget, and a tight cap there would
+     truncate the answer mid-sentence. */
   answerTokens: 2048,
 };
 
@@ -92,7 +96,7 @@ function buildPrompt(question, passages) {
   return `Published passages from Alice's site:\n\n${blocks || "(no matching passages)"}\n\nVisitor's question: ${question}`;
 }
 
-/* Splits Claude's trailing SOURCES: line off the answer. */
+/* Splits the model's trailing SOURCES: line off the answer. */
 function splitSources(text) {
   const match = text.match(/\n?\s*SOURCES:\s*(.*)$/i);
   if (!match) return { answer: text.trim(), sources: [] };
@@ -117,7 +121,7 @@ export default {
     if (!cors.ok) {
       return json({ error: "This assistant only answers from Alice's site." }, 403, cors.headers);
     }
-    if (!env.ANTHROPIC_API_KEY) {
+    if (!apiKeyFrom(env)) {
       return json(
         { error: "The assistant isn't configured yet." },
         503,
@@ -167,20 +171,27 @@ export default {
     /* History must start with a user turn. */
     while (history.length && history[0].role !== "user") history.shift();
 
-    const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY });
+    const client = new OpenAI({ apiKey: apiKeyFrom(env) });
 
     try {
-      const response = await client.beta.messages.create({
+      /* The system prompt goes in the messages array, first — that's how the
+         chat completions API takes it. */
+      const response = await client.chat.completions.create({
         model: env.MODEL || DEFAULT_MODEL,
-        max_tokens: LIMITS.answerTokens,
-        betas: ["server-side-fallback-2026-07-01"],
-        fallbacks: "default",
-        output_config: { effort: "low" },
-        system: [{ type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } }],
-        messages: [...history, { role: "user", content: buildPrompt(question, passages) }],
+        max_completion_tokens: LIMITS.answerTokens,
+        temperature: 0.3,
+        messages: [
+          { role: "system", content: SYSTEM },
+          ...history,
+          { role: "user", content: buildPrompt(question, passages) },
+        ],
       });
 
-      if (response.stop_reason === "refusal") {
+      const choice = response.choices && response.choices[0];
+      const message = choice && choice.message;
+
+      /* Some models return a structured refusal instead of an answer. */
+      if (message && message.refusal) {
         return json(
           { error: "I can't answer that one. Try asking about Alice's work instead." },
           200,
@@ -188,39 +199,41 @@ export default {
         );
       }
 
-      const text = response.content
-        .filter((block) => block.type === "text")
-        .map((block) => block.text)
-        .join("\n")
-        .trim();
+      const text = ((message && message.content) || "").trim();
 
       if (!text) {
         return json({ error: "The assistant came back empty. Try rephrasing." }, 502, cors.headers);
       }
 
-      if (response.stop_reason === "max_tokens") {
-        console.warn("Answer hit max_tokens");
+      if (choice.finish_reason === "length") {
+        console.warn("Answer hit the token ceiling");
       }
 
       const { answer, sources } = splitSources(text);
       return json({ answer, sources }, 200, cors.headers);
     } catch (error) {
-      if (error instanceof Anthropic.AuthenticationError) {
-        console.error("Anthropic auth failed", error.message);
+      if (error instanceof OpenAI.AuthenticationError) {
+        console.error("OpenAI auth failed", error.message);
         return json({ error: "The assistant isn't configured correctly." }, 503, cors.headers);
       }
-      if (error instanceof Anthropic.RateLimitError) {
+      if (error instanceof OpenAI.PermissionDeniedError) {
+        console.error("OpenAI permission denied", error.message);
+        return json({ error: "The assistant isn't configured correctly." }, 503, cors.headers);
+      }
+      if (error instanceof OpenAI.RateLimitError) {
+        /* Also what you get when the account is out of credit. */
+        console.error("OpenAI rate limit or quota", error.message);
         return json({ error: "The assistant is busy right now — try again shortly." }, 429, {
           ...cors.headers,
           "Retry-After": "30",
         });
       }
-      if (error instanceof Anthropic.BadRequestError) {
-        console.error("Bad request to Anthropic", error.message);
+      if (error instanceof OpenAI.BadRequestError) {
+        console.error("Bad request to OpenAI", error.message);
         return json({ error: "The assistant couldn't handle that question." }, 400, cors.headers);
       }
-      if (error instanceof Anthropic.APIError) {
-        console.error("Anthropic API error", error.status, error.message);
+      if (error instanceof OpenAI.APIError) {
+        console.error("OpenAI API error", error.status, error.message);
         return json({ error: "The assistant service is having trouble." }, 502, cors.headers);
       }
       console.error("Unexpected assistant error", error);

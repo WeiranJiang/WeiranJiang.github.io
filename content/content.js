@@ -13,6 +13,8 @@
 export const site = {
   name: "Alice Jiang",
   fullName: "Weiran Alice Jiang",
+  /* Shown in the header only. The page title and footer use `name`. */
+  brand: "(Weiran) Alice Jiang",
   title: "Alice Jiang",
   tagline:
     "Student at Penn in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS.",

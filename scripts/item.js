@@ -187,7 +187,7 @@ if (match) render(main, match);
 else renderMissing(main);
 
 const brand = document.querySelector(".brand");
-if (brand) brand.textContent = data.site.name;
+if (brand) brand.textContent = data.site.brand || data.site.name;
 
 const footerNote = document.getElementById("footer-note");
 if (footerNote) footerNote.textContent = `${data.site.name} · ${new Date().getFullYear()}`;

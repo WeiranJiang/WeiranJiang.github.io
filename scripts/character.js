@@ -48,14 +48,27 @@ const PIXELS = [
   ".HHHPPPPPPPPHHH.",
   "..HHPPPPPPPPHH..",
   "....PPPPPPPP....",
-  ".....SS..SS.....",
-  ".....SS..SS.....",
+  "................",
+  "................",
 ];
 
 /* Eyes are drawn separately so they can look around and blink. */
 const EYES = [
   { x: 5, y: 3, w: 2, h: 2 },
   { x: 9, y: 3, w: 2, h: 2 },
+];
+
+/* Legs are drawn separately too, in two frames: together, then mid-stride.
+   Alternating them is the whole walk cycle. */
+const LEGS = [
+  [
+    { x: 5, y: 13, w: 2, h: 2 },
+    { x: 9, y: 13, w: 2, h: 2 },
+  ],
+  [
+    { x: 4, y: 13, w: 2, h: 2 },
+    { x: 10, y: 13, w: 2, h: 2 },
+  ],
 ];
 
 /* The waving arm, in the same grid. Only shown while waving — the rest of the
@@ -130,9 +143,60 @@ const CSS = `
   40%      { opacity: 1; }
 }
 
+/* Legs: frame 1 is showing unless she's walking, when the two alternate. */
+.pixel-alice__legs--b { opacity: 0; }
+.pixel-alice[data-walking="true"] .pixel-alice__legs--a { animation: pixel-alice-step-a 0.62s steps(1, end) infinite; }
+.pixel-alice[data-walking="true"] .pixel-alice__legs--b { animation: pixel-alice-step-b 0.62s steps(1, end) infinite; }
+
+@keyframes pixel-alice-step-a { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes pixel-alice-step-b { 0%, 49% { opacity: 0; } 50%, 100% { opacity: 1; } }
+
+/* --- the strolling avatar --- */
+
+.pixel-walk {
+  display: block;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--line, #e6e6e6);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.pixel-walk__runner {
+  display: block;
+  width: max-content;
+  transform-origin: center bottom;
+  animation: pixel-alice-stroll 26s linear infinite;
+}
+
+/* Stop her wandering off while someone is trying to click her. */
+.pixel-walk:hover .pixel-walk__runner,
+.pixel-walk:focus-visible .pixel-walk__runner {
+  animation-play-state: paused;
+}
+
+.pixel-walk:hover .pixel-alice,
+.pixel-walk:focus-visible .pixel-alice {
+  --walk-state: paused;
+}
+
+@keyframes pixel-alice-stroll {
+  0%   { transform: translateX(0) scaleX(1); }
+  44%  { transform: translateX(var(--walk-span, 120px)) scaleX(1); }
+  48%  { transform: translateX(var(--walk-span, 120px)) scaleX(1); }
+  50%  { transform: translateX(var(--walk-span, 120px)) scaleX(-1); }
+  94%  { transform: translateX(0) scaleX(-1); }
+  98%  { transform: translateX(0) scaleX(-1); }
+  100% { transform: translateX(0) scaleX(1); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pixel-alice * { animation: none !important; }
   .pixel-alice__dots { opacity: 1; }
+  .pixel-alice__legs--b { opacity: 0 !important; }
+  .pixel-walk__runner { animation: none !important; transform: none !important; }
 }
 `;
 
@@ -198,6 +262,14 @@ export function createCharacter(options = {}) {
   ARM.forEach((part) => arm.append(rect(part.x, part.y, part.w, part.h, PALETTE[part.key])));
   svg.append(arm);
 
+  /* Legs, two frames stacked — the walk cycle swaps which one is visible */
+  LEGS.forEach((frame, index) => {
+    const group = document.createElementNS(SVG_NS, "g");
+    group.setAttribute("class", `pixel-alice__legs pixel-alice__legs--${index === 0 ? "a" : "b"}`);
+    frame.forEach((leg) => group.append(rect(leg.x, leg.y, leg.w, leg.h, PALETTE.S)));
+    svg.append(group);
+  });
+
   /* Eyes, grouped so they can look around together */
   const eyes = document.createElementNS(SVG_NS, "g");
   eyes.setAttribute("class", "pixel-alice__eyes");
@@ -235,5 +307,63 @@ export function createCharacter(options = {}) {
     }
   }
 
-  return { node: svg, setState, state: () => current };
+  function setWalking(on) {
+    svg.setAttribute("data-walking", on ? "true" : "false");
+  }
+
+  return { node: svg, setState, setWalking, state: () => current };
+}
+
+/**
+ * The strolling version, for the sidebar. She paces the width of whatever
+ * you put her in, turns around at each end, and pauses when you point at her
+ * so she can be clicked.
+ *
+ * The button carries data-ask-alice, which is the only thing the assistant
+ * listens for — the artwork here knows nothing about the chat.
+ *
+ * @returns {{node: HTMLElement, character: object, destroy: () => void}}
+ */
+export function createWalker(options = {}) {
+  const size = options.size || 30;
+  const character = createCharacter({ size, label: "" });
+  character.setWalking(true);
+
+  const runner = document.createElement("span");
+  runner.className = "pixel-walk__runner";
+  runner.append(character.node);
+
+  const stage = document.createElement("button");
+  stage.type = "button";
+  stage.className = "pixel-walk";
+  stage.setAttribute("data-ask-alice", "");
+  stage.setAttribute("aria-label", options.label || "Ask about Alice — opens the assistant");
+  stage.title = options.label || "Ask about Alice";
+  stage.append(runner);
+
+  /* How far she can pace: the stage, less her own width. Measured rather than
+     guessed so the sidebar can be any width. */
+  function measure() {
+    const span = Math.max(0, stage.clientWidth - character.node.getBoundingClientRect().width);
+    stage.style.setProperty("--walk-span", `${Math.round(span)}px`);
+  }
+
+  let observer = null;
+  if ("ResizeObserver" in window) {
+    observer = new ResizeObserver(measure);
+    observer.observe(stage);
+  } else {
+    window.addEventListener("resize", measure);
+  }
+  measure();
+
+  return {
+    node: stage,
+    character,
+    destroy() {
+      observer?.disconnect();
+      window.removeEventListener("resize", measure);
+      stage.remove();
+    },
+  };
 }

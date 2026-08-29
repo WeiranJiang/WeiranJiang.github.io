@@ -350,8 +350,19 @@ JavaScript off the CSS still leaves a plain gray rail.
 ## The character
 
 `scripts/character.js` holds the pixel drawing and nothing else. `PIXELS` is a
-16×16 grid of letters, `PALETTE` maps each letter to a colour. Redraw her by
-editing those two — the chat panel doesn't know or care what she looks like.
+grid of letters, `PALETTE` maps each letter to a colour, and `LEGS` holds the
+two frames of her walk. Redraw her by editing those — the chat panel doesn't
+know or care what she looks like.
+
+She appears twice: as the launcher in the bottom corner, and pacing along the
+foot of the introduction sidebar. Both open the chat, and neither is wired to
+it directly — they just carry `data-ask-alice`, which is the only thing the
+assistant listens for. Put that attribute on anything and it opens the chat
+too.
+
+The pacing one measures its container, so it walks the width of whatever it's
+put in. It pauses while you point at it, so it can be clicked, and stands
+still under reduced motion.
 
 ## A note on what's here now
 

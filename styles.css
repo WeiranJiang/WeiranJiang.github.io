@@ -412,6 +412,11 @@ button:focus-visible,
   color: var(--body);
 }
 
+/* The strolling avatar at the foot of the sidebar. */
+.aside-walk {
+  margin-top: 26px;
+}
+
 /* --------------------------------------------------------------------------
    Sections
    -------------------------------------------------------------------------- */

@@ -26,8 +26,8 @@ worker/                 the assistant's backend — see worker/README.md
 
 ## How the two levels work
 
-The homepage is the short version: date, title, role, one-line summary, and the
-bullets. Every title is a link to that entry's own page, which is where the
+The homepage is the short version: date, title, role, and a one-line summary.
+Every title is a link to that entry's own page, which is where the bullets,
 photos, videos, longer write-up, and press live.
 
 Those pages are all one file. `item.html?id=hologlitterpacks` looks up the entry
@@ -67,6 +67,30 @@ is page order.
 Every field but `org` is optional. Leave one out and it simply isn't rendered —
 no gap, no placeholder. `body` and `images` only appear on the entry's own page;
 everything else shows on both.
+
+## Adding a club (At Penn)
+
+At Penn is the one section laid out as tabs — one tab per club, one card each.
+Everything about a club is on its card; there's no page to click through to.
+
+```js
+{
+  id: "wuec",                        // its URL fragment, e.g. index.html#wuec
+  short: "WUEC",                     // the tab label — keep it short
+  org: "Wharton Undergraduate Entrepreneurship Club",  // the card heading
+  website: "https://…",              // the only link on the card; omit for none
+  role: "Co-President",              // these three become the small pills
+  date: "Oct 2025 — Present",
+  place: "Philadelphia, PA",
+  summary: "One or two lines about the club.",
+  points: ["What you did there."],
+  images: [{ src: "assets/img/file.jpg", alt: "…", caption: "…" }],
+}
+```
+
+Add one to `atPenn` and it becomes a new tab automatically. Order in the array
+is tab order, and the first one is selected on load. `index.html#wuec` opens
+straight onto that tab.
 
 ## Adding a project
 
@@ -151,8 +175,15 @@ became 8 MB of `.mp4`.
 }
 ```
 
-Set `item` to an entry's `id` and the article also appears on that entry's page.
-Leave it off and the article only shows in the Archive.
+Set `item` to an entry's `id` and the article appears on that entry's page,
+under its highlights.
+
+**The archive and press are no longer sections on the homepage.** The data is
+still in `content.js` and the assistant still reads it, but the only press a
+visitor sees is on the entry page it belongs to — so an article with no `item`
+isn't shown anywhere. To bring the archive back as a section, add
+`{ id: "archive", label: "Archive", heading: "Archive" }` to `sections`; it
+renders the press list at the end, as before.
 
 ### Photos still to add
 

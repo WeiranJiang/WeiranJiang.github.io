@@ -132,11 +132,17 @@ export const experience = [
 
 /* ---------------------------------------------------------------------------
  * 3. At Penn
+ *
+ * These render as tabs. `short` is the tab label, `org` is the full name shown
+ * in the card, and `website` is the club's own site — the only link on the card.
+ * Leave `website` empty and no link is shown.
  * ------------------------------------------------------------------------ */
 
 export const atPenn = [
   {
     id: "wuec",
+    short: "WUEC",
+    website: "",
     role: "Co-President, VC Committee Member",
     org: "Wharton Undergraduate Entrepreneurship Club",
     date: "Oct 2025 — Present",
@@ -171,6 +177,8 @@ export const atPenn = [
   },
   {
     id: "mtif",
+    short: "MTIF",
+    website: "",
     role: "Team Member",
     org: "Management and Technology Innovation Fund",
     date: "Oct 2025 — Present",
@@ -184,21 +192,41 @@ export const atPenn = [
   },
   {
     id: "moso-capital",
+    short: "Moso",
+    website: "",
     role: "Investment Analyst, Comma Capital Team",
     org: "Moso Capital",
     date: "Feb 2026 — Present",
     place: "Philadelphia, PA",
+    summary:
+      "A student investment team backing early-stage companies, with a Penn founder pipeline behind it.",
     points: [
       "Evaluated 15 startups on business model, market opportunity, and competitive positioning.",
       "Helped build a Penn founder pipeline by identifying student-led ventures and tracking investment opportunities.",
     ],
   },
   {
-    id: "wharton-finance-clubs",
+    id: "wufc",
+    short: "WUFC",
+    website: "",
     role: "Committee Member",
-    org: "Wharton Undergraduate Finance Club & Wharton Hedge Fund Club",
+    org: "Wharton Undergraduate Finance Club",
     date: "Oct 2025 — Present",
     place: "Philadelphia, PA",
+    summary: "Wharton's undergraduate finance club — markets coverage and company analysis.",
+    points: [
+      "Produced weekly market updates and long/short recommendations using DCF and comparable-company valuation.",
+    ],
+  },
+  {
+    id: "whfc",
+    short: "WHFC",
+    website: "",
+    role: "Committee Member",
+    org: "Wharton Hedge Fund Club",
+    date: "Oct 2025 — Present",
+    place: "Philadelphia, PA",
+    summary: "The hedge fund club, covering the same markets work from the long/short side.",
     points: [
       "Produced weekly market updates and long/short recommendations using DCF and comparable-company valuation.",
     ],
@@ -505,7 +533,12 @@ export const about = {
 export const sections = [
   { id: "experience", label: "Experience", heading: "Experience" },
   { id: "penn", label: "At Penn", heading: "At Penn" },
-  { id: "work", label: "Work", heading: "Selected work" },
-  { id: "archive", label: "Archive", heading: "Archive" },
+  { id: "work", label: "Projects", heading: "Projects" },
   { id: "about", label: "About", heading: "About & contact" },
 ];
+
+/* The archive and the press list are still written below and still feed the
+   assistant, but they aren't sections on the homepage any more — the detail
+   behind each entry lives on that entry's own page. To put the archive back,
+   add { id: "archive", label: "Archive", heading: "Archive" } to the list
+   above; nothing else needs changing. */

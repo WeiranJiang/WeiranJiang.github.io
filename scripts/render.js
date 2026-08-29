@@ -164,7 +164,6 @@ export function renderIntro(host, { site, intro }) {
   host.replaceChildren(
     el("div", { class: "intro__grid" }, [
       el("div", { class: "intro__main" }, [
-        el("p", { class: "label intro__label", text: "01 / Introduction" }),
         el("h1", { class: "intro__name", text: site.title || site.name }),
         paragraphs(intro.paragraphs, "intro__body"),
         linkButtons(intro.links, "intro__links"),
@@ -189,7 +188,7 @@ function sectionShell(id, heading, note) {
   const section = el("section", { class: "section", id }, [
     el("div", { class: "wrap" }, [
       el("div", { class: "section__head" }, [
-        el("p", { class: "label", text: heading.index || "" }),
+        heading.index ? el("span", { class: "section__num", text: heading.index }) : null,
         el("h2", { class: "section__title", text: heading.title }),
         note ? el("p", { class: "section__note", text: note }) : null,
       ]),
@@ -225,6 +224,86 @@ function entryRow(item) {
 
 export function renderEntries(items) {
   return el("div", { class: "entries" }, items.map(entryRow));
+}
+
+/**
+ * Entries shown in full, in place — no title link, nothing behind them. Used on
+ * the archive page, where there are no separate pages to click through to.
+ * `press` is the whole press list; each entry picks out the articles naming it.
+ */
+export function renderDetailedEntries(items, press = []) {
+  return el(
+    "div",
+    { class: "entries" },
+    items.map((item) => {
+      const id = entryId(item);
+      const cited = press.filter((row) => row.item && row.item === id);
+
+      const rail = el("div", { class: "entry__rail" }, [
+        item.date ? el("span", { class: "meta", text: item.date }) : null,
+        item.place ? el("span", { class: "label", text: item.place }) : null,
+      ]);
+
+      const main = el("div", { class: "entry__main" }, [
+        el("h3", { class: "entry__title", text: item.org || item.name }),
+        item.role || item.kind
+          ? el("p", { class: "entry__role", text: item.role || item.kind })
+          : null,
+        item.summary ? el("p", { class: "entry__summary", text: item.summary }) : null,
+        paragraphs(item.body, "entry__body"),
+        bullets(item.points),
+        tags(item.tags),
+        figures(item.images, item.videos, item.media),
+        cited.length
+          ? el("div", { class: "entry__press" }, [
+              el("p", { class: "label", text: "Press" }),
+              renderPressList(cited),
+            ])
+          : null,
+      ]);
+
+      return el("article", { class: "entry", id }, [rail, main]);
+    })
+  );
+}
+
+/** A plain list of one-liners — the "also did" tail of the archive. */
+export function renderPlainList(items) {
+  if (!items || !items.length) return null;
+  return el("ul", { class: "plain-list" }, items.map((text) => el("li", { text })));
+}
+
+/** Awards and the like, grouped with a small left column per row. */
+export function renderGroups(groups) {
+  if (!groups || !groups.length) return null;
+  return el(
+    "div",
+    { class: "archive" },
+    groups.map((group) =>
+      el("div", { class: "archive-year" }, [
+        el("div", { class: "archive-year__label", text: group.group || group.year }),
+        el(
+          "div",
+          {},
+          (group.items || group.entries || []).map((row) =>
+            el("div", { class: "archive-item" }, [
+              el("span", { class: "archive-item__when", text: row.when || "" }),
+              row.href
+                ? el("a", {
+                    class: "archive-item__what",
+                    href: row.href,
+                    text: row.what,
+                    target: "_blank",
+                    rel: "noreferrer noopener",
+                  })
+                : el("span", { class: "archive-item__what", text: row.what }),
+              el("span", { class: "archive-item__tag", text: row.tag || "" }),
+            ])
+          )
+        ),
+      ])
+    )
+  );
 }
 
 /* ---------- clubs (At Penn) ----------
@@ -327,55 +406,28 @@ export function renderClubs(items) {
   return el("div", { class: "clubs" }, [list, ...cards]);
 }
 
-/* ---------- archive ---------- */
-
-export function renderArchive(groups, press) {
-  const node = el(
-    "div",
-    { class: "archive" },
-    groups.map((group) =>
-      el("div", { class: "archive-year" }, [
-        el("div", { class: "archive-year__label", text: group.year }),
-        el(
-          "div",
-          {},
-          (group.entries || []).map((entry) =>
-            el("div", { class: "archive-item" }, [
-              el("span", { class: "archive-item__when", text: entry.when || "" }),
-              entry.href
-                ? el("a", {
-                    class: "archive-item__what",
-                    href: entry.href,
-                    text: entry.what,
-                    target: /^https?:/.test(entry.href) ? "_blank" : null,
-                    rel: /^https?:/.test(entry.href) ? "noreferrer noopener" : null,
-                  })
-                : el("span", { class: "archive-item__what", text: entry.what }),
-              el("span", { class: "archive-item__tag", text: entry.tag || "" }),
-            ])
-          )
-        ),
-      ])
-    )
-  );
-
-  const list = renderPressList(press);
-  if (list) {
-    node.append(
-      el("div", { class: "archive-year" }, [
-        el("div", { class: "archive-year__label", text: "Press" }),
-        el("div", {}, [list]),
-      ])
-    );
-  }
-  return node;
-}
-
 /* ---------- about & contact ---------- */
+
+/** A heading you click to unfold — used for the puzzle collection under About. */
+export function renderCollection(collection) {
+  const media = figures(collection.media);
+  if (!media) return null;
+  media.classList.add("figures--strip");
+
+  return el("details", { class: "fold" }, [
+    el("summary", { class: "fold__summary" }, [
+      el("span", { class: "fold__marker", "aria-hidden": "true" }),
+      el("span", { class: "fold__label", text: collection.label }),
+      collection.note ? el("span", { class: "fold__note", text: collection.note }) : null,
+    ]),
+    el("div", { class: "fold__body" }, [media]),
+  ]);
+}
 
 export function renderAbout(about) {
   const media = figures(about.media);
   if (media) media.classList.add("figures--strip");
+  const folds = (about.collections || []).map(renderCollection).filter(Boolean);
 
   return el("div", { class: "about-grid" }, [
     el("div", {}),
@@ -408,6 +460,7 @@ export function renderAbout(about) {
         ]),
       ]),
       media,
+      ...folds,
     ]),
   ]);
 }
@@ -415,26 +468,25 @@ export function renderAbout(about) {
 /* ---------- page assembly ---------- */
 
 export function renderSections(host, data) {
-  const { sections, experience, atPenn, work, archive, about, press } = data;
+  const { sections, experience, atPenn, work, about } = data;
   const built = [];
 
   const bodies = {
     experience: () => (experience.length ? renderEntries(experience) : null),
     penn: () => (atPenn.length ? renderClubs(atPenn) : null),
     work: () => (work.length ? renderEntries(work) : null),
-    archive: () => (archive.length ? renderArchive(archive, press) : null),
     about: () => renderAbout(about),
   };
 
-  for (const [index, spec] of sections.entries()) {
+  for (const spec of sections) {
     const build = bodies[spec.id];
-    if (!build) continue;
+    if (!build) continue; // entries with an `href` are pages, not sections
     const content = build();
     if (!content) continue; // an empty section is never published
 
     const { section, body } = sectionShell(
       spec.id,
-      { title: spec.heading, index: `${String(index + 2).padStart(2, "0")} /` },
+      { title: spec.heading, index: String(built.length + 1).padStart(2, "0") },
       spec.note
     );
     body.append(content);
@@ -445,10 +497,17 @@ export function renderSections(host, data) {
   return built.map((b) => b.spec);
 }
 
+/**
+ * `specs` may mix sections (linked by anchor) and pages (linked by href).
+ * `absolute` prefixes anchors with index.html, for use away from the homepage.
+ */
 export function renderNav(host, specs, { absolute = false } = {}) {
   host.replaceChildren(
     ...specs.map((spec) =>
-      el("a", { href: `${absolute ? "index.html" : ""}#${spec.id}`, text: spec.label })
+      el("a", {
+        href: spec.href || `${absolute ? "index.html" : ""}#${spec.id}`,
+        text: spec.label,
+      })
     )
   );
 }

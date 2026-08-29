@@ -355,20 +355,28 @@ button:focus-visible,
   padding-left: var(--tl-gutter);
 }
 
+/* The number sits right beside the heading, at the same size, rather than out
+   in the date rail. */
 .section__head {
   display: grid;
-  grid-template-columns: var(--rail) minmax(0, 1fr);
-  gap: 28px;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
   align-items: baseline;
   margin-bottom: clamp(24px, 3vw, 38px);
 }
 
+.section__num,
 .section__title {
   font-family: var(--serif);
   font-weight: 400;
   font-size: clamp(1.5rem, 2.6vw, 1.95rem);
   line-height: 1.15;
   letter-spacing: -0.02em;
+}
+
+.section__num {
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
 }
 
 .section__note {
@@ -751,6 +759,104 @@ figure.shot figcaption {
   font-size: 11.5px;
   line-height: 1.5;
   color: var(--faint);
+}
+
+/* --------------------------------------------------------------------------
+   Fold — a heading you click to open
+   -------------------------------------------------------------------------- */
+
+.fold {
+  margin-top: 30px;
+  border-top: 1px solid var(--line);
+  max-width: 760px;
+}
+
+.fold__summary {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 14px 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.fold__summary::-webkit-details-marker {
+  display: none;
+}
+
+.fold__summary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.fold__marker {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-right: 1px solid var(--muted);
+  border-bottom: 1px solid var(--muted);
+  transform: rotate(-45deg) translate(-1px, -1px);
+  transition: transform 0.18s ease;
+}
+
+.fold[open] .fold__marker {
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.fold__label {
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  color: var(--ink);
+}
+
+.fold__note {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--faint);
+}
+
+.fold__body {
+  padding-bottom: 8px;
+}
+
+.fold__body .figures--strip {
+  margin-top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Plain list — the tail of the archive
+   -------------------------------------------------------------------------- */
+
+.plain-list {
+  columns: 2;
+  column-gap: 40px;
+  max-width: 760px;
+  padding-left: var(--tl-gutter);
+}
+
+.plain-list li {
+  break-inside: avoid;
+  padding: 7px 0;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.archive-intro {
+  margin-top: 14px;
+  max-width: 42em;
+}
+
+.entry__press {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.entry__press .label {
+  margin-bottom: 8px;
 }
 
 /* --------------------------------------------------------------------------

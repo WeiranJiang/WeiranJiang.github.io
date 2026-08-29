@@ -68,7 +68,7 @@ export const intro = {
     },
     {
       label: "Otherwise",
-      lines: ["Kayaking, tennis, piano", "Thrifting, doodling, wooden puzzles"],
+      lines: ["Kayaking, tennis, piano", "Thrifting, doodling, baking, wooden puzzles"],
     },
   ],
 };
@@ -478,13 +478,24 @@ export const pitches = [];
 export const about = {
   paragraphs: [
     "I grew up in Michigan and came to Penn for the M&T Program. The two halves of it have turned out to be the same instinct pointed in different directions — I like understanding how something actually works, whether that’s a capital structure or a codebase.",
-    "Outside of that: kayaking when the weather allows, tennis and piano since I was small, thrifting, doodling, and 3D wooden puzzles. The puzzles are the ones that got out of hand — the good kits are laser-cut plywood with real gearing and wiring inside, so finishing one means soldering-adjacent fiddling with a motor or a string of lights before anything moves.",
+    "Outside of that: kayaking when the weather allows, tennis and piano since I was small, thrifting, doodling, baking, and 3D wooden puzzles. The puzzles are the ones that got out of hand — the good kits are laser-cut plywood with real gearing and wiring inside, so finishing one means soldering-adjacent fiddling with a motor or a string of lights before anything moves.",
   ],
-  /* Add a portrait here when you have one you like:
-     portrait: { src: "assets/img/portrait.jpg", alt: "Alice Jiang", caption: "" } */
-  portrait: null,
+  portrait: {
+    src: "assets/img/portrait.jpg",
+    alt: "Alice standing at a fence by the water at sunset",
+  },
   /* Videos and photos shown under the About text. */
   media: [
+    {
+      src: "assets/img/kayaking.jpg",
+      alt: "Alice paddling a green kayak through a stretch of whitewater on a wooded river",
+      caption: "The good stretch of the river.",
+    },
+    {
+      src: "assets/img/fruit-tart.jpg",
+      alt: "A fruit tart topped with sliced strawberries, kiwi, and blueberries over pastry cream",
+      caption: "A fruit tart, the afternoon it came out of the oven.",
+    },
     {
       src: "assets/img/puzzle-magic-cello.jpg",
       alt: "An assembled wooden Magic Cello music box, gears and carved leaves visible through the body, standing on a book-shaped base",

@@ -34,7 +34,7 @@ the site falls back to local mode on its own.
 | --- | --- | --- |
 | `GEMINI_API_KEY` | secret | Required. Set with `wrangler secret put`, never in `wrangler.toml`. Get one from [Google AI Studio](https://aistudio.google.com/apikey). |
 | `ALLOWED_ORIGINS` | var | Comma-separated origins allowed to call the Worker. Requests from anywhere else get a 403. Add `http://localhost:8000` while developing. |
-| `MODEL` | var | Optional. Defaults to `gemini-2.0-flash`, which is the cheap one. Set it to any model your key can reach. |
+| `MODEL` | var | Optional. Defaults to `gemini-3.6-flash`, which is the cheap one. Set it to any model your key can reach. |
 
 ## How answers stay grounded
 

@@ -210,6 +210,13 @@ export const atPenn = [
       "Evaluated 15 startups on business model, market opportunity, and competitive positioning.",
       "Helped build a Penn founder pipeline by identifying student-led ventures and tracking investment opportunities.",
     ],
+    images: [
+      {
+        src: "assets/images/moso-capital-penn.png",
+        alt: "Moso Capital team at Penn",
+        caption: "At Penn for Moso Capital.",
+      },
+    ],
   },
   {
     id: "wufc",
@@ -364,11 +371,6 @@ export const highSchool = [
     ],
     images: [
       {
-        src: "assets/images/bridge7.JPG",
-        alt: "Alice at a workbench covered in balsa, holding a partly built bridge",
-        caption: "The workbench, mid-build.",
-      },
-      {
         src: "assets/images/bridge2.png",
         alt: "Hand-drawn top, side, and bottom views of a bridge with dimensions and member sizes",
         caption: "Plans for a 47 \u00d7 14 cm build, drawn before cutting anything.",
@@ -401,8 +403,11 @@ export const highSchool = [
         src: "assets/img/nhs-food-drive.jpg",
         alt: "Students sorting donated cans and boxes into postal bins at a food pantry",
         caption: "Sorting a food drive into the pantry\u2019s bins.",
-      },
-    ],
+      },      {
+        src: "assets/images/nhs-auditorium.jpg",
+        alt: "NHS members gathered at a school event",
+        caption: "NHS at a school assembly.",
+      },    ],
   },
   {
     id: "bpa",

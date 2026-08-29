@@ -5,11 +5,11 @@ compatibility_flags = ["nodejs_compat"]
 
 [vars]
 # Sites allowed to call this Worker. Leave the list tight — an open endpoint is
-# an open OpenAI bill. Add "http://localhost:8000" while developing locally.
+# an open API bill. Add "http://localhost:8000" while developing locally.
 ALLOWED_ORIGINS = "https://weiranjiang.github.io"
 
-# Optional. Defaults to gpt-4o-mini if unset.
-# MODEL = "gpt-4o-mini"
+# Optional. Defaults to gemini-2.0-flash if unset.
+# MODEL = "gemini-2.0-flash"
 
 # The API key is a secret, never a var:
-#   npx wrangler secret put OPENAI_API_KEY
+#   npx wrangler secret put GEMINI_API_KEY

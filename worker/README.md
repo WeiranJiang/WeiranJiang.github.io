@@ -3,7 +3,7 @@
 The site works without this. With no backend the assistant still answers, but by
 quoting the page instead of writing prose, and it tells the visitor so.
 
-Deploying this Worker turns on the written answers. It exists so the OpenAI API
+Deploying this Worker turns on the written answers. It exists so the Gemini API
 key stays on a server: the browser only ever talks to the Worker.
 
 ## Deploy
@@ -11,7 +11,7 @@ key stays on a server: the browser only ever talks to the Worker.
 ```bash
 cd worker
 npm install
-npx wrangler secret put OPENAI_API_KEY   # paste the key when prompted
+npx wrangler secret put GEMINI_API_KEY   # paste the key when prompted
 npx wrangler deploy
 ```
 
@@ -32,9 +32,9 @@ the site falls back to local mode on its own.
 
 | Name | Kind | Notes |
 | --- | --- | --- |
-| `OPENAI_API_KEY` | secret | Required. Set with `wrangler secret put`, never in `wrangler.toml`. `CHATGPT_API_KEY` is accepted too, if that's the name you used. |
+| `GEMINI_API_KEY` | secret | Required. Set with `wrangler secret put`, never in `wrangler.toml`. Get one from [Google AI Studio](https://aistudio.google.com/apikey). |
 | `ALLOWED_ORIGINS` | var | Comma-separated origins allowed to call the Worker. Requests from anywhere else get a 403. Add `http://localhost:8000` while developing. |
-| `MODEL` | var | Optional. Defaults to `gpt-4o-mini`, which is the cheap one. Set it to any chat model your key can reach. |
+| `MODEL` | var | Optional. Defaults to `gemini-2.0-flash`, which is the cheap one. Set it to any model your key can reach. |
 
 ## How answers stay grounded
 
@@ -56,8 +56,8 @@ The endpoint is public, so it is bounded on several axes:
 - 12 requests per minute per IP (in-memory per isolate — enough for casual abuse,
   not exact; move to a Durable Object or KV if you ever need it to be),
 - a 24 KB request cap, 500-character questions, at most 8 passages of 4 KB,
-- 700 output tokens per answer, and `effort: "low"`,
-- the system prompt is cached, so repeat questions pay a fraction for it.
+- a 2,048-token ceiling per answer — a ceiling, not a target, since the system
+  prompt asks for two to four sentences.
 
 One caveat worth knowing: because passages are sent by the browser, someone could
 craft their own request with their own passages and use the Worker as a small,
@@ -69,5 +69,5 @@ ignore client-supplied passages entirely.
 
 The Worker stores nothing: no database, no logs of question text (only error
 diagnostics go to `wrangler tail`). Questions and the matched passages are sent to
-the OpenAI API to write the answer. That's stated in the panel's footer, where
+Google's Gemini API to write the answer. That's stated in the panel's footer, where
 visitors can see it before they type.

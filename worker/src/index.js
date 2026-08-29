@@ -4,21 +4,21 @@
  * A Cloudflare Worker that takes a question plus the page passages the browser
  * already matched, and asks the model to answer using only those passages.
  *
- * The OpenAI API key lives here as a Worker secret and is never sent to the
+ * The Gemini API key lives here as a Worker secret and is never sent to the
  * browser. The browser only ever talks to this Worker.
  *
  * Secrets / vars (see wrangler.toml and README.md):
- *   OPENAI_API_KEY      secret, required (CHATGPT_API_KEY is accepted too)
- *   ALLOWED_ORIGINS     comma-separated list of sites allowed to call this
- *   MODEL               optional, defaults to gpt-4o-mini
+ *   GEMINI_API_KEY       secret, required
+ *   ALLOWED_ORIGINS      comma-separated list of sites allowed to call this
+ *   MODEL                optional, defaults to gemini-2.0-flash
  */
 
-import OpenAI from "openai";
+const DEFAULT_MODEL = "gemini-2.0-flash";
 
-const DEFAULT_MODEL = "gpt-4o-mini";
+const apiKeyFrom = (env) => env.GEMINI_API_KEY;
 
-/* Either name works, so whichever you typed into `wrangler secret put` is fine. */
-const apiKeyFrom = (env) => env.OPENAI_API_KEY || env.CHATGPT_API_KEY;
+/* Finish reasons that mean the model stopped rather than answered. */
+const BLOCKED_FINISH = new Set(["SAFETY", "PROHIBITED_CONTENT", "BLOCKLIST", "SPII", "RECITATION"]);
 
 /* Request limits — a public endpoint, so everything is bounded. */
 const LIMITS = {
@@ -27,10 +27,6 @@ const LIMITS = {
   passages: 8,
   passageText: 4_000, // characters each
   historyTurns: 8,
-  /* A ceiling, not a target — the system prompt asks for two to four sentences,
-     so answers cost far less than this. Left roomy because on a reasoning model
-     the thinking counts against the same budget, and a tight cap there would
-     truncate the answer mid-sentence. */
   answerTokens: 2048,
 };
 
@@ -171,27 +167,76 @@ export default {
     /* History must start with a user turn. */
     while (history.length && history[0].role !== "user") history.shift();
 
-    const client = new OpenAI({ apiKey: apiKeyFrom(env) });
-
     try {
-      /* The system prompt goes in the messages array, first — that's how the
-         chat completions API takes it. */
-      const response = await client.chat.completions.create({
-        model: env.MODEL || DEFAULT_MODEL,
-        max_completion_tokens: LIMITS.answerTokens,
-        temperature: 0.3,
-        messages: [
-          { role: "system", content: SYSTEM },
-          ...history,
-          { role: "user", content: buildPrompt(question, passages) },
-        ],
+      const model = env.MODEL || DEFAULT_MODEL;
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
+
+      /* Gemini's shape: "assistant" is "model", and every turn is a parts array. */
+      const contents = [
+        ...history.map((m) => ({
+          role: m.role === "user" ? "user" : "model",
+          parts: [{ text: m.content }],
+        })),
+        {
+          role: "user",
+          parts: [{ text: buildPrompt(question, passages) }],
+        },
+      ];
+
+      const requestBody = {
+        /* `systemInstruction`, not `system` — the API rejects unknown fields. */
+        systemInstruction: { parts: [{ text: SYSTEM }] },
+        contents,
+        generationConfig: {
+          temperature: 0.3,
+          maxOutputTokens: LIMITS.answerTokens,
+        },
+      };
+
+      /* Key goes in the header, not the query string, where it would end up in
+         request logs. */
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": apiKeyFrom(env),
+        },
+        body: JSON.stringify(requestBody),
       });
 
-      const choice = response.choices && response.choices[0];
-      const message = choice && choice.message;
+      if (!response.ok) {
+        /* Gateway failures come back as HTML, so read the body defensively. */
+        const detail = await response.text().catch(() => "");
+        console.error("Gemini API error", response.status, detail.slice(0, 500));
 
-      /* Some models return a structured refusal instead of an answer. */
-      if (message && message.refusal) {
+        /* Gemini reports a bad or unauthorised key as 400 API_KEY_INVALID or
+           403, not 401 — tell those apart from a genuinely bad request. */
+        const badKey =
+          response.status === 401 ||
+          response.status === 403 ||
+          (response.status === 400 && /API_KEY|api key/i.test(detail));
+
+        if (badKey) {
+          return json({ error: "The assistant isn't configured correctly." }, 503, cors.headers);
+        }
+        if (response.status === 429) {
+          return json({ error: "The assistant is busy right now — try again shortly." }, 429, {
+            ...cors.headers,
+            "Retry-After": "30",
+          });
+        }
+        if (response.status === 400) {
+          return json({ error: "The assistant couldn't handle that question." }, 400, cors.headers);
+        }
+
+        return json({ error: "The assistant service is having trouble." }, 502, cors.headers);
+      }
+
+      const data = await response.json();
+
+      /* A blocked prompt comes back with no candidates at all. */
+      if (data.promptFeedback?.blockReason) {
+        console.warn("Prompt blocked", data.promptFeedback.blockReason);
         return json(
           { error: "I can't answer that one. Try asking about Alice's work instead." },
           200,
@@ -199,43 +244,37 @@ export default {
         );
       }
 
-      const text = ((message && message.content) || "").trim();
-
-      if (!text) {
+      const firstCandidate = (data.candidates || [])[0];
+      if (!firstCandidate) {
         return json({ error: "The assistant came back empty. Try rephrasing." }, 502, cors.headers);
       }
 
-      if (choice.finish_reason === "length") {
+      /* A filtered answer stops for one of several reasons, not just SAFETY. */
+      if (BLOCKED_FINISH.has(firstCandidate.finishReason)) {
+        console.warn("Answer filtered", firstCandidate.finishReason);
+        return json(
+          { error: "I can't answer that one. Try asking about Alice's work instead." },
+          200,
+          cors.headers
+        );
+      }
+
+      if (firstCandidate.finishReason === "MAX_TOKENS") {
         console.warn("Answer hit the token ceiling");
+      }
+
+      /* Long answers arrive split across parts. */
+      const text = (firstCandidate.content?.parts || [])
+        .map((part) => part.text || "")
+        .join("");
+
+      if (!text.trim()) {
+        return json({ error: "The assistant came back empty. Try rephrasing." }, 502, cors.headers);
       }
 
       const { answer, sources } = splitSources(text);
       return json({ answer, sources }, 200, cors.headers);
     } catch (error) {
-      if (error instanceof OpenAI.AuthenticationError) {
-        console.error("OpenAI auth failed", error.message);
-        return json({ error: "The assistant isn't configured correctly." }, 503, cors.headers);
-      }
-      if (error instanceof OpenAI.PermissionDeniedError) {
-        console.error("OpenAI permission denied", error.message);
-        return json({ error: "The assistant isn't configured correctly." }, 503, cors.headers);
-      }
-      if (error instanceof OpenAI.RateLimitError) {
-        /* Also what you get when the account is out of credit. */
-        console.error("OpenAI rate limit or quota", error.message);
-        return json({ error: "The assistant is busy right now — try again shortly." }, 429, {
-          ...cors.headers,
-          "Retry-After": "30",
-        });
-      }
-      if (error instanceof OpenAI.BadRequestError) {
-        console.error("Bad request to OpenAI", error.message);
-        return json({ error: "The assistant couldn't handle that question." }, 400, cors.headers);
-      }
-      if (error instanceof OpenAI.APIError) {
-        console.error("OpenAI API error", error.status, error.message);
-        return json({ error: "The assistant service is having trouble." }, 502, cors.headers);
-      }
       console.error("Unexpected assistant error", error);
       return json({ error: "Something went wrong on the assistant's side." }, 500, cors.headers);
     }

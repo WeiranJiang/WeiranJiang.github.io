@@ -6,7 +6,7 @@
  *      assistant can only ever talk about what is already published on this page.
  *   2. The question is matched against those passages locally, and the best few
  *      are sent to a Cloudflare Worker along with the question.
- *   3. The Worker holds the OpenAI API key and asks the model to answer using
+ *   3. The Worker holds the Gemini API key and asks the model to answer using
  *      only those passages. No key is ever present in the browser.
  *   4. The passages used are shown under the answer as links into the page.
  *
@@ -296,7 +296,7 @@ export function mountAssistant(root, data) {
         class: "assistant-foot",
         id: "assistant-disclaimer",
         text:
-          "An AI assistant, not a message to Alice. It answers only from what’s published on this page and can still be wrong — check the sources. Questions are sent to OpenAI’s API to write the answer and aren’t stored.",
+          "An AI assistant, not a message to Alice. It answers only from what’s published on this page and can still be wrong — check the sources. Questions are sent to Google’s Gemini API to write the answer and aren’t stored.",
       }),
     ]
   );

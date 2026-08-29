@@ -21,7 +21,9 @@
  */
 
 const PALETTE = {
-  H: "#17161c", // hair
+  /* Hair reads off a CSS variable so it can lift away from a dark background;
+     the fallback is what it looks like on white. See --pa-hair in styles.css. */
+  H: "var(--pa-hair, #17161c)",
   S: "#f2d6c0", // skin
   E: "#17161c", // eye
   M: "#c07f76", // mouth
@@ -29,13 +31,10 @@ const PALETTE = {
   P: "#6d4aa8", // shirt
 };
 
-/* 16 wide x 18 tall. "." is transparent; every other character is a key in
-   PALETTE. Kept deliberately plain — big head, plain shirt, bare feet. Detail
-   at this size just reads as noise. */
+/* 16 wide x 15 tall. "." is transparent; every other character is a key in
+   PALETTE. Kept deliberately plain — one line of hair over the face, plain
+   shirt, bare feet. Detail at this size just reads as noise. */
 const PIXELS = [
-  ".....HHHHHH.....",
-  "....HHHHHHHH....",
-  "...HHHHHHHHHH...",
   "..HHHHHHHHHHHH..",
   "..HHSSSSSSSSHH..",
   "..HHSSSSSSSSHH..",
@@ -55,20 +54,20 @@ const PIXELS = [
 
 /* Eyes are drawn separately so they can look around and blink. */
 const EYES = [
-  { x: 5, y: 6, w: 2, h: 2 },
-  { x: 9, y: 6, w: 2, h: 2 },
+  { x: 5, y: 3, w: 2, h: 2 },
+  { x: 9, y: 3, w: 2, h: 2 },
 ];
 
 /* The waving arm, in the same grid. Only shown while waving — the rest of the
    time her arms stay at her sides. */
 const ARM = [
-  { x: 15, y: 13, w: 1, h: 1, key: "P" },
-  { x: 15, y: 12, w: 1, h: 1, key: "P" },
-  { x: 15, y: 11, w: 1, h: 1, key: "S" },
+  { x: 15, y: 10, w: 1, h: 1, key: "P" },
+  { x: 15, y: 9, w: 1, h: 1, key: "P" },
+  { x: 15, y: 8, w: 1, h: 1, key: "S" },
 ];
 
 /* x, y, size, height of the drawing area including the thinking dots. */
-const VIEWBOX = { x: 0, y: -3, w: 16, h: 21 };
+const VIEWBOX = { x: 0, y: -3, w: 16, h: 18 };
 
 const STYLE_ID = "pixel-alice-style";
 

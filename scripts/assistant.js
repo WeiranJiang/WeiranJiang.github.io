@@ -192,7 +192,7 @@ function localAnswer(matches, question) {
     })
     .join("\n\n");
   return {
-    text: `${lead}\n\nThat’s straight from the page rather than written for your question — the writing assistant isn’t connected right now.`,
+    text: `${lead}\n\nThat’s quoted from the page rather than written for your question — the part that writes answers isn’t switched on yet.`,
     sources: matches.slice(0, 3),
   };
 }

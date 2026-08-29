@@ -35,6 +35,7 @@ the site falls back to local mode on its own.
 | `GEMINI_API_KEY` | secret | Required. Set with `wrangler secret put`, never in `wrangler.toml`. Get one from [Google AI Studio](https://aistudio.google.com/apikey). |
 | `ALLOWED_ORIGINS` | var | Comma-separated origins allowed to call the Worker. Requests from anywhere else get a 403. Add `http://localhost:8000` while developing. |
 | `MODEL` | var | Optional. Defaults to `gemini-3.6-flash`, which is the cheap one. Set it to any model your key can reach. |
+| `THINKING_LEVEL` | var | Optional. `minimal`, `low`, `medium`, or `high`. Defaults to `minimal`. See "Why it answers quickly" below. |
 
 ## How answers stay grounded
 
@@ -47,6 +48,20 @@ into links to the relevant section.
 
 That means the assistant can only ever repeat published content. Anything you
 don't want it to say, don't put in `content/content.js`.
+
+## Why it answers quickly
+
+Gemini 3 Flash thinks before it answers, and on its default setting it spent
+four to seven times as many tokens thinking as it did on the answer itself —
+several seconds of the visitor watching "Looking through the page…" for two
+sentences quoted off a page they are already on.
+
+Reading a handful of short passages and quoting them back is not a reasoning
+problem, so `THINKING_LEVEL` is set to `minimal`. That took the median answer
+from about 5.5 seconds to about 1.2. Grounding, refusals, exact figures, and the
+never-speak-as-Alice rule were all re-checked against the live API afterwards and
+were unaffected. Raise it if you ever ask the assistant to do something that
+genuinely needs reasoning.
 
 ## Cost and abuse
 

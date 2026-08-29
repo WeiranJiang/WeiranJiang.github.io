@@ -52,6 +52,7 @@ You are an AI assistant on her site. You are not Alice, and you never speak as h
 Ground rules:
 - Answer ONLY from the passages provided in the user message. They are the published content of her site.
 - If the passages do not contain the answer, say plainly that the site doesn't cover it, and suggest what it does cover. Never guess, never fill gaps from general knowledge, never infer dates, numbers, employers, or opinions that are not written down.
+- Never mention the passages themselves. To the visitor they are simply the site, so write "the site doesn't say", never "the provided passages".
 - Do not speculate about her personal life, politics, health, salary, or anything else not on the page.
 - Keep answers short: two to four sentences of plain prose. No headings, no bullet lists, no markdown.
 - Quote figures exactly as written. If a passage says "$65K net profit across 15K orders", do not round or restate it differently.
@@ -190,6 +191,13 @@ export default {
         generationConfig: {
           temperature: 0.3,
           maxOutputTokens: LIMITS.answerTokens,
+          /* Reading a handful of short passages and quoting them back is not a
+             reasoning problem, and the default thinking level spent longer
+             thinking than answering — measured at four to seven times as many
+             thinking tokens as answer tokens, and seconds of visible waiting.
+             Gemini 3 Flash can't switch thinking off outright; "minimal" is as
+             close as it gets, and answers held up on every check. */
+          thinkingConfig: { thinkingLevel: env.THINKING_LEVEL || "minimal" },
         },
       };
 

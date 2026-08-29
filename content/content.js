@@ -19,7 +19,7 @@ export const site = {
   tagline:
     "Student at Penn in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS.",
   description:
-    "Alice Jiang is a Jerome Fisher M&T student at the University of Pennsylvania studying finance and computer science, working in investment banking and early-stage venture, and building small software projects on the side.",
+    "Alice Jiang is a Jerome Fisher M&T student at the University of Pennsylvania studying finance and computer science, interested in investment banking and early-stage venture, and building small software projects on the side.",
   email: "wajiang@wharton.upenn.edu",
   location: "Philadelphia, PA",
 };
@@ -31,8 +31,8 @@ export const site = {
 export const intro = {
   /* Each string is its own paragraph. */
   paragraphs: [
-    "I’m a student at the University of Pennsylvania in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS. Most of what I do sits somewhere between those two: reading a company’s numbers closely enough to have an opinion, then building the small thing that makes the work easier.",
-    "Right now I’m an investment banking summer analyst at Arbor Lake Capital, co-president of the Wharton Undergraduate Entrepreneurship Club, and on the team at the M&T Innovation Fund. Before college I spent five years running a small e-commerce business, which is still the best product education I’ve had.",
+    "I’m a student at the University of Pennsylvania in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS. Most of what I do is somewhere between the two: analyzing company financials and building small software projects.",
+    "Right now I’m an investment banking summer analyst at Arbor Lake Capital, co-president of the Wharton Undergraduate Entrepreneurship Club, and on the team at the M&T Innovation Fund. Before college I spent five years running a small e-commerce business (HoloGlitterPacks), which is still the best hands-on experience I’ve had.",
   ],
 
   /* Compact buttons under the introduction. */
@@ -61,12 +61,13 @@ export const intro = {
       lines: [
         "IB Summer Analyst, Arbor Lake Capital",
         "Co-President, WUEC",
-        "Team Member, M&T Innovation Fund",
+        "Team Member, MTIF",
+        "Investment Analyst, Moso Capital",
       ],
     },
     {
       label: "Otherwise",
-      lines: ["Kayaking, tennis, piano", "Thrifting, doodling, baking, wooden puzzles"],
+      lines: ["Kayaking, personal coding projects, wooden puzzles", "tennis, piano, thrifting, doodling, baking"],
     },
   ],
 };
@@ -83,7 +84,7 @@ export const experience = [
     date: "May 2026 — Present",
     place: "Ann Arbor, MI",
     summary:
-      "Sell-side and buy-side M&A work for middle-market industrial clients.",
+      "Sell-side and buy-side work for middle-market clients, with a focus on cross border M&A.",
     points: [
       "Analyzed 4 acquisition targets for automotive clients on ownership structure, financial performance, and strategic fit.",
       "Screened 57 potential buyers for an air spring company sale on fit, financial capacity, and acquisition rationale.",
@@ -98,11 +99,7 @@ export const experience = [
     date: "Aug 2020 — Jan 2026",
     place: "Ann Arbor, MI",
     summary:
-      "An e-commerce business I started at fifteen and ran through my first year of college.",
-    body: [
-      "It started with $50 and a vague sense that the sticker packs I wanted didn’t exist at a price I’d pay. Five and a half years later it had turned over 15K orders and $65K in net profit, all of it run out of my bedroom around school.",
-      "The interesting part was never the product. It was building pricing and cost models that survived contact with real demand, watching conversion data to work out which listings were carrying the shop, and learning that a margin you don’t measure is a margin you don’t have.",
-    ],
+      "An e-commerce business I started in middle school and ran through my first year of college.",
     points: [
       "Grew from $50 of starting capital to $65K net profit across 15K orders, building the pricing and cost models and managing the full P&L.",
       "Earned 2,500 five-star reviews by reading conversion and demand data to refine the product mix and listings.",
@@ -110,8 +107,8 @@ export const experience = [
     images: [
       {
         src: "assets/images/etsy4.png",
-        alt: "The HoloGlitterPacks seller dashboard, showing lifetime views, visits, orders, and revenue",
-        caption: "The shop dashboard, five years in.",
+        alt: "HoloGlitterPacks seller dashboard",
+        caption: "The shop dashboard.",
       },
     ],
   },
@@ -148,16 +145,13 @@ export const atPenn = [
   {
     id: "wuec",
     short: "WUEC",
-    website: "https://groups.wharton.upenn.edu/wuec/",
+    website: "https://whartonentrepreneurship.org/",
     role: "Co-President, VC Committee Member",
     org: "Wharton Undergraduate Entrepreneurship Club",
     date: "Oct 2025 — Present",
     place: "Philadelphia, PA",
     summary:
-      "WUEC runs Penn’s undergraduate entrepreneurship programming — treks, hackathons, and an investment committee that writes real memos.",
-    body: [
-      "The trek is the piece I’m proudest of: 26 students to New York for a day of meetings at a16z, Primary Venture Partners, Picus Capital, and M13. Organizing it meant pitching four firms on why a room of undergraduates was worth an hour of their afternoon, then building a schedule that let people actually ask questions.",
-    ],
+      "WUEC runs Penn’s undergraduate entrepreneurship programming — conferences, treks, and pitch competitions.",
     points: [
       "Organized and led a 26-student NYC venture trek with visits to a16z, Primary Venture Partners, Picus Capital, and M13.",
       "Wrote investment memos evaluating startups from an 80-applicant competition run with Center City Ventures.",
@@ -167,17 +161,17 @@ export const atPenn = [
       {
         src: "assets/img/wuec-nyc-trek-group.jpg",
         alt: "WUEC members standing together outside a building on the NYC venture trek",
-        caption: "Outside one of the day’s stops on the NYC trek.",
+        caption: "Outside our last stop on the NYC trek.",
       },
       {
         src: "assets/img/wuec-nyc-trek-boardroom.jpg",
         alt: "WUEC members around a boardroom table during the NYC trek",
-        caption: "26 students, four firms, one long day of meetings.",
+        caption: "NY Career Trek - at a16z.",
       },
       {
         src: "assets/img/wuec-trek-poster.jpg",
         alt: "Poster for the WUEC NY VC Trek on April 3rd, listing visits to Primary Ventures, a16z, M13, and Picus Capital",
-        caption: "The sign-up poster that started it.",
+        caption: "The sign-up poster.",
       },
     ],
   },
@@ -214,7 +208,7 @@ export const atPenn = [
       {
         src: "assets/images/moso-capital-penn.png",
         alt: "Moso Capital team at Penn",
-        caption: "At Penn for Moso Capital.",
+        caption: "NY Career Trek for Moso Capital.",
       },
     ],
   },
@@ -228,7 +222,7 @@ export const atPenn = [
     place: "Philadelphia, PA",
     summary: "Wharton's undergraduate finance club — markets coverage and company analysis.",
     points: [
-      "Produced weekly market updates and long/short recommendations using DCF and comparable-company valuation.",
+      "Produced weekly market updates and did practices on DCF and comparable-company valuation.",
     ],
   },
   {
@@ -259,19 +253,19 @@ export const work = [
     summary:
       "A study tracker that turns focus hours into a small creature you look after.",
     body: [
-      "SlimeTime is a study timer with a stopwatch and a countdown, a task list, and per-subject tracking. Hours logged roll up into a stats page — focus hours, a study streak, a weekly study map, and a radar chart across the subjects you choose to track. It syncs with Google Calendar so events matching a subject keyword are counted automatically.",
-      "The other half is the part that makes me actually open it. Focus time earns Dewdrops, Dewdrops buy items in a shop, and items feed attribute XP — healing, strategy, magic, martial arts, stealth, swordsmanship — which level up a slime with a class and an adventurer rank. It was an experiment in whether a progress system could make a study log something I’d keep using, and so far it has.",
+      "SlimeTime is a google chrome extension progress tracker. It has a stopwatch, a countdown, and a task list. It allows for passive tracking by reading through google calendar events and logging study time that way as well.",
+      "The other half is the part that makes me open it: Focus time earns Dewdrops, Dewdrops buy items in a shop, and items feed attribute XP which level up a slime with a class and an adventurer rank.",
     ],
     images: [
       {
         src: "assets/img/slimetime-stats.png",
         alt: "SlimeTime stats page showing focus hours, study streak, weekly study map, per-subject breakdown, and a radar chart",
-        caption: "The stats page: focus hours, streak, study map, and per-subject radar.",
+        caption: "The personal stats page.",
       },
       {
         src: "assets/img/slimetime-home.png",
         alt: "SlimeTime home screen showing the slime, its level, adventurer rank, and attribute XP bars",
-        caption: "Home: your slime, its class and rank, and attribute XP earned from focus time.",
+        caption: "Home page.",
       },
     ],
   },
@@ -282,21 +276,32 @@ export const work = [
     date: "2023 — 2024",
     place: "Ypsilanti, MI",
     summary:
-      "A working, life-size mobility device for seniors, built with a high school InvenTeam and presented at MIT.",
+      "A working, life-size mobility device for seniors, built with a Lemelson-MIT InvenTeam grant. Received a provisional patent and presented at MIT.",
     body: [
-      "SoloStep came out of the EMUiNVENT InvenTeam: a device to help people with limited mobility move between sitting, standing, and lying down without another person there to help. We took it from a practical problem through prototyping to a working, life-size demonstration, and it holds a provisional patent. Microsoft’s Make What’s Next program sponsored the work.",
-      "Getting it funded was half the job. The team was selected as a Lemelson-MIT InvenTeam, which came with a $7,500 grant, and I wrote a grant proposal to Saline Area Schools that brought in another $1,500. We presented at EurekaFest at MIT in June 2024, where I also won the Lemelson-MIT EurekaFest essay contest.",
+      "SoloStep came out of our EMUiNVENT InvenTeam: a device to help people with limited mobility move between sitting, standing, and lying down. Through lots of resources and mentorship we built a working, life-size prototype. We also hold a provisional patent, thanks to Microsoft’s Make What’s Next program.",
+      "We presented at EurekaFest at MIT in June 2024, where I also won the Lemelson-MIT EurekaFest essay contest.",
     ],
     points: [
       "Co-led the team and ran community outreach.",
+      "Interviewed senior centers and retirement homes (StoryPoint, Saline Senior Center, University Living).",
       "Secured a $7,500 Lemelson-MIT InvenTeam grant and a further $1,500 from Saline Area Schools.",
-      "Winner, Lemelson-MIT EurekaFest essay contest.",
+      "Presented at MIT’s EurekaFest, and won the Lemelson-MIT EurekaFest essay contest.",
     ],
     images: [
       {
         src: "assets/images/MIT1.png",
         alt: "Wiring diagram of the SoloStep control system: an Arduino board connected to ultrasonic sensors and four motors",
-        caption: "The control wiring, worked out before anything was built.",
+        caption: "The control wiring of the miniature prototype.",
+      },
+      {
+        src: "assets/images/emuinvent-team-1.jpg",
+        alt: "The EMUiNVENT InvenTeam gathered around the SoloStep prototype in the lab",
+        caption: "Playing around in the shop.",
+      },
+      {
+        src: "assets/images/emuinvent-team-2.jpg",
+        alt: "EMUiNVENT team members standing together after a build session with the mobility device",
+        caption: "Photo with the EMUiNVENT team.",
       },
       {
         src: "assets/images/MIT3.jpg",
@@ -306,7 +311,7 @@ export const work = [
       {
         src: "assets/img/solostep-sticker.jpg",
         alt: "A SoloStep sticker: a line drawing of a foot stepping, above the words SoloStep — Seize the Movement",
-        caption: "The team’s mark. Seize the movement.",
+        caption: "Part of materials - our logo/sticker.",
       },
     ],
   },
@@ -346,7 +351,7 @@ export const education = [
     org: "Washtenaw Community College",
     place: "Ann Arbor, MI",
     date: "2024",
-    points: ["Multivariable Calculus (MTH 293)."],
+    points: ["Multivariable Calculus (MTH 293) and Introduction to Accounting Principles."],
   },
 ];
 
@@ -359,13 +364,12 @@ export const highSchool = [
     date: "2021 — 2025",
     place: "Saline, MI",
     summary:
-      "Four years of build events — mostly balsa bridges that weighed almost nothing and held a great deal.",
+      "Four years of science events — mostly photos of light balsa bridges.",
     body: [
-      "Bridge was the event I kept coming back to: structure, material choice, and joint geometry, tested to failure over and over. Every build started as a drawing with the member sizes worked out first, because balsa is unforgiving about weight you spend in the wrong place. Testing meant hanging a sand-filled jug off the middle and adding load until something gave.",
       "56 placements across invitational, regional, state, and national competitions.",
     ],
     points: [
-      "Organized and led practices and summer camps, and ran the team\u2019s logistics, budget, and schedule.",
+      "Helped with practices and summer camps, and with the team\u2019s logistics, budget, and schedule.",
       "Set up the Extracurricular Night table with air trajectory demos and bridge tests.",
       "Spoke at the STEAM building groundbreaking and at annual Saline School Board meetings.",
     ],
@@ -376,14 +380,24 @@ export const highSchool = [
         caption: "Plans for a 47 \u00d7 14 cm build, drawn before cutting anything.",
       },
       {
+        src: "assets/images/bridge7.JPG",
+        alt: "Alice at a workbench covered in balsa, holding a partly built bridge",
+        caption: "The workbench, mid-build.",
+      },
+      {
         src: "assets/img/bridge-load-test.jpg",
         alt: "A balsa bridge on a test rig, loaded through a chain hung from its centre",
-        caption: "Load testing, with the weight hung from the middle.",
+        caption: "Load testing.",
       },
       {
         src: "assets/img/science-olympiad-medals.jpg",
         alt: "A pile of Science Olympiad medals, lanyards, and place ribbons spread across a table",
-        caption: "Four years of it, in one box.",
+        caption: "Science Olympiad medals.",
+      },
+      {
+        src: "assets/images/science-olympiad-workbench.jpg",
+        alt: "Alice at the workbench during a Science Olympiad bridge build session",
+        caption: "Another build session.",
       },
     ],
   },
@@ -395,7 +409,7 @@ export const highSchool = [
     place: "Saline, MI",
     summary: "Running the chapter, and the volunteering that came with it.",
     points: [
-      "Led chapter meetings, supervised committee members, and managed 70+ volunteering opportunities a year.",
+      "Helped lead chapter meetings and committee meetings, and managed 70+ volunteering opportunities a year.",
       "Raised $450 for the club banquet with a new fundraising model.",
     ],
     images: [
@@ -403,11 +417,13 @@ export const highSchool = [
         src: "assets/img/nhs-food-drive.jpg",
         alt: "Students sorting donated cans and boxes into postal bins at a food pantry",
         caption: "Sorting a food drive into the pantry\u2019s bins.",
-      },      {
+      },
+      {
         src: "assets/images/nhs-auditorium.jpg",
         alt: "NHS members gathered at a school event",
         caption: "NHS at a school assembly.",
-      },    ],
+      },
+    ],
   },
   {
     id: "bpa",
@@ -418,7 +434,7 @@ export const highSchool = [
     summary: "Michigan\u2019s high school business competition circuit, and the chapter behind it.",
     points: [
       "Ran club meetings, organized resources, mentored students, and built bonding events.",
-      "Built a Google Drive system for team resources, which lifted the number of state event qualifications.",
+      "Implemented a Google Drive system for team resources.",
     ],
   },
   {
@@ -439,12 +455,17 @@ export const highSchool = [
     role: "Founder",
     date: "2021 — 2025",
     place: "Saline, MI",
-    summary: "Playing flute for residents at a senior living community.",
+    summary: "Playing piano and flute for residents at retirement homes.",
     images: [
       {
         src: "assets/img/music-for-seniors.jpg",
         alt: "Alice playing flute from sheet music, seated in front of an audience in a common room",
-        caption: "An afternoon set in the common room.",
+        caption: "Playing flute.",
+      },
+      {
+        src: "assets/img/senior-center-music.jpg",
+        alt: "Alice playing flute for residents in a senior living community room",
+        caption: "A music session for senior residents.",
       },
     ],
   },
@@ -619,24 +640,24 @@ export const pitches = [];
 
 export const about = {
   paragraphs: [
-    "I grew up in Michigan and came to Penn for the M&T Program. The two halves of it have turned out to be the same instinct pointed in different directions — I like understanding how something actually works, whether that’s a capital structure or a codebase.",
-    "Outside of that: kayaking when the weather allows, tennis and piano since I was small, thrifting, doodling, baking, and 3D wooden puzzles. The puzzles are the ones that got out of hand — the good kits are laser-cut plywood with real gearing and wiring inside, so finishing one means soldering-adjacent fiddling with a motor or a string of lights before anything moves.",
+    "I grew up in Michigan and came to Penn for the M&T Program. I like understanding how something actually works, whether that’s a capital structure or a codebase.",
+    "Outside of that, I enjoy kayaking when the weather allows, tennis and piano since I was small, thrifting, doodling, baking, and 3D wooden puzzles to relax.",
   ],
   portrait: {
     src: "assets/img/portrait.jpg",
-    alt: "Alice standing at a fence by the water at sunset",
+    alt: "Alice in Florida",
   },
   /* Photos shown under the About text. */
   media: [
     {
       src: "assets/img/kayaking.jpg",
       alt: "Alice paddling a green kayak through a stretch of whitewater on a wooded river",
-      caption: "The good stretch of the river.",
+      caption: "The Rapids in Argo Park.",
     },
     {
       src: "assets/img/fruit-tart.jpg",
       alt: "A fruit tart topped with sliced strawberries, kiwi, and blueberries over pastry cream",
-      caption: "A fruit tart, the afternoon it came out of the oven.",
+      caption: "A freshly decorated fruit tart.",
     },
   ],
   /* Folded away behind a heading you click to open. Add another object here and
@@ -649,29 +670,29 @@ export const about = {
         {
           src: "assets/img/puzzle-magic-cello.jpg",
           alt: "An assembled wooden Magic Cello music box, gears and carved leaves visible through the body, standing on a book-shaped base",
-          caption: "The Magic Cello, built. It plays itself with a bow.",
+          caption: "The bow moves and plays a Nocturne.",
         },
         {
           src: "assets/img/puzzle-piano-bear.jpg",
           alt: "The finished wooden grand piano music box, lid open on its gearing, beside a small teddy bear in a Penn shirt",
-          caption: "The piano, finished, with an audience.",
+          caption: "The piano plays Canon in D.",
         },
         {
           src: "assets/img/puzzle-wiring.jpg",
           alt: "Hands connecting a small circuit board to the motor and gearing inside a half-built wooden kit",
-          caption: "The part of a kit that isn\u2019t a jigsaw.",
+          caption: "The Christmas special kit, wired up.",
         },
         {
           src: "assets/media/puzzle-piano.mp4",
           poster: "assets/media/puzzle-piano.jpg",
           alt: "A finished laser-cut wooden grand piano music box with a candelabra and bench",
-          caption: "A wooden grand piano music box, finished.",
+          caption: "The grand piano music box lid details.",
         },
         {
           src: "assets/media/puzzle-train.mp4",
           poster: "assets/media/puzzle-train.jpg",
           alt: "The inside of a wooden model locomotive, showing a motor and circuit board wired in",
-          caption: "The locomotive, with its motor and board going in.",
+          caption: "The locomotive kit’s major components.",
         },
         {
           src: "assets/media/puzzle-1.mp4",

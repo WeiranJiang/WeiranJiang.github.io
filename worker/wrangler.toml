@@ -12,5 +12,10 @@ ALLOWED_ORIGINS = "https://weiranjiang.github.io"
 # Optional. Defaults to gemini-3.6-flash if unset.
 # MODEL = "gemini-3.6-flash"
 
+# Optional. How long the model may think before answering: minimal, low,
+# medium, high. Defaults to minimal — quoting short passages back is not a
+# reasoning problem, and anything higher just makes the visitor wait.
+# THINKING_LEVEL = "minimal"
+
 # The API key is a secret, never a var:
 #   npx wrangler secret put GEMINI_API_KEY

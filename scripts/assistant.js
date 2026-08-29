@@ -332,7 +332,7 @@ export function mountAssistant(root, data) {
 
   addMessage(
     "assistant",
-    "Hi — I’m an AI assistant for Alice’s site. Ask me about her experience, her work at Penn, or a project, and I’ll answer from what’s written here and point you to the section it came from."
+    "Hi — I’m an AI assistant for Alice’s site. Ask me anything, and I’ll answer from what’s written here and point you to the section it came from."
   );
 
   /* ---- asking ---- */

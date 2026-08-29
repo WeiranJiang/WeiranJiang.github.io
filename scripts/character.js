@@ -103,8 +103,9 @@ const CSS = `
 }
 .pixel-alice[data-state="idle"] .pixel-alice__eyes,
 .pixel-alice[data-state="wave"] .pixel-alice__eyes {
-  /* steps() keeps her looking around a pixel at a time rather than gliding. */
-  animation: pixel-alice-look 7.4s steps(1, end) infinite;
+  /* steps() keeps her looking around a pixel at a time rather than gliding.
+     Slow, and centred most of the time — two brief glances a loop. */
+  animation: pixel-alice-look 21s steps(1, end) infinite;
 }
 .pixel-alice__arm {
   transform-box: fill-box;
@@ -128,11 +129,11 @@ const CSS = `
   93%, 96%      { transform: scaleY(0.22); }
 }
 @keyframes pixel-alice-look {
-  0%, 34%   { transform: translateX(0); }
-  36%, 50%  { transform: translateX(1px); }
-  52%, 66%  { transform: translateX(0); }
-  68%, 82%  { transform: translateX(-1px); }
-  84%, 100% { transform: translateX(0); }
+  0%, 40%   { transform: translateX(0); }
+  42%, 47%  { transform: translateX(1px); }
+  49%, 88%  { transform: translateX(0); }
+  90%, 94%  { transform: translateX(-1px); }
+  96%, 100% { transform: translateX(0); }
 }
 @keyframes pixel-alice-wave {
   0%, 100% { transform: rotate(-6deg); }
@@ -153,6 +154,27 @@ const CSS = `
 
 /* --- the strolling avatar --- */
 
+.pixel-walk-wrap {
+  display: block;
+}
+
+.pixel-walk__tip {
+  display: block;
+  margin-top: 7px;
+  font-family: var(--sans, sans-serif);
+  font-size: 11.5px;
+  letter-spacing: 0.01em;
+  color: var(--faint, #9a9a9a);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+
+.pixel-walk-wrap:hover .pixel-walk__tip,
+.pixel-walk:focus-visible ~ .pixel-walk__tip {
+  opacity: 1;
+}
+
 .pixel-walk {
   display: block;
   width: 100%;
@@ -172,7 +194,7 @@ const CSS = `
 }
 
 /* Stop her wandering off while someone is trying to click her. */
-.pixel-walk:hover .pixel-walk__runner,
+.pixel-walk-wrap:hover .pixel-walk__runner,
 .pixel-walk:focus-visible .pixel-walk__runner {
   animation-play-state: paused;
 }
@@ -337,9 +359,18 @@ export function createWalker(options = {}) {
   stage.type = "button";
   stage.className = "pixel-walk";
   stage.setAttribute("data-ask-alice", "");
-  stage.setAttribute("aria-label", options.label || "Ask about Alice — opens the assistant");
-  stage.title = options.label || "Ask about Alice";
+  stage.setAttribute("aria-label", options.label || "Ask me anything — opens the assistant");
   stage.append(runner);
+
+  /* The hint always occupies its line, so nothing shifts when it fades in. */
+  const tip = document.createElement("span");
+  tip.className = "pixel-walk__tip";
+  tip.setAttribute("aria-hidden", "true");
+  tip.textContent = options.tip || "Ask me anything!";
+
+  const wrap = document.createElement("span");
+  wrap.className = "pixel-walk-wrap";
+  wrap.append(stage, tip);
 
   /* How far she can pace: the stage, less her own width. Measured rather than
      guessed so the sidebar can be any width. */
@@ -358,12 +389,12 @@ export function createWalker(options = {}) {
   measure();
 
   return {
-    node: stage,
+    node: wrap,
     character,
     destroy() {
       observer?.disconnect();
       window.removeEventListener("resize", measure);
-      stage.remove();
+      wrap.remove();
     },
   };
 }

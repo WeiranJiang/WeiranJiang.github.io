@@ -45,8 +45,9 @@ export function entryHref(item) {
 const VIDEO = /\.(mp4|webm|mov|m4v)$/i;
 
 /* Missing files remove their own figure rather than showing a broken icon, so a
-   half-filled content file still looks finished. */
-function figure(media) {
+   half-filled content file still looks finished. `onGone` lets a caller hear
+   about it — figuresFold uses it to drop a heading whose pictures all vanished. */
+function figure(media, onGone) {
   if (!media || !media.src) return null;
 
   const isVideo = VIDEO.test(media.src);
@@ -76,20 +77,110 @@ function figure(media) {
 
   /* A missing image quietly removes itself. Videos keep their poster — a browser
      that can't play the file should still show the still. */
-  if (!isVideo) inner.addEventListener("error", () => fig.remove(), { once: true });
+  if (!isVideo) {
+    inner.addEventListener(
+      "error",
+      () => {
+        fig.remove();
+        if (onGone) onGone();
+      },
+      { once: true }
+    );
+  }
   return fig;
 }
 
 /** Accepts `images`, `videos`, or `media` — anything with a src. */
 export function figures(...lists) {
   const items = lists.flatMap((list) => list || []);
-  const built = items.map(figure).filter(Boolean);
+  const built = items.map((media) => figure(media)).filter(Boolean);
   if (!built.length) return null;
   return el(
     "div",
     { class: built.length === 1 ? "figures figures--single" : "figures" },
     built
   );
+}
+
+/* "Photos", "Video", "Photos and video" — whichever the set actually is. */
+function mediaLabel(items) {
+  const videos = items.filter((m) => VIDEO.test(m.src)).length;
+  const photos = items.length - videos;
+  if (photos && videos) return "Photos and video";
+  if (videos) return videos === 1 ? "Video" : "Videos";
+  return photos === 1 ? "Photo" : "Photos";
+}
+
+/**
+ * The same figures, behind a heading you click to open.
+ *
+ * Used where entries sit in a list — the homepage and the archive — so a run of
+ * photos doesn't push the next entry off the screen. An entry's own page shows
+ * its pictures outright instead; there's nothing below them to bury.
+ *
+ * @param {Array<Array|undefined>} lists — `images`, `videos`, `media`
+ * @param {{label?: string, note?: string, strip?: boolean}} options
+ */
+export function figuresFold(lists, options = {}) {
+  const items = lists.flatMap((list) => list || []).filter((m) => m && m.src);
+  if (!items.length) return null;
+
+  /* If every picture turns out to be missing, take the heading with it —
+     otherwise the fold opens onto nothing. */
+  let remaining = items.length;
+  let fold = null;
+  let note = null;
+  const gone = new WeakSet();
+  function drop(fig) {
+    if (!fig || gone.has(fig)) return; // a probe and the img's own error can both land
+    gone.add(fig);
+    fig.remove();
+    remaining -= 1;
+    if (remaining === 0 && fold) fold.remove();
+    /* The count promises what's behind the heading, so it has to keep up. */
+    else if (note && !options.note) note.textContent = remaining > 1 ? String(remaining) : "";
+  }
+
+  const built = items.map((media, index) => figure(media, () => drop(built[index])));
+
+  /* The pictures are lazy and start out of sight, so nothing would fetch them
+     until someone opened the fold — and a heading whose files are all missing
+     would then vanish under their cursor. Settle it at load instead: ask for
+     each one now, off-document, and let the answer prune the fold before it is
+     ever clicked. The browser serves the same bytes from cache on open. */
+  items.forEach((media, index) => {
+    if (VIDEO.test(media.src)) return; // videos keep their poster by design
+    const probe = new Image();
+    probe.addEventListener("error", () => drop(built[index]), { once: true });
+    probe.src = media.src;
+  });
+
+  const gallery = el(
+    "div",
+    {
+      class: options.strip
+        ? "figures figures--strip"
+        : built.length === 1
+          ? "figures figures--single"
+          : "figures",
+    },
+    built
+  );
+
+  note = el("span", {
+    class: "fold__note",
+    text: options.note || (built.length > 1 ? String(built.length) : ""),
+  });
+
+  fold = el("details", { class: "fold fold--media" }, [
+    el("summary", { class: "fold__summary" }, [
+      el("span", { class: "fold__marker", "aria-hidden": "true" }),
+      el("span", { class: "fold__label", text: options.label || mediaLabel(items) }),
+      note,
+    ]),
+    el("div", { class: "fold__body" }, [gallery]),
+  ]);
+  return fold;
 }
 
 function linkButtons(links, className = "entry__links") {
@@ -263,7 +354,7 @@ export function renderDetailedEntries(items, press = []) {
         paragraphs(item.body, "entry__body"),
         bullets(item.points),
         tags(item.tags),
-        figures(item.images, item.videos, item.media),
+        figuresFold([item.images, item.videos, item.media]),
         cited.length
           ? el("div", { class: "entry__press" }, [
               el("p", { class: "label", text: "Press" }),
@@ -356,7 +447,7 @@ function clubCard(item, selected) {
         item.summary ? el("p", { class: "card__desc", text: item.summary }) : null,
         pills(item),
         bullets(item.points),
-        figures(item.images, item.videos, item.media),
+        figuresFold([item.images, item.videos, item.media]),
       ]),
     ]
   );
@@ -420,23 +511,17 @@ export function renderClubs(items) {
 
 /** A heading you click to unfold — used for the puzzle collection under About. */
 export function renderCollection(collection) {
-  const media = figures(collection.media);
-  if (!media) return null;
-  media.classList.add("figures--strip");
-
-  return el("details", { class: "fold" }, [
-    el("summary", { class: "fold__summary" }, [
-      el("span", { class: "fold__marker", "aria-hidden": "true" }),
-      el("span", { class: "fold__label", text: collection.label }),
-      collection.note ? el("span", { class: "fold__note", text: collection.note }) : null,
-    ]),
-    el("div", { class: "fold__body" }, [media]),
-  ]);
+  return figuresFold([collection.media], {
+    label: collection.label,
+    note: collection.note,
+    strip: true,
+  });
 }
 
 export function renderAbout(about) {
-  const media = figures(about.media);
-  if (media) media.classList.add("figures--strip");
+  /* The personal gallery is a mix of portrait and landscape, so it flows as
+     columns rather than a grid. */
+  const media = figuresFold([about.media], { strip: true });
   const folds = (about.collections || []).map(renderCollection).filter(Boolean);
 
   return el("div", { class: "about-grid" }, [

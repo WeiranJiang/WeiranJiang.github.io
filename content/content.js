@@ -142,7 +142,7 @@ export const atPenn = [
   {
     id: "wuec",
     short: "WUEC",
-    website: "",
+    website: "https://groups.wharton.upenn.edu/wuec/",
     role: "Co-President, VC Committee Member",
     org: "Wharton Undergraduate Entrepreneurship Club",
     date: "Oct 2025 — Present",
@@ -178,7 +178,7 @@ export const atPenn = [
   {
     id: "mtif",
     short: "MTIF",
-    website: "",
+    website: "https://mtinnovationfund.com/",
     role: "Team Member",
     org: "Management and Technology Innovation Fund",
     date: "Oct 2025 — Present",
@@ -193,7 +193,7 @@ export const atPenn = [
   {
     id: "moso-capital",
     short: "Moso",
-    website: "",
+    website: "https://www.mosocapital.org/",
     role: "Investment Analyst, Comma Capital Team",
     org: "Moso Capital",
     date: "Feb 2026 — Present",
@@ -208,7 +208,7 @@ export const atPenn = [
   {
     id: "wufc",
     short: "WUFC",
-    website: "",
+    website: "https://www.whartonfinanceclub.com/",
     role: "Committee Member",
     org: "Wharton Undergraduate Finance Club",
     date: "Oct 2025 — Present",
@@ -221,7 +221,7 @@ export const atPenn = [
   {
     id: "whfc",
     short: "WHFC",
-    website: "",
+    website: "https://whartonhedgefundclub.com/",
     role: "Committee Member",
     org: "Wharton Hedge Fund Club",
     date: "Oct 2025 — Present",

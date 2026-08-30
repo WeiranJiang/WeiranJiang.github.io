@@ -296,7 +296,7 @@ export function mountAssistant(root, data) {
         class: "assistant-foot",
         id: "assistant-disclaimer",
         text:
-          "An AI assistant, not a message to Alice. It answers only from what’s published on this page and can still be wrong — check the sources. Questions are sent to Google’s Gemini API to write the answer and aren’t stored.",
+          "The AI assistant answers only from what’s published on this page and can still be wrong.",
       }),
     ]
   );

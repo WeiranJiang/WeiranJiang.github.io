@@ -285,25 +285,8 @@ export function renderIntro(host, { site, intro }) {
 
 /* ---------- section shell ---------- */
 
-/**
- * The plum squares that sit on the rule above a section and breathe. Decoration
- * only — they carry no text and are hidden from assistive tech. `--n` is the
- * square's place in the row and `--phase` shifts the whole row, so two rules on
- * screen at once don't pulse in lockstep. styles.css turns both into delays.
- */
-function sparks(order = 0, count = 5) {
-  return el(
-    "div",
-    { class: "sparks", "aria-hidden": "true", style: `--phase: ${(order % 4) * 1.9}s` },
-    Array.from({ length: count }, (_, index) =>
-      el("span", { class: "spark", style: `--n: ${index}` })
-    )
-  );
-}
-
-function sectionShell(id, heading, note, order = 0) {
+function sectionShell(id, heading, note) {
   const section = el("section", { class: "section", id }, [
-    sparks(order),
     el("div", { class: "wrap" }, [
       el("div", { class: "section__head" }, [
         heading.index ? el("span", { class: "section__num", text: heading.index }) : null,
@@ -599,8 +582,7 @@ export function renderSections(host, data) {
     const { section, body } = sectionShell(
       spec.id,
       { title: spec.heading, index: String(built.length + 1).padStart(2, "0") },
-      spec.note,
-      built.length
+      spec.note
     );
     body.append(content);
     built.push({ spec, section });

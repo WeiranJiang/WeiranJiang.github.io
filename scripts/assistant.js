@@ -391,11 +391,13 @@ export function mountAssistant(root, data) {
       history.push({ role: "assistant", content: result.text });
     } catch (error) {
       pending.remove();
+      /* Nothing to add when the failure won't clear by retrying — the Worker's
+         own message already says everything useful. */
       const advice =
         error.retryable === false
-          ? "Until then, the sections on the page have everything it would have quoted."
-          : "Nothing was lost — try again in a moment, or read the section directly. If it keeps failing, the assistant service is probably down.";
-      addMessage("error", `${error.message || "Something went wrong."} ${advice}`);
+          ? ""
+          : " Nothing was lost — try again in a moment, or read the section directly. If it keeps failing, the assistant service is probably down.";
+      addMessage("error", `${error.message || "Something went wrong."}${advice}`);
     } finally {
       busy = false;
       sendButton.disabled = false;

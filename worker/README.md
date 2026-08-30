@@ -112,5 +112,8 @@ ignore client-supplied passages entirely.
 
 The Worker stores nothing: no database, no logs of question text (only error
 diagnostics go to `wrangler tail`). Questions and the matched passages are sent to
-Google's Gemini API to write the answer. That's stated in the panel's footer, where
-visitors can see it before they type.
+Google's Gemini API to write the answer.
+
+The panel's footer says the assistant answers only from the page and can be
+wrong. It no longer names Gemini — worth knowing if you ever want visitors told
+where their questions go before they type.

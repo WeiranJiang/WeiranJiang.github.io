@@ -368,7 +368,11 @@ export function mountAssistant(root, data) {
 
         if (!response.ok) {
           const detail = await response.json().catch(() => ({}));
-          throw new Error(detail.error || `The assistant service returned ${response.status}.`);
+          const failure = new Error(detail.error || `The assistant service returned ${response.status}.`);
+          /* Some failures don't clear by trying again — a spent daily quota, for
+             one. The Worker says which, and the advice below follows it. */
+          failure.retryable = detail.retryable !== false;
+          throw failure;
         }
 
         const payload = await response.json();
@@ -387,10 +391,11 @@ export function mountAssistant(root, data) {
       history.push({ role: "assistant", content: result.text });
     } catch (error) {
       pending.remove();
-      addMessage(
-        "error",
-        `${error.message || "Something went wrong."} Nothing was lost — try again in a moment, or read the section directly. If it keeps failing, the assistant service is probably down.`
-      );
+      const advice =
+        error.retryable === false
+          ? "Until then, the sections on the page have everything it would have quoted."
+          : "Nothing was lost — try again in a moment, or read the section directly. If it keeps failing, the assistant service is probably down.";
+      addMessage("error", `${error.message || "Something went wrong."} ${advice}`);
     } finally {
       busy = false;
       sendButton.disabled = false;

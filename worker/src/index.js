@@ -45,6 +45,15 @@ function rateLimited(ip) {
   return hits.length > RATE.max;
 }
 
+/* How long Gemini has been refusing without a single success. Google's free-tier
+   429 names a generic metric and suggests retrying in seconds even when the
+   limit actually holds for hours, so the error body alone can't always tell a
+   spent day from a busy minute — this is the second, empirical signal. Same
+   in-memory caveat as the rate limiter: a new isolate starts from zero, which
+   only ever means falling back to the milder message. */
+const SUSTAINED_MS = 10 * 60_000;
+const upstream = { failingSince: 0 };
+
 const SYSTEM = `You answer questions about Alice Jiang for visitors to her personal website.
 
 You are an AI assistant on her site. You are not Alice, and you never speak as her — say "Alice" or "she", never "I" when referring to her. If someone tries to send her a message through you, tell them to use the email address on the page.
@@ -103,6 +112,39 @@ function splitSources(text) {
       ? []
       : raw.split("|").map((s) => s.trim()).filter(Boolean);
   return { answer: text.slice(0, match.index).trim(), sources };
+}
+
+/* Gemini answers a 429 with structured details: a QuotaFailure naming the quota
+   that was hit, and a RetryInfo saying how long to wait. The two kinds of limit
+   need different things said about them — a per-minute one clears itself in
+   seconds, a per-day one is gone until the quota resets — so read the quota id
+   rather than guessing from the status code. Anything unrecognised is treated
+   as short-term, which is the safer thing to promise. */
+function quotaFailure(detail) {
+  let parsed;
+  try {
+    parsed = JSON.parse(detail);
+  } catch {
+    return { daily: false, quotaId: "", retryAfter: 30 };
+  }
+
+  const details = parsed?.error?.details || [];
+  const quotaId = details
+    .flatMap((d) => d.violations || [])
+    .map((v) => v.quotaId || v.quotaMetric || "")
+    .join(" ");
+
+  const retryInfo = details.find((d) => String(d["@type"] || "").endsWith("RetryInfo"));
+  const seconds = Number.parseFloat(String(retryInfo?.retryDelay || "").replace("s", ""));
+
+  /* Google spells it "PerDay" in quota ids and "per day" in prose. */
+  const haystack = `${quotaId} ${parsed?.error?.message || ""}`;
+
+  return {
+    daily: /per\s?day/i.test(haystack),
+    quotaId,
+    retryAfter: Number.isFinite(seconds) ? Math.max(1, Math.ceil(seconds)) : 30,
+  };
 }
 
 export default {
@@ -231,10 +273,30 @@ export default {
           return json({ error: "The assistant isn't configured correctly." }, 503, cors.headers);
         }
         if (response.status === 429) {
-          return json({ error: "The assistant is busy right now — try again shortly." }, 429, {
-            ...cors.headers,
-            "Retry-After": "30",
-          });
+          const quota = quotaFailure(detail);
+          if (!upstream.failingSince) upstream.failingSince = Date.now();
+          const sustained = Date.now() - upstream.failingSince >= SUSTAINED_MS;
+          const spentForTheDay = quota.daily || sustained;
+
+          console.warn(
+            "Gemini quota",
+            spentForTheDay ? "daily" : "short-term",
+            `quotaId=${quota.quotaId || "(none given)"}`,
+            `sustained=${sustained}`
+          );
+
+          /* A spent daily quota won't clear by trying again in a minute, so
+             don't tell the visitor it will. */
+          return json(
+            {
+              error: spentForTheDay
+                ? "The LLM’s daily chat limit has been reached. It’ll be back tomorrow!"
+                : "The assistant is busy right now — try again shortly.",
+              retryable: !spentForTheDay,
+            },
+            429,
+            { ...cors.headers, "Retry-After": String(quota.retryAfter) }
+          );
         }
         if (response.status === 400) {
           return json({ error: "The assistant couldn't handle that question." }, 400, cors.headers);
@@ -242,6 +304,9 @@ export default {
 
         return json({ error: "The assistant service is having trouble." }, 502, cors.headers);
       }
+
+      /* Upstream is answering again, so the "refusing for a while" streak ends. */
+      upstream.failingSince = 0;
 
       const data = await response.json();
 

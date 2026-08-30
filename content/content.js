@@ -124,6 +124,18 @@ export const experience = [
     ],
   },
   {
+    id: "mt-summer-institute",
+    role: "Application Reader",
+    org: "M&T Summer Institute",
+    date: "Feb 2026 — Apr 2026",
+    place: "Philadelphia, PA",
+    summary: "Read 86 applications for the M&T Summer Institute.",
+    points: [
+      "Read 86 applications (essays, recommendation letters, transcripts, extracurriculars) for the M&T Summer Institute.",
+      "Rated essays, recommendation letters, transcripts, and extracurriculars to be used for final review.",
+    ],
+  },
+  {
     id: "applebees",
     role: "Host, part-time",
     org: "Applebee’s Neighborhood Grill + Bar",

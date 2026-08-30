@@ -28,6 +28,7 @@
   --shadow-near: rgba(0, 0, 0, 0.04);
   --shadow-far: rgba(0, 0, 0, 0.07);
   --pa-hair: #17161c;    /* the character's hair — see scripts/character.js */
+  --plum: #7c5bc0;       /* the one accent, and only on the divider squares */
 
   --measure: 1080px;
   --gutter: clamp(20px, 5vw, 48px);
@@ -62,6 +63,7 @@
   --shadow-near: rgba(0, 0, 0, 0.5);
   --shadow-far: rgba(0, 0, 0, 0.55);
   --pa-hair: #3d3a46;
+  --plum: #a58ae6;
 }
 
 *,
@@ -422,6 +424,7 @@ button:focus-visible,
    -------------------------------------------------------------------------- */
 
 .section {
+  position: relative;   /* the divider squares hang off the top rule */
   border-top: 1px solid var(--line);
   padding-top: 22px;
   padding-bottom: clamp(44px, 6vw, 76px);
@@ -467,6 +470,79 @@ button:focus-visible,
   color: var(--muted);
   max-width: 44em;
   margin-top: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   Divider squares
+
+   A short run of plum squares sitting astride the rule that opens each section,
+   breathing in and out on staggered timings so the row reads as a slow wave
+   rather than a blink. Purely decorative: aria-hidden, out of the flow, and
+   nothing else on the page borrows the colour.
+
+   They are laid out on the same grid as the section heading — page gutter plus
+   the reading-line inset — so the first square lines up under the section
+   number. Under prefers-reduced-motion the rule at the foot of this file stops
+   the animation and leaves a still row of faint squares, which is the resting
+   state anyway.
+   -------------------------------------------------------------------------- */
+
+.sparks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: calc(var(--gutter) + var(--tl-gutter));
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 8px;
+  /* Half the box, plus half the rule, puts the row's centre on the line. */
+  transform: translateY(calc(-50% - 0.5px));
+  pointer-events: none;
+}
+
+.spark {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 1.5px;
+  background: var(--plum);
+  opacity: 0.14;
+  transform: translateY(1px) scale(0.62);
+  animation: spark-breathe 7.5s ease-in-out infinite;
+  /* Both set in scripts/render.js: --n is the square's place in its row, so each
+     one comes up a beat after the last; --phase offsets the row as a whole, so
+     two rules in the same viewport aren't pulsing together. */
+  animation-delay: calc(var(--n, 0) * 0.62s + var(--phase, 0s));
+}
+
+/* The run tapers off to the right so it fades into the rule rather than
+   stopping dead. */
+.spark:nth-child(4) {
+  width: 5px;
+  height: 5px;
+}
+
+.spark:nth-child(5) {
+  width: 4px;
+  height: 4px;
+}
+
+@keyframes spark-breathe {
+  0%,
+  100% {
+    opacity: 0.13;
+    transform: translateY(1px) scale(0.6);
+  }
+
+  45% {
+    opacity: 0.72;
+    transform: translateY(-1px) scale(1);
+  }
 }
 
 /* --------------------------------------------------------------------------

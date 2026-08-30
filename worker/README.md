@@ -63,6 +63,34 @@ never-speak-as-Alice rule were all re-checked against the live API afterwards an
 were unaffected. Raise it if you ever ask the assistant to do something that
 genuinely needs reasoning.
 
+## When the quota runs out
+
+The free tier is small, and a long testing session will empty it. When that
+happens the visitor sees one of two messages, and the difference matters:
+
+- **"The assistant is busy right now — try again shortly."** A short-term limit.
+  It really does clear in seconds.
+- **"The LLM's daily chat limit has been reached. It'll be back tomorrow!"** The
+  day's allowance is gone. The panel drops its "try again in a moment" advice in
+  this case and points at the page instead.
+
+Telling the two apart is harder than it should be. Google's free-tier 429 names a
+generic metric (`generate_content_free_tier_requests`) and suggests retrying in
+about twenty seconds, even when the limit in fact holds for hours — so the Worker
+uses two signals. First the structured `QuotaFailure` in the error body: a
+`quotaId` containing "PerDay" is conclusive. Failing that, how long upstream has
+been refusing without a single success — ten unbroken minutes is taken as the
+day being spent. That second signal is in-memory per isolate, so a fresh isolate
+starts from zero; the only cost of getting it wrong is showing the milder
+message.
+
+Every 429 logs `Gemini quota daily|short-term quotaId=… sustained=…` to
+`wrangler tail`, which is the fastest way to see which limit you actually hit.
+
+If you hit the ceiling often, enable billing on the key's project in
+[AI Studio](https://aistudio.google.com/apikey) — the paid tier's limits are far
+higher and Flash is cheap at this volume.
+
 ## Cost and abuse
 
 The endpoint is public, so it is bounded on several axes:

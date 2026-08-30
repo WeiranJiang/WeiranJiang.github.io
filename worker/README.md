@@ -74,15 +74,26 @@ happens the visitor sees one of two messages, and the difference matters:
   day's allowance is gone. The panel drops its "try again in a moment" advice in
   this case and points at the page instead.
 
-Telling the two apart is harder than it should be. Google's free-tier 429 names a
-generic metric (`generate_content_free_tier_requests`) and suggests retrying in
-about twenty seconds, even when the limit in fact holds for hours — so the Worker
-uses two signals. First the structured `QuotaFailure` in the error body: a
-`quotaId` containing "PerDay" is conclusive. Failing that, how long upstream has
-been refusing without a single success — ten unbroken minutes is taken as the
-day being spent. That second signal is in-memory per isolate, so a fresh isolate
-starts from zero; the only cost of getting it wrong is showing the milder
-message.
+Telling the two apart is harder than it should be, because the readable part of
+Google's 429 is actively misleading. It says:
+
+    Quota exceeded for metric:
+    generativelanguage.googleapis.com/generate_content_free_tier_requests,
+    limit: 20 ... Please retry in 17.4s
+
+which reads like twenty requests a minute. It isn't. The structured
+`QuotaFailure` alongside it names the real quota —
+`GenerateRequestsPerDayPerProjectPerModel-FreeTier` — so **the free tier is
+twenty requests per day**, and that "retry in 17s" is worthless. Confirmed
+against the live API on 29 Aug 2026.
+
+So the Worker reads the `quotaId` first: "PerDay" in it is conclusive. Failing
+that, it falls back to how long upstream has been refusing without a single
+success — ten unbroken minutes is taken as the day being spent. That fallback is
+in-memory per isolate, so a fresh isolate starts from zero; the only cost of
+getting it wrong is showing the milder message.
+
+Twenty a day is not much. A handful of curious visitors will exhaust it.
 
 Every 429 logs `Gemini quota daily|short-term quotaId=… sustained=…` to
 `wrangler tail`, which is the fastest way to see which limit you actually hit.

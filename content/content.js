@@ -81,7 +81,7 @@ export const experience = [
     id: "arbor-lake-capital",
     role: "Investment Banking Summer Analyst",
     org: "Arbor Lake Capital",
-    date: "May 2026 — Present",
+    date: "May 2026 -- Present",
     place: "Ann Arbor, MI",
     summary:
       "Sell-side and buy-side work for middle-market clients, with a focus on cross border M&A.",
@@ -96,7 +96,7 @@ export const experience = [
     id: "hologlitterpacks",
     role: "Founder",
     org: "HoloGlitterPacks",
-    date: "Aug 2020 — Jan 2026",
+    date: "Aug 2020 -- Jan 2026",
     place: "Ann Arbor, MI",
     summary:
       "An e-commerce business I started in middle school and ran through my first year of college.",
@@ -116,7 +116,7 @@ export const experience = [
     id: "penn-sfcu",
     role: "Operations Committee",
     org: "University of Pennsylvania Student Federal Credit Union",
-    date: "Feb 2026 — May 2026",
+    date: "Feb 2026 -- May 2026",
     place: "Philadelphia, PA",
     summary: "Day-to-day operations for a $6M AUM student-run financial institution.",
     points: [
@@ -127,7 +127,7 @@ export const experience = [
     id: "mt-summer-institute",
     role: "Application Reader",
     org: "M&T Summer Institute",
-    date: "Feb 2026 — Apr 2026",
+    date: "Feb 2026 -- Apr 2026",
     place: "Philadelphia, PA",
     summary: "Read 86 applications for the M&T Summer Institute.",
     points: [
@@ -139,7 +139,7 @@ export const experience = [
     id: "applebees",
     role: "Host, part-time",
     org: "Applebee’s Neighborhood Grill + Bar",
-    date: "Aug 2024 — Jun 2025",
+    date: "Aug 2024 -- Jun 2025",
     place: "Ann Arbor, MI",
     summary: "Talked to a lot of cool people and levelled up at folding kid menus.",
   },
@@ -160,7 +160,7 @@ export const atPenn = [
     website: "https://whartonentrepreneurship.org/",
     role: "Co-President, VC Committee Member",
     org: "Wharton Undergraduate Entrepreneurship Club",
-    date: "Oct 2025 — Present",
+    date: "Oct 2025 -- Present",
     place: "Philadelphia, PA",
     summary:
       "WUEC runs Penn’s undergraduate entrepreneurship programming — conferences, treks, and pitch competitions.",
@@ -193,7 +193,7 @@ export const atPenn = [
     website: "https://mtinnovationfund.com/",
     role: "Team Member",
     org: "Management and Technology Innovation Fund",
-    date: "Oct 2025 — Present",
+    date: "Oct 2025 -- Present",
     place: "Philadelphia, PA",
     summary:
       "MTIF invests in student-founded companies at Penn and supports them afterwards.",
@@ -208,7 +208,7 @@ export const atPenn = [
     website: "https://www.mosocapital.org/",
     role: "Investment Analyst, Comma Capital Team",
     org: "Moso Capital",
-    date: "Feb 2026 — Present",
+    date: "Feb 2026 -- Present",
     place: "Philadelphia, PA",
     summary:
       "A student investment team backing early-stage companies, with a Penn founder pipeline behind it.",
@@ -230,7 +230,7 @@ export const atPenn = [
     website: "https://www.whartonfinanceclub.com/",
     role: "Committee Member",
     org: "Wharton Undergraduate Finance Club",
-    date: "Oct 2025 — Present",
+    date: "Oct 2025 -- Present",
     place: "Philadelphia, PA",
     summary: "Wharton's undergraduate finance club — markets coverage and company analysis.",
     points: [
@@ -243,7 +243,7 @@ export const atPenn = [
     website: "https://whartonhedgefundclub.com/",
     role: "Committee Member",
     org: "Wharton Hedge Fund Club",
-    date: "Oct 2025 — Present",
+    date: "Oct 2025 -- Present",
     place: "Philadelphia, PA",
     summary: "The hedge fund club, covering the same markets work from the long/short side.",
     points: [
@@ -285,7 +285,7 @@ export const work = [
     id: "solostep",
     name: "SoloStep",
     kind: "EMUiNVENT InvenTeam — Co-Team Lead & Community Outreach Lead",
-    date: "2023 — 2024",
+    date: "2023 -- 2024",
     place: "Ypsilanti, MI",
     summary:
       "A working, life-size mobility device for seniors, built with a Lemelson-MIT InvenTeam grant. Received a provisional patent and presented at MIT.",

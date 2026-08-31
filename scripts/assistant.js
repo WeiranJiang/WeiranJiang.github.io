@@ -4,6 +4,10 @@
  * How it works
  *   1. The knowledge base is built from content/content.js at load, so the
  *      assistant can only ever talk about what is already published on this page.
+ *      A few facts are worked out from it rather than published — today's date,
+ *      her year of school, which roles are still running — so that questions a
+ *      step to the side of the page ("what year is she in?") have something to
+ *      land on. See "derived facts" below.
  *   2. The question is matched against those passages locally, and the best few
  *      are sent to a Cloudflare Worker along with the question.
  *   3. The Worker holds the Gemini API key and asks the model to answer using
@@ -44,12 +48,141 @@ function passage(title, href, section, parts, keywords = "") {
   return text ? { title, href, section, text, keywords } : null;
 }
 
+/* ---------------- derived facts ----------------
+
+   The site states facts. Visitors ask things one step to the side of them —
+   "what year is she in", "is she still there", "how long did that run" — and
+   the answer is arithmetic over what's already published rather than anything
+   new. Doing that arithmetic here, in the browser, means it is right by
+   construction instead of being left to the model to work out; the model is
+   then only asked to read the result and say it in a sentence.
+
+   The result is an ordinary passage, and it rides along with every question, so
+   the assistant always knows what today is even when the question didn't look
+   like it was about time. */
+
+/* Named years only make sense for a four-year degree; anything else counts. */
+const YEAR_NAMES = ["first-year", "sophomore", "junior", "senior"];
+const ORDINALS = ["first", "second", "third", "fourth", "fifth", "sixth"];
+const COUNTS = { 3: "three", 4: "four", 5: "five", 6: "six" };
+
+const ordinal = (n) => ORDINALS[n - 1] || `${n}th`;
+
+/**
+ * Which year of a degree someone is in, from the year they finish and how long
+ * the programme runs. No start date needed — the two together imply it.
+ *
+ * A US academic year runs August to May. June and July belong to neither: over
+ * those the student has finished one year and not started the next, which is
+ * what "rising junior" means and why it is worth a case of its own.
+ *
+ * @returns {{state: "in"|"summer"|"graduated"|"before", ...}}
+ */
+export function academicStanding(gradYear, programYears = 4, today = new Date()) {
+  const month = today.getMonth();
+  const calendarYear = today.getFullYear();
+
+  /* August to December belong to the academic year that has just begun; January
+     to May to the one that began last August. */
+  const summer = month === 5 || month === 6;
+  const startYear = month >= 7 ? calendarYear : calendarYear - 1;
+
+  /* The academic year her first year began in. */
+  const firstStart = gradYear - programYears;
+  const index = startYear - firstStart + 1;
+
+  const name = (n) =>
+    programYears === 4 && YEAR_NAMES[n - 1] ? YEAR_NAMES[n - 1] : `${ordinal(n)}-year student`;
+
+  if (index < 1) return { state: "before", firstStart, gradYear };
+
+  /* In summer, `index` is the year she has just finished, not one she is in. */
+  if (summer) {
+    if (index >= programYears) return { state: "graduated", gradYear };
+    return {
+      state: "summer",
+      finished: index,
+      rising: index + 1,
+      risingName: name(index + 1),
+      gradYear,
+    };
+  }
+
+  if (index > programYears) return { state: "graduated", gradYear };
+  return { state: "in", index, name: name(index), startYear, programYears, gradYear };
+}
+
+/** Today's date, her year of school, and which roles are running — as prose. */
+function rightNowPassage(data, today = new Date()) {
+  const { site, experience = [], atPenn = [], work = [] } = data;
+  const lines = [
+    `Today's date is ${today.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })}.`,
+  ];
+
+  const study = site.study;
+  if (study && study.gradYear) {
+    const standing = academicStanding(study.gradYear, study.programYears, today);
+    if (standing.state === "in") {
+      lines.push(
+        `Alice is expected to graduate in ${standing.gradYear}, which makes her a ${standing.name} right now — her ${ordinal(standing.index)} year of ${COUNTS[standing.programYears] || standing.programYears}, in the ${standing.startYear}–${standing.startYear + 1} academic year.`
+      );
+    } else if (standing.state === "summer") {
+      lines.push(
+        `Alice is expected to graduate in ${standing.gradYear}. She finished her ${ordinal(standing.finished)} year in the spring, so over this summer she is a rising ${standing.risingName}.`
+      );
+    } else if (standing.state === "graduated") {
+      lines.push(`Alice finished her degree in ${standing.gradYear}.`);
+    }
+  }
+
+  /* "Present" in a date is what marks a role as still running — the same signal
+     the page itself shows the reader. Everything else is listed with its dates
+     rather than called finished: a bare year like "2026" doesn't say whether it
+     is over, and that is a judgement to make from the dates, not to assert. */
+  const all = [...experience, ...atPenn, ...work];
+  const running = all.filter((item) => /present/i.test(item.date || ""));
+  const rest = all.filter((item) => item.date && !/present/i.test(item.date));
+
+  if (running.length) {
+    lines.push(
+      `Roles she holds right now, which the site marks as running to the present: ${running
+        .map((i) => `${i.role || i.kind || "involved"} at ${i.org || i.name}`)
+        .join("; ")}.`
+    );
+  }
+  if (rest.length) {
+    lines.push(
+      `Everything else, with the dates the site gives: ${rest
+        .map((i) => `${i.org || i.name} (${i.date})`)
+        .join("; ")}.`
+    );
+  }
+
+  const built = passage(
+    "Where Alice is right now",
+    `${HOME}#intro`,
+    "Introduction",
+    lines,
+    "year school grade class standing freshman first-year sophomore junior senior undergrad undergraduate graduate graduation today date now current currently still age semester rising long since old"
+  );
+  /* Pinned: sent with every question, whatever the question was about. */
+  if (built) built.pinned = true;
+  return built;
+}
+
 export function buildKnowledge(data) {
   const { site, intro, experience, atPenn, work, about, press } = data;
   const education = data.education || [];
   const highSchool = data.highSchool || [];
   const awards = data.awards || [];
   const out = [];
+
+  /* Worked out rather than published — see above. */
+  out.push(rightNowPassage(data));
 
   out.push(
     passage(
@@ -174,6 +307,20 @@ function retrieve(knowledge, question, limit = MAX_PASSAGES) {
     .map((row) => row.item);
 }
 
+/**
+ * What actually gets sent. Retrieval decides what's relevant, but the derived
+ * facts go along regardless: the model needs today's date to reason about "now",
+ * and a question like "is she still doing that?" carries no word that would ever
+ * match the passage holding the answer.
+ *
+ * Retrieval itself is left alone, so local mode can still tell a question it
+ * knows nothing about from one it does.
+ */
+function withDerived(knowledge, matches) {
+  const pinned = knowledge.filter((item) => item.pinned && !matches.includes(item));
+  return [...pinned, ...matches];
+}
+
 /* ---------------- local (no-backend) answering ---------------- */
 
 function localAnswer(matches, question) {
@@ -201,6 +348,7 @@ function localAnswer(matches, question) {
 
 const SUGGESTIONS = [
   "What is Alice working on right now?",
+  "What year of school is she in?",
   "Tell me about SlimeTime.",
   "What does she do at Penn?",
   "How do I get in touch?",
@@ -362,7 +510,11 @@ export function mountAssistant(root, data) {
           body: JSON.stringify({
             question: trimmed,
             history: history.slice(-MAX_HISTORY),
-            passages: matches.map((m) => ({ title: m.title, section: m.section, text: m.text })),
+            passages: withDerived(knowledge, matches).map((m) => ({
+              title: m.title,
+              section: m.section,
+              text: m.text,
+            })),
           }),
         });
 

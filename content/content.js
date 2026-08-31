@@ -22,6 +22,14 @@ export const site = {
     "Alice Jiang is a Jerome Fisher M&T student at the University of Pennsylvania studying finance and computer science, interested in investment banking and early-stage venture, and building small software projects on the side.",
   email: "wajiang@wharton.upenn.edu",
   location: "Philadelphia, PA",
+
+  /* The assistant works out what year of school she is in from these, rather
+     than being told — see `academicStanding` in scripts/assistant.js. Keep them
+     in step with the "Studying" rows in the sidebar above. */
+  study: {
+    gradYear: 2029,
+    programYears: 4,
+  },
 };
 
 /* ---------------------------------------------------------------------------

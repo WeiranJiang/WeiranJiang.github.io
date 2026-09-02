@@ -41,13 +41,44 @@ the site falls back to local mode on its own.
 
 The browser builds a knowledge base from `content/content.js` — the same data
 that renders the page — matches the question against it, and sends only the best
-few passages. The Worker's system prompt allows the model to use nothing else,
-tells it to say when the site doesn't cover something, and forbids it from
-speaking as Alice. It lists the passage titles it used, and the site turns those
-into links to the relevant section.
+few passages. The Worker adds whichever of Alice's own notes the question calls
+for (below), and its system prompt allows the model to use nothing but those two
+things. The prompt also tells it to say when it doesn't have something, and
+forbids it from speaking as Alice. It lists the passage titles it used, and the
+site turns those into links to the relevant section.
 
-That means the assistant can only ever repeat published content. Anything you
-don't want it to say, don't put in `content/content.js`.
+So the assistant can only ever repeat published content or a written note.
+Anything you don't want it to say, don't put in `content/content.js` or
+`src/aliceKnowledge.js`.
+
+## Alice's notes
+
+`src/aliceKnowledge.js` is the private half of what the assistant knows: basics,
+education, personality, favourites, hometown, work style, interests, career
+priorities, and the rules for answering a hiring question. It is organised into
+categories, and the Worker sends only the two or three a question actually
+touches — plus `employer-fit`, which rides along with everything, because a
+hiring conversation arrives in pieces and the piece naming the firm ("Goldman,
+TMT, summer analyst") contains nothing that would retrieve it.
+
+It lives in the Worker, not in `content/`, for one reason: everything in
+`content/` is rendered into the site and downloadable from it. These notes are
+never sent to a browser and there is no route that returns them. The only thing
+a visitor sees of them is an answer written out of them.
+
+To update it: edit the `facts` array of the category, then `npx wrangler deploy`.
+A push to GitHub won't do it — this is a separate deploy from the site.
+
+Several categories ship empty — feedback and personal growth, mistakes and
+lessons, long-term goals, and parts of the filled ones. That is deliberate and
+it is the safe state: an empty category is skipped before the prompt is built,
+so the assistant says it doesn't have that rather than improvising something
+plausible about a real person. Each one has a comment saying what to write.
+
+Read the file's header before adding to it. The short version: it is in a public
+git repository, so no contact details beyond what's already on the site, no
+credentials, no address, nothing about anyone else, and nothing you would not
+want said out loud to a recruiter.
 
 ## Why it answers quickly
 

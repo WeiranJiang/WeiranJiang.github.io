@@ -29,8 +29,10 @@
 import { createCharacter } from "./character.js";
 import { el, entryHref } from "./render.js";
 
-/* Anchors have to work from item.html as well as from the homepage. */
-const HOME = /\/item\.html$/.test(location.pathname) ? "index.html" : "";
+/* Anchors point at sections of the homepage, so everywhere that isn't the
+   homepage has to say so. Entry pages are `<id>.html` at the root, which looks
+   like any other page here — hence testing for home rather than for them. */
+const HOME = /\/(index\.html)?$/.test(location.pathname) ? "" : "index.html";
 
 const MAX_QUESTION = 500;
 const MAX_PASSAGES = 6;

@@ -735,6 +735,12 @@ button:focus-visible,
   color: var(--ink);
 }
 
+.card__links {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}
+
 .card__links a {
   font-family: var(--mono);
   font-size: 12px;
@@ -1708,5 +1714,57 @@ figure.shot figcaption {
   .assistant-panel,
   .site-footer {
     display: none !important;
+  }
+}
+
+/* ==========================================================================
+   Content protection
+
+   The CSS half of scripts/protect.js. The `protected` class is added by that
+   script at run time, never written into the HTML — so with JavaScript off the
+   page stays ordinary and selectable rather than becoming unusable.
+
+   `data-copyable` opts an element and its children back out. It's on the
+   contact list and the footer: an email address nobody can select is a contact
+   detail that doesn't work.
+
+   None of this stops a screenshot. Nothing on the web can.
+   ========================================================================== */
+
+.protected body {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.protected [data-copyable],
+.protected [data-copyable] *,
+.protected input,
+.protected textarea,
+.protected [contenteditable] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Long-press on iOS and Android otherwise offers Copy and Save Image. */
+.protected img,
+.protected video {
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* Printing, and Save as PDF with it, comes out blank but for one line. The
+   keyboard shortcut is caught in protect.js; this catches the menu. */
+@media print {
+  .protected body > * {
+    display: none !important;
+  }
+
+  .protected body::after {
+    content: "This page is not available in print. Read it at weiranjiang.github.io";
+    display: block;
+    font-family: var(--sans, sans-serif);
+    font-size: 12pt;
+    padding: 24pt;
   }
 }

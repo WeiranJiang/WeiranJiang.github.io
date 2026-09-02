@@ -16,6 +16,11 @@ export const site = {
   /* Shown in the header only. The page title and footer use `name`. */
   brand: "(Weiran) Alice Jiang",
   title: "Alice Jiang",
+  /* `title` is the heading on the page. This is the line a search result shows,
+     so it carries the program and the school as well as the name — that's what
+     someone searching "alice jiang m&t" is actually typing. Keep it under about
+     60 characters or Google truncates the end. */
+  metaTitle: "Alice Jiang — Jerome Fisher M&T, University of Pennsylvania",
   tagline:
     "Student at Penn in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS.",
   description:

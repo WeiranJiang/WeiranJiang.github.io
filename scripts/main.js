@@ -1,45 +1,25 @@
-/** Entry point. Wires the content data to the renderer and mounts the assistant. */
+/**
+ * The homepage.
+ *
+ * The content is already in the HTML — scripts/build/prerender.mjs put it there
+ * with the same code this calls. Rendering again on load produces the identical
+ * markup, but live: tabs that switch, a character that walks, an assistant that
+ * answers. Someone with JavaScript off, or a crawler that never runs it, keeps
+ * the built version and misses only the moving parts.
+ */
 
-import * as content from "../content/content.js";
-import { renderIntro, renderSections, renderNav, trackNav } from "./render.js";
+import { data, renderHomePage } from "./views.js";
+import { trackNav } from "./render.js";
 import { attachTimelines } from "./timeline.js";
 import { mountAssistant } from "./assistant.js";
+import { protectPage } from "./protect.js";
 
-const data = {
-  site: content.site,
-  intro: content.intro,
-  experience: content.experience,
-  atPenn: content.atPenn,
-  work: content.work,
-  education: content.education,
-  highSchool: content.highSchool,
-  alsoDid: content.alsoDid,
-  summerPrograms: content.summerPrograms,
-  awards: content.awards,
-  about: content.about,
-  press: content.press,
-  sections: content.sections,
-};
+const published = renderHomePage();
 
-document.title = data.site.name;
-const brand = document.querySelector(".brand");
-if (brand) brand.textContent = data.site.brand || data.site.name;
-
-const footerNote = document.getElementById("footer-note");
-if (footerNote) footerNote.textContent = `${data.site.name} · ${new Date().getFullYear()}`;
-
-renderIntro(document.getElementById("intro"), data);
-
-const published = renderSections(document.getElementById("sections"), data);
-const nav = document.getElementById("site-nav");
-/* The nav carries the published sections plus any page links (Archive). */
-const publishedIds = new Set(published.map((spec) => spec.id));
-const navSpecs = data.sections.filter((spec) => spec.href || publishedIds.has(spec.id));
-
-renderNav(nav, navSpecs);
-trackNav(nav, published);
+trackNav(document.getElementById("site-nav"), published);
 
 /* One reading line per entry list — Experience, At Penn, Selected work. */
 attachTimelines(".entries");
 
 mountAssistant(document.getElementById("assistant-root"), data);
+protectPage();

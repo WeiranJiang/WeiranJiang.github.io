@@ -193,6 +193,11 @@ export const atPenn = [
         alt: "Poster for the WUEC NY VC Trek on April 3rd, listing visits to Primary Ventures, a16z, M13, and Picus Capital",
         caption: "The sign-up poster.",
       },
+      {
+        src: "assets/images/moso-capital-penn.png",
+        alt: "WUEC members together on the New York career trek",
+        caption: "WUEC NY Career Trek",
+      },
     ],
   },
   {
@@ -223,13 +228,6 @@ export const atPenn = [
     points: [
       "Evaluated 15 startups on business model, market opportunity, and competitive positioning.",
       "Helped build a Penn founder pipeline by identifying student-led ventures and tracking investment opportunities.",
-    ],
-    images: [
-      {
-        src: "assets/images/moso-capital-penn.png",
-        alt: "Moso Capital team at Penn",
-        caption: "NY Career Trek for Moso Capital.",
-      },
     ],
   },
   {
@@ -270,8 +268,7 @@ export const work = [
     name: "SlimeTime",
     kind: "Personal project",
     date: "2026",
-    summary:
-      "A study tracker that turns focus hours into a small creature you look after.",
+    summary: "A personal gamified study tracker for passive logging.",
     body: [
       "SlimeTime is a google chrome extension progress tracker. It has a stopwatch, a countdown, and a task list. It allows for passive tracking by reading through google calendar events and logging study time that way as well.",
       "The other half is the part that makes me open it: Focus time earns Dewdrops, Dewdrops buy items in a shop, and items feed attribute XP which level up a slime with a class and an adventurer rank.",
@@ -321,7 +318,7 @@ export const work = [
       {
         src: "assets/images/emuinvent-team-2.jpg",
         alt: "EMUiNVENT team members standing together after a build session with the mobility device",
-        caption: "Photo with the EMUiNVENT team.",
+        caption: "Playing with dishes.",
       },
       {
         src: "assets/images/MIT3.jpg",
@@ -342,10 +339,9 @@ export const work = [
  * of the homepage. Everything from before Penn lives here.
  * ------------------------------------------------------------------------ */
 
+/* `intro` is optional — without one the page opens straight into the entries. */
 export const archivePage = {
   heading: "Archive",
-  intro:
-    "Saline High School, 2021 to 2025, and the summers around it. Kept here rather than on the front page — it\u2019s a record, not a pitch.",
 };
 
 /* Schools and coursework. */
@@ -398,11 +394,6 @@ export const highSchool = [
         src: "assets/images/bridge2.png",
         alt: "Hand-drawn top, side, and bottom views of a bridge with dimensions and member sizes",
         caption: "Plans for a 47 \u00d7 14 cm build, drawn before cutting anything.",
-      },
-      {
-        src: "assets/images/bridge7.JPG",
-        alt: "Alice at a workbench covered in balsa, holding a partly built bridge",
-        caption: "The workbench, mid-build.",
       },
       {
         src: "assets/img/bridge-load-test.jpg",

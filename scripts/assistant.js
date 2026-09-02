@@ -11,8 +11,12 @@
  *   2. The question is matched against those passages locally, and the best few
  *      are sent to a Cloudflare Worker along with the question.
  *   3. The Worker holds the Gemini API key and asks the model to answer using
- *      only those passages. No key is ever present in the browser.
- *   4. The passages used are shown under the answer as links into the page.
+ *      only those passages, plus — on questions that call for them — a few of
+ *      Alice's own notes, which live in the Worker and never come near the
+ *      browser (worker/src/aliceKnowledge.js). No key is ever present here.
+ *   4. The passages used are shown under the answer as links into the page. An
+ *      answer written out of the notes has no section to point at, and shows
+ *      no links rather than the nearest guess.
  *
  * With no Worker configured (window.ALICE_CONFIG.assistantEndpoint === ""), it
  * runs in local mode: it still answers from the same passages, but by quoting
@@ -444,7 +448,7 @@ export function mountAssistant(root, data) {
         class: "assistant-foot",
         id: "assistant-disclaimer",
         text:
-          "The AI assistant answers only from what’s published on this page and can still be wrong.",
+          "The AI assistant answers from what’s published on this page and can still be wrong.",
       }),
     ]
   );
@@ -530,10 +534,21 @@ export function mountAssistant(root, data) {
         const payload = await response.json();
         if (!payload.answer) throw new Error("The assistant service sent an empty answer.");
 
+        /* The answer names the passages it used. An empty list is only worth
+           believing when the backend says the model actually gave one: not
+           every answer comes off the page — the Worker holds notes of Alice's
+           own that have no section to link to — and "nothing on the page"
+           should show no links rather than the nearest three. Without a list at
+           all, the old guess is still the best available. */
         const cited = new Set((payload.sources || []).map(String));
+        const listed = payload.cited === true;
         result = {
           text: payload.answer,
-          sources: cited.size ? matches.filter((m) => cited.has(m.title)) : matches.slice(0, 3),
+          sources: cited.size
+            ? matches.filter((m) => cited.has(m.title))
+            : listed
+              ? []
+              : matches.slice(0, 3),
         };
       }
 

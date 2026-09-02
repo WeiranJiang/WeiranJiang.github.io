@@ -274,9 +274,15 @@ videos in the same array.
 enable written answers; leave it blank and the assistant quotes the page instead
 and says so. Set `assistantEnabled: false` to remove it entirely.
 
-The assistant reads `content/content.js` and nothing else, so it can only repeat
-what's published here. **If you don't want it said, don't put it in
-`content.js`.** Deployment and cost notes are in `worker/README.md`.
+The assistant reads `content/content.js`, so it can repeat anything published
+here. **If you don't want it said, don't put it in `content.js`.**
+
+It also reads a second, private file that isn't part of the site:
+`worker/src/aliceKnowledge.js`, Alice's own notes about herself — hometown,
+favourites, how she works, how to answer a recruiter. Those live in the Worker
+so they're never downloadable from the page, and they only change when the
+Worker is redeployed. Both files, and the deployment and cost notes, are covered
+in `worker/README.md`.
 
 ## Stock pitches
 

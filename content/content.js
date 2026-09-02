@@ -28,6 +28,21 @@ export const site = {
   email: "wajiang@wharton.upenn.edu",
   location: "Philadelphia, PA",
 
+  /* What the site shows she works on. This goes into the schema.org Person the
+     build writes, which is part of how a search engine decides what this site
+     is about and whose it is.
+     Only list something the entries below actually evidence — it's a claim, and
+     an unsupported one helps nothing. */
+  knowsAbout: [
+    "Finance",
+    "Computer Science",
+    "Investment Banking",
+    "Mergers and Acquisitions",
+    "Venture Capital",
+    "Financial Modeling",
+    "E-commerce",
+  ],
+
   /* The assistant works out what year of school she is in from these, rather
      than being told — see `academicStanding` in scripts/assistant.js. Keep them
      in step with the "Studying" rows in the sidebar above. */
@@ -660,8 +675,10 @@ export const about = {
     "Outside of that, I enjoy kayaking when the weather allows, tennis and piano since I was small, thrifting, doodling, baking, and 3D wooden puzzles to relax.",
   ],
   portrait: {
+    /* The alt names her, because this is the picture image search returns for
+       "Alice Jiang" and the alt is most of what it has to go on. */
     src: "assets/img/portrait.jpg",
-    alt: "Alice in Florida",
+    alt: "Alice Jiang, photographed in Florida",
   },
   /* Photos shown under the About text. */
   media: [

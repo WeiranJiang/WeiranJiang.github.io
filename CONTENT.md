@@ -377,13 +377,26 @@ Three things do the work, and all three come out of `content.js`:
   the school as well as the name, because "alice jiang m&t" is what people type.
   Keep it under about 60 characters or Google cuts the end off.
 - `site.description` — the grey line underneath it.
-- The `schema.org` Person block the build writes into the homepage. It's how you
-  say that Alice Jiang, Weiran Jiang, M&T, Penn, that GitHub account and that
-  LinkedIn are all one person rather than six unrelated words. It's assembled
-  from `site`, `education`, `atPenn`, and the external links under `intro.links`
-  — so adding a profile link to the introduction also tells Google about it.
+- `site.knowsAbout` — the subjects the site shows you work on. Only add one the
+  entries actually evidence; it's a claim, and an unsupported claim helps
+  nothing.
+- The `schema.org` block the build writes into the homepage. It's how you say
+  that Alice Jiang, Weiran Jiang, M&T, UPenn, Wharton, SEAS, that GitHub account
+  and that LinkedIn are one person rather than eight unrelated words — each
+  school listed under every name someone actually types. It's assembled from
+  `site`, `education`, `atPenn`, and the external links under `intro.links`, so
+  adding a profile link to the introduction also tells Google about it.
 
 Nothing here needs maintaining. Keep `content.js` true and it stays true.
+
+Worth knowing what this can and can't do. Your name, alone or with any of Penn,
+M&T, Wharton, finance, or computer science beside it, is winnable and is what
+all of the above is for. A bare "finance" or "computer science" is not: those
+results belong to Wikipedia and universities, and no amount of work on a
+personal site changes that. Aim at the queries someone looking for *you* types.
+
+A mistyped or dead link gets `404.html`, built from the same shell as everything
+else, so it looks like the site and offers a way back into it.
 
 ## Copy protection
 

@@ -248,36 +248,58 @@ function profiles() {
 
 const current = (item) => /present/i.test(item.date || "");
 
+/**
+ * The schools, each under every name a person actually types. Someone looking
+ * for her writes "UPenn", or "Penn", or "M&T", far more often than they write
+ * "University of Pennsylvania" — and a search engine matching a query to an
+ * entity can only use the names it has been given.
+ */
+const SCHOOLS = [
+  {
+    "@type": "EducationalOrganization",
+    name: "Jerome Fisher Program in Management & Technology",
+    alternateName: ["Penn M&T", "M&T", "Jerome Fisher M&T"],
+    url: "https://fisher.wharton.upenn.edu/",
+  },
+  {
+    "@type": "CollegeOrUniversity",
+    name: "University of Pennsylvania",
+    alternateName: ["UPenn", "Penn"],
+    url: "https://www.upenn.edu/",
+  },
+  {
+    "@type": "CollegeOrUniversity",
+    name: "The Wharton School",
+    alternateName: "Wharton",
+    url: "https://www.wharton.upenn.edu/",
+  },
+  {
+    "@type": "CollegeOrUniversity",
+    name: "University of Pennsylvania School of Engineering and Applied Science",
+    alternateName: ["Penn Engineering", "SEAS"],
+    url: "https://www.seas.upenn.edu/",
+  },
+];
+
 function personSchema() {
   const job = data.experience.find(current);
 
   return {
-    "@context": "https://schema.org",
     "@type": "Person",
     "@id": `${ORIGIN}/#alice`,
     name: data.site.name,
     /* She goes by Alice and is on paper as Weiran. Both are things people type. */
     alternateName: [data.site.fullName, "Weiran Jiang"].filter(Boolean),
     url: `${ORIGIN}/`,
+    mainEntityOfPage: { "@id": `${ORIGIN}/#profile` },
     image: PORTRAIT,
     email: `mailto:${data.site.email}`,
     description: data.site.description,
     jobTitle: job ? job.role : undefined,
     worksFor: job ? { "@type": "Organization", name: job.org } : undefined,
     homeLocation: { "@type": "Place", name: data.site.location },
-    affiliation: [
-      {
-        "@type": "EducationalOrganization",
-        name: "Jerome Fisher Program in Management & Technology",
-        alternateName: "Penn M&T",
-        url: "https://fisher.wharton.upenn.edu/",
-      },
-      {
-        "@type": "CollegeOrUniversity",
-        name: "University of Pennsylvania",
-        url: "https://www.upenn.edu/",
-      },
-    ],
+    knowsAbout: data.site.knowsAbout,
+    affiliation: SCHOOLS,
     alumniOf: (data.education || []).map((school) => ({
       "@type": "EducationalOrganization",
       name: school.org,
@@ -288,6 +310,39 @@ function personSchema() {
       url: club.website || undefined,
     })),
     sameAs: profiles(),
+  };
+}
+
+/**
+ * The homepage says three things at once: here is a website, here is a profile
+ * page, here is the person it's about. Saying them as one linked graph rather
+ * than three loose blocks is what lets a search engine treat the site and the
+ * person as the same subject instead of two things that happen to share a page.
+ */
+function homeSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      personSchema(),
+      {
+        "@type": "WebSite",
+        "@id": `${ORIGIN}/#website`,
+        url: `${ORIGIN}/`,
+        name: `${data.site.name} — personal website`,
+        alternateName: [data.site.name, "Weiran Jiang", data.site.fullName].filter(Boolean),
+        inLanguage: "en",
+        about: { "@id": `${ORIGIN}/#alice` },
+        publisher: { "@id": `${ORIGIN}/#alice` },
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": `${ORIGIN}/#profile`,
+        url: `${ORIGIN}/`,
+        name: data.site.metaTitle || data.site.name,
+        isPartOf: { "@id": `${ORIGIN}/#website` },
+        mainEntity: { "@id": `${ORIGIN}/#alice` },
+      },
+    ],
   };
 }
 
@@ -338,7 +393,7 @@ async function buildHome() {
       canonical: `${ORIGIN}/`,
       image: PORTRAIT,
       ogType: "profile",
-      jsonLd: personSchema(),
+      jsonLd: homeSchema(),
     },
   });
 }
@@ -427,6 +482,41 @@ async function buildItemShim() {
   });
 }
 
+/**
+ * The page GitHub Pages serves for a URL that doesn't exist. It's the same
+ * "Nothing here" the site already had, so a mistyped or dead link lands
+ * somewhere that looks like the site and offers a way back into it.
+ *
+ * Pages serves this file at whatever address was asked for, which may be nested
+ * — so its links are rewritten to start at the root. A relative "styles.css"
+ * would otherwise be looked for next to a page that was never there.
+ */
+async function build404() {
+  await build({
+    from: "item.html",
+    to: "404.html",
+    sitemap: false,
+    render: (document) => {
+      views.renderMissingPage(document.getElementById("main"));
+
+      for (const node of document.querySelectorAll("[href], [src]")) {
+        for (const attribute of ["href", "src"]) {
+          const value = node.getAttribute(attribute);
+          if (!value || /^([a-z]+:|\/|#)/i.test(value)) continue;
+          node.setAttribute(attribute, `/${value}`);
+        }
+      }
+    },
+    head: {
+      title: `Not found — ${data.site.name}`,
+      description: `That page isn't on ${data.site.name}'s site. Everything she has published is on the homepage.`,
+      canonical: `${ORIGIN}/`,
+      image: PORTRAIT,
+      noindex: true,
+    },
+  });
+}
+
 /* ---------------------------------------------------------------------------
  * sitemap.xml
  * ------------------------------------------------------------------------ */
@@ -478,6 +568,7 @@ const entries = await buildEntries();
 await buildArchive();
 await buildPitches();
 await buildItemShim();
+await build404();
 await writeSitemap();
 
 console.log(`Built ${pages.length} pages into dist/`);

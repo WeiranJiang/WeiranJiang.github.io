@@ -2,7 +2,9 @@
 node_modules/
 .env
 *.log
-dist/
-build/
+# Anchored, both of them. Unanchored `build/` also matches scripts/build/,
+# which is the build itself and very much wanted in the repo.
+/dist/
+/build/
 .vscode/
 .idea/

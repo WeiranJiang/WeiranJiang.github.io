@@ -33,11 +33,24 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Install
+        run: npm ci
+      # Renders content/content.js into finished HTML, so the site's words are
+      # in the file a crawler downloads rather than arriving once JavaScript
+      # has run. See scripts/build/prerender.mjs.
+      - name: Build
+        run: npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: '.'
+          # Only the built site. The Worker source, the notes, and node_modules
+          # stay in the repository and off the web.
+          path: 'dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

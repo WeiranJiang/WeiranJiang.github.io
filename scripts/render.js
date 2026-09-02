@@ -38,8 +38,15 @@ export function entryId(item) {
   return item.id || slug(item.org || item.name);
 }
 
+/**
+ * Every entry has its own page, built ahead of time at `<its id>.html`.
+ *
+ * It used to be `item.html?id=<id>`, which no static host can pre-render — one
+ * file can't be two pages. `item.html` still answers that old shape and
+ * forwards, so links people saved keep working.
+ */
 export function entryHref(item) {
-  return `item.html?id=${encodeURIComponent(entryId(item))}`;
+  return `${entryId(item)}.html`;
 }
 
 const VIDEO = /\.(mp4|webm|mov|m4v)$/i;
@@ -432,16 +439,20 @@ function clubCard(item, selected) {
     [
       el("div", { class: "card__head" }, [
         el("h3", { class: "card__title", text: item.org || item.name }),
-        item.website
-          ? el("div", { class: "card__links" }, [
-              el("a", {
+        /* A club's card is the whole club, so this link isn't for the reader —
+           it's so the club's own page isn't an orphan. A page nothing links to
+           is a page search engines quietly ignore. */
+        el("div", { class: "card__links" }, [
+          el("a", { href: entryHref(item), text: "Details" }),
+          item.website
+            ? el("a", {
                 href: item.website,
                 target: "_blank",
                 rel: "noreferrer noopener",
                 text: "Website",
-              }),
-            ])
-          : null,
+              })
+            : null,
+        ]),
       ]),
       el("div", { class: "card__body" }, [
         item.summary ? el("p", { class: "card__desc", text: item.summary }) : null,

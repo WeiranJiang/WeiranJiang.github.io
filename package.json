@@ -1,0 +1,13 @@
+{
+  "name": "weiranjiang-github-io",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Alice Jiang's site. content/content.js is the only file you edit day to day.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build/prerender.mjs"
+  },
+  "devDependencies": {
+    "linkedom": "^0.18.13"
+  }
+}

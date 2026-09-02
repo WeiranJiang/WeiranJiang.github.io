@@ -4,8 +4,8 @@ Everything you'd want to change day to day is in **`content/content.js`**. It's 
 plain list of objects. Add one, and it gets the same type, spacing, and rules as
 everything else — you never have to touch the layout.
 
-Nothing else needs a build step. Edit the file, commit, push; GitHub Pages
-redeploys on its own.
+Edit the file, commit, push. GitHub Pages redeploys on its own — there's a build
+step now, but it runs up in Actions, so it isn't a thing you do.
 
 ```
 content/content.js      all the words and which photos go where
@@ -13,16 +13,20 @@ assets/img/             photos and screenshots you add
 assets/media/           videos and their poster frames
 assets/images/          older photos already in the repo
 index.html              the homepage
-item.html               the page behind every title — one file, every entry
+item.html               the shell every entry page is built from
 archive.html            everything from before Penn
 pitches.html            stock pitches
-scripts/render.js       turns content.js into the homepage
-scripts/item.js         turns content.js into the entry pages
+scripts/views.js        assembles each page — used by the browser and the build
+scripts/render.js       turns content.js into the pieces of a page
+scripts/item.js         the entry pages
 scripts/assistant.js    the Ask about Alice panel
 scripts/character.js    the pixel character (artwork only)
-scripts/config.js       assistant endpoint on/off
+scripts/config.js       assistant endpoint, and copy protection, on/off
+scripts/protect.js      makes the page awkward to copy from
 scripts/theme.js        the light / dark switch
+scripts/build/          the build — see "The build" below
 styles.css              the whole visual system
+robots.txt              tells crawlers where the sitemap is
 worker/                 the assistant's backend — see worker/README.md
 ```
 
@@ -32,12 +36,17 @@ The homepage is the short version: date, title, role, and a one-line summary.
 Every title is a link to that entry's own page, which is where the bullets,
 photos, videos, longer write-up, and press live.
 
-Those pages are all one file. `item.html?id=hologlitterpacks` looks up the entry
-whose `id` is `hologlitterpacks` and renders it. Add an entry with an `id` and
-its page exists immediately — nothing to create, nothing to link up.
+Each of those pages is written out by the build: an entry whose `id` is
+`hologlitterpacks` becomes `hologlitterpacks.html`. Add an entry with an `id`
+and its page exists on the next push — nothing to create, nothing to link up.
 
 Give every entry a short, permanent `id`. It's the URL, so changing it later
-breaks any link anyone saved.
+breaks any link anyone saved. It's also a filename, so it can't be `index`,
+`item`, `archive`, `pitches`, `robots`, `sitemap`, `styles`, or `404` — the
+build stops with an error rather than overwriting one of those.
+
+Links from before this changed, of the form `item.html?id=hologlitterpacks`,
+still work: `item.html` reads the id and forwards to the page.
 
 ## Adding an experience or a Penn activity
 
@@ -73,14 +82,16 @@ everything else shows on both.
 ## Adding a club (At Penn)
 
 At Penn is the one section laid out as tabs — one tab per club, one card each.
-Everything about a club is on its card; there's no page to click through to.
+The card says everything worth saying about a club, so you don't need to click
+through; there's a page behind it all the same, because a club nobody can link
+to is a club search engines can't find.
 
 ```js
 {
-  id: "wuec",                        // its URL fragment, e.g. index.html#wuec
+  id: "wuec",                        // the tab anchor, and its page: wuec.html
   short: "WUEC",                     // the tab label — keep it short
   org: "Wharton Undergraduate Entrepreneurship Club",  // the card heading
-  website: "https://…",              // the only link on the card; omit for none
+  website: "https://…",              // the club's own site; omit for none
   role: "Co-President",              // these three become the small pills
   date: "Oct 2025 — Present",
   place: "Philadelphia, PA",
@@ -93,6 +104,10 @@ Everything about a club is on its card; there's no page to click through to.
 Add one to `atPenn` and it becomes a new tab automatically. Order in the array
 is tab order, and the first one is selected on load. `index.html#wuec` opens
 straight onto that tab.
+
+Each card carries two small links: **Details**, which goes to the club's own
+page, and **Website**, the club's own site. Leave `website` out and only
+Details is shown.
 
 ## Adding a project
 
@@ -189,15 +204,19 @@ renders the press list at the end, as before.
 
 ### Photos still to add
 
-These entries reference files that aren't in the repo yet. Drop them in with
-exactly these names and they'll appear:
+Several entries name files that aren't in the repo yet. You don't have to keep
+a list — run `npm run build` and it prints every one of them:
 
-| Path | What it is |
-| --- | --- |
-| `assets/img/slimetime-stats.png` | SlimeTime stats page |
-| `assets/img/slimetime-home.png` | SlimeTime home / slime screen |
-| `assets/img/wuec-nyc-trek-group.jpg` | WUEC NYC trek, group outside the building |
-| `assets/img/wuec-nyc-trek-boardroom.jpg` | WUEC NYC trek, boardroom |
+```
+15 pictures named in content.js aren't in the repo, so
+they were left out of the built pages. Add the files to publish them:
+  assets/img/slimetime-stats.png
+  assets/img/wuec-nyc-trek-group.jpg
+  …
+```
+
+Drop a file in under exactly that name and it appears on the next push. Until
+then the entry is built without it, so nothing shows a broken picture.
 
 The food-drive photo has no home yet. Two articles in `press` — the Saline
 National Honor Society one and the Saline Youth Council one — aren't attached to
@@ -313,6 +332,74 @@ cleanly. The page is fully static — no backend, nothing to deploy.
 **One warning.** Anything committed to this repo is downloadable by anyone who
 guesses the URL, linked or not. Only commit a pitch PDF you're happy to have
 public; don't rely on leaving it unlinked.
+
+## The build
+
+The site renders itself from `content.js` in the browser. That's lovely to edit
+and invisible to anything that doesn't run JavaScript — what a search engine
+first downloads is an empty `<div>`, and the real page turns up on a later pass
+that can be days behind and is never promised.
+
+So `scripts/build/prerender.mjs` runs the same renderer under Node against a
+fake browser and writes finished pages into `dist/`. There's no second copy of
+the layout to keep in step: `scripts/views.js` is the only place a page is
+assembled, and it doesn't know which of the two runtimes it's in. Add an entry
+and it appears in the built HTML and in the browser without either being told.
+
+Out of it come the homepage, the archive, the pitches page, one real page per
+entry, and `sitemap.xml`, all with their titles, descriptions, and link
+previews filled in from `content.js`.
+
+GitHub Actions runs it on every push and publishes `dist/`. That also means the
+Worker source and these notes are no longer served to the web — only the built
+site is.
+
+To see it locally:
+
+```bash
+npm install     # once
+npm run build   # writes dist/
+```
+
+`dist/` is generated, ignored by git, and safe to delete.
+
+**If a push doesn't deploy, look at the Actions tab first.** A mistake in
+`content.js` now fails the build rather than reaching the site, which is the
+right way round, but it does mean a broken edit shows up as a failed run rather
+than a broken page.
+
+## Being found
+
+The point of all of the above is that someone searching your name finds you.
+Three things do the work, and all three come out of `content.js`:
+
+- `site.metaTitle` — the line a search result shows. It carries the program and
+  the school as well as the name, because "alice jiang m&t" is what people type.
+  Keep it under about 60 characters or Google cuts the end off.
+- `site.description` — the grey line underneath it.
+- The `schema.org` Person block the build writes into the homepage. It's how you
+  say that Alice Jiang, Weiran Jiang, M&T, Penn, that GitHub account and that
+  LinkedIn are all one person rather than six unrelated words. It's assembled
+  from `site`, `education`, `atPenn`, and the external links under `intro.links`
+  — so adding a profile link to the introduction also tells Google about it.
+
+Nothing here needs maintaining. Keep `content.js` true and it stays true.
+
+## Copy protection
+
+`scripts/protect.js` turns off text selection, swallows copy and cut, removes
+the right-click menu, stops pictures being dragged off, and makes printing come
+out blank. Turn it off with `protectContent: false` in `scripts/config.js`.
+
+Contact details are deliberately exempt — an email address nobody can copy is a
+contact detail that doesn't work — as is anything you can type into. Add
+`data-copyable` to anything else you want left alone.
+
+**Be clear-eyed about what it is.** It stops idle drag-select-copy and nothing
+sterner. Anyone can read View Source, and the pages are pre-rendered now, so
+every word is right there in the file — that's the point of them. And no
+website can prevent a screenshot: there is no browser API for it, and a phone
+camera pointed at the screen ends the argument anyway.
 
 ## Light and dark
 

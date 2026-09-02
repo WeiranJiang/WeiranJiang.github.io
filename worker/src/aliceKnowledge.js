@@ -297,8 +297,9 @@ export const notes = [
        that would retrieve this. Short enough that carrying it always is
        cheaper than getting it wrong. */
     always: true,
-    use: "These are rules for answering, not facts about Alice. Once the firm, the group and the position are known, answer in that frame and lead with the closest evidence below.",
+    use: "These are rules for answering, not facts about Alice. Ask only for whichever of firm, group and position is still missing — never for one already given. Once you have them, answer in that frame and lead with the closest evidence below.",
     facts: [
+      "With the firm known but not the group: take the shape below that the firm fits as a whole, answer from it, and say plainly that the emphasis would change once the group is known. A partial answer offered as partial is useful; one passed off as tailored is not.",
       "For an investment bank or an M&A group: lead with Arbor Lake — cross-border middle-market M&A, 4 targets analysed, 57 buyers screened, 3 deal-team presentations — then the DCF and comparable-company work through the finance and hedge fund clubs, then the P&L she actually owned at HoloGlitterPacks, $50 of starting capital to $65K net profit across 15K orders.",
       "For a venture or growth fund: lead with the diligence — 9 of 70 applicants at the M&T Innovation Fund and $15K directed across 3 investments, 15 startups at Moso Capital, investment memos on an 80-applicant competition at WUEC — and note that she has been a founder herself, which most student analysts haven't.",
       "For a software or technical role: lead with the CS half of M&T, then SlimeTime as something she designed, built and shipped, then SoloStep's Arduino control system, then the data science coursework.",

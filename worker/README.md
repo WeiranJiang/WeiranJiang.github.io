@@ -61,6 +61,13 @@ touches — plus `employer-fit`, which rides along with everything, because a
 hiring conversation arrives in pieces and the piece naming the firm ("Goldman,
 TMT, summer analyst") contains nothing that would retrieve it.
 
+Answering a hiring question well takes three things: the firm, the group, and
+the position. The assistant asks for whichever of them it is still missing and
+never for one already given — told "Goldman", it asks about the group and the
+position rather than repeating itself. It asks at most twice, then answers with
+what it has and says which part is still open, so a general answer is never
+passed off as a tailored one.
+
 It lives in the Worker, not in `content/`, for one reason: everything in
 `content/` is rendered into the site and downloadable from it. These notes are
 never sent to a browser and there is no route that returns them. The only thing

@@ -355,7 +355,7 @@ function localAnswer(matches, question) {
 const SUGGESTIONS = [
   "What is Alice working on right now?",
   "What year of school is she in?",
-  "Tell me about SlimeTime.",
+  "Tell me about the Chrome Extension Project.",
   "What does she do at Penn?",
   "How do I get in touch?",
 ];

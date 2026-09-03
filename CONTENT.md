@@ -144,9 +144,22 @@ gray line underneath, and is worth writing when the photo needs context.
 If a file is missing, its figure removes itself rather than showing a broken
 image, so a half-finished entry still looks finished.
 
-Some older files in `assets/images/` are HEIC photos with a `.png` name
-(`etsy1`, `etsy2`, `etsy3`, `bridge1`). No browser can display those — convert
-them to real JPEG or PNG before using them.
+Two things silently break a photo, and neither shows up until the site is live:
+
+**A name that lies about the format.** An iPhone photo saved as `.png` is usually
+still HEIC inside, and no browser but Safari will display it. Check before you
+commit, and convert if the answer isn't the format the name claims:
+
+```sh
+file assets/img/your-file.jpg          # "JPEG image data" is what you want
+sips -s format jpeg -Z 2000 in.png --out out.jpg
+```
+
+**A name that's the wrong case.** macOS treats `Photo.JPG` and `photo.jpg` as the
+same file; GitHub Pages, on Linux, does not. `src` has to match the filename
+exactly, character for character. The build checks this for you and lists
+anything that wouldn't resolve on the server, so run `npm run build` before
+pushing.
 
 ## Adding a video
 
@@ -204,24 +217,27 @@ renders the press list at the end, as before.
 
 ### Photos still to add
 
-Several entries name files that aren't in the repo yet. You don't have to keep
-a list — run `npm run build` and it prints every one of them:
+Every `src` in `content.js` now points at a file that's really in the repo, so
+the build reports nothing missing. If you add an entry before you have its photo,
+that's fine — it's built without the picture rather than with a broken one, and
+`npm run build` prints the name so it doesn't get forgotten:
 
 ```
-15 pictures named in content.js aren't in the repo, so
+1 pictures named in content.js aren't in the repo, so
 they were left out of the built pages. Add the files to publish them:
-  assets/img/slimetime-stats.png
-  assets/img/wuec-nyc-trek-group.jpg
-  …
 ```
 
-Drop a file in under exactly that name and it appears on the next push. Until
-then the entry is built without it, so nothing shows a broken picture.
+Drop the file in under exactly that name and it appears on the next push.
 
-The food-drive photo has no home yet. Two articles in `press` — the Saline
-National Honor Society one and the Saline Youth Council one — aren't attached to
-any entry, because there's no entry for them. To add one, create it in `work`
-with an `id`, set `item:` on those press rows to match, and drop the photo in.
+The entries that would most like a photo are **Chrome Extension Project** (no screenshots yet),
+**About** (`media: []` — the strip under the text appears as soon as there's
+something in it), and **WUEC**, which has the trek poster but no photos from the
+trek itself.
+
+Two articles in `press` — the Saline National Honor Society one and the Saline
+Youth Council one — aren't attached to any entry, because there's no entry for
+them. To add one, create it in `work` with an `id` and set `item:` on those press
+rows to match.
 
 ## Adding an archive entry
 

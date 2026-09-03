@@ -31,7 +31,7 @@
  */
 
 import { execFileSync } from "node:child_process";
-import { existsSync } from "node:fs";
+import { readdirSync } from "node:fs";
 import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -129,8 +129,34 @@ const { data } = views;
  */
 const absentMedia = new Set();
 
+/**
+ * Is this file really there, spelled exactly this way?
+ *
+ * The second half matters more than it sounds. macOS doesn't care about case, so
+ * a photo on disk as `Photo.JPG` and written as `photo.jpg` is found on the
+ * laptop it was edited on — and then answers 404 on GitHub Pages, which runs on
+ * Linux and does care. That failure never shows up until the site is live.
+ * Walking the path a segment at a time and matching each name against the real
+ * directory listing makes the build notice it the way the web server would.
+ */
+function existsExact(relative) {
+  const segments = relative.split("/").filter(Boolean);
+  let here = ROOT;
+  for (const segment of segments) {
+    let listing;
+    try {
+      listing = readdirSync(here);
+    } catch {
+      return false;
+    }
+    if (!listing.includes(segment)) return false;
+    here = path.join(here, segment);
+  }
+  return true;
+}
+
 const onDisk = (ref) =>
-  !ref || /^(https?:|data:)/.test(ref) || existsSync(path.join(ROOT, ref.split("?")[0]));
+  !ref || /^(https?:|data:)/.test(ref) || existsExact(ref.split("?")[0]);
 
 function pruneMissingMedia(document) {
   for (const fig of document.querySelectorAll("figure.shot")) {

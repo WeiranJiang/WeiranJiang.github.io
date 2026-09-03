@@ -109,7 +109,7 @@ export const experience = [
     id: "arbor-lake-capital",
     role: "Investment Banking Summer Analyst",
     org: "Arbor Lake Capital",
-    date: "May 2026 -- Present",
+    date: "May 2026 - Present",
     place: "Ann Arbor, MI",
     summary:
       "Sell-side and buy-side work for middle-market clients, with a focus on cross border M&A.",
@@ -124,7 +124,7 @@ export const experience = [
     id: "hologlitterpacks",
     role: "Founder",
     org: "HoloGlitterPacks",
-    date: "Aug 2020 -- Jan 2026",
+    date: "Aug 2020 - Jan 2026",
     place: "Ann Arbor, MI",
     summary:
       "An e-commerce business I started in middle school and ran through my first year of college.",
@@ -134,9 +134,24 @@ export const experience = [
     ],
     images: [
       {
-        src: "assets/images/etsy4.png",
+        src: "assets/images/hologlitterpacks-dashboard.png",
         alt: "HoloGlitterPacks seller dashboard",
         caption: "The shop dashboard.",
+      },
+      {
+        src: "assets/images/hologlitterpacks-packing.jpg",
+        alt: "Alice at a desk filling and sealing glitter packs, with sorted trays of colours in front of her",
+        caption: "Packing orders at the dining table.",
+      },
+      {
+        src: "assets/images/hologlitterpacks-inventory.jpg",
+        alt: "Nine hand-labelled bags of pastel holographic glitter laid out in two rows",
+        caption: "The colour range, weighed out and labelled.",
+      },
+      {
+        src: "assets/images/hologlitterpacks-glitter.jpg",
+        alt: "Close-up of pastel holographic glitter flakes scattered across a dark surface",
+        caption: "The product itself.",
       },
     ],
   },
@@ -144,7 +159,7 @@ export const experience = [
     id: "penn-sfcu",
     role: "Operations Committee",
     org: "University of Pennsylvania Student Federal Credit Union",
-    date: "Feb 2026 -- May 2026",
+    date: "Feb 2026 - May 2026",
     place: "Philadelphia, PA",
     summary: "Day-to-day operations for a $6M AUM student-run financial institution.",
     points: [
@@ -155,7 +170,7 @@ export const experience = [
     id: "mt-summer-institute",
     role: "Application Reader",
     org: "M&T Summer Institute",
-    date: "Feb 2026 -- Apr 2026",
+    date: "Feb 2026 - Apr 2026",
     place: "Philadelphia, PA",
     summary: "Read 86 applications for the M&T Summer Institute.",
     points: [
@@ -167,7 +182,7 @@ export const experience = [
     id: "applebees",
     role: "Host, part-time",
     org: "Applebee’s Neighborhood Grill + Bar",
-    date: "Aug 2024 -- Jun 2025",
+    date: "Aug 2024 - Jun 2025",
     place: "Ann Arbor, MI",
     summary: "Talked to a lot of cool people and levelled up at folding kid menus.",
   },
@@ -188,7 +203,7 @@ export const atPenn = [
     website: "https://whartonentrepreneurship.org/",
     role: "Co-President, VC Committee Member",
     org: "Wharton Undergraduate Entrepreneurship Club",
-    date: "Oct 2025 -- Present",
+    date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
     summary:
       "WUEC runs Penn’s undergraduate entrepreneurship programming — conferences, treks, and pitch competitions.",
@@ -199,24 +214,9 @@ export const atPenn = [
     ],
     images: [
       {
-        src: "assets/img/wuec-nyc-trek-group.jpg",
-        alt: "WUEC members standing together outside a building on the NYC venture trek",
-        caption: "Outside our last stop on the NYC trek.",
-      },
-      {
-        src: "assets/img/wuec-nyc-trek-boardroom.jpg",
-        alt: "WUEC members around a boardroom table during the NYC trek",
-        caption: "NY Career Trek - at a16z.",
-      },
-      {
-        src: "assets/img/wuec-trek-poster.jpg",
+        src: "assets/images/wuec-trek-poster.png",
         alt: "Poster for the WUEC NY VC Trek on April 3rd, listing visits to Primary Ventures, a16z, M13, and Picus Capital",
         caption: "The sign-up poster.",
-      },
-      {
-        src: "assets/images/moso-capital-penn.png",
-        alt: "WUEC members together on the New York career trek",
-        caption: "WUEC NY Career Trek",
       },
     ],
   },
@@ -226,7 +226,7 @@ export const atPenn = [
     website: "https://mtinnovationfund.com/",
     role: "Team Member",
     org: "Management and Technology Innovation Fund",
-    date: "Oct 2025 -- Present",
+    date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
     summary:
       "MTIF invests in student-founded companies at Penn and supports them afterwards.",
@@ -241,7 +241,7 @@ export const atPenn = [
     website: "https://www.mosocapital.org/",
     role: "Investment Analyst, Comma Capital Team",
     org: "Moso Capital",
-    date: "Feb 2026 -- Present",
+    date: "Feb 2026 - Present",
     place: "Philadelphia, PA",
     summary:
       "A student investment team backing early-stage companies, with a Penn founder pipeline behind it.",
@@ -256,7 +256,7 @@ export const atPenn = [
     website: "https://www.whartonfinanceclub.com/",
     role: "Committee Member",
     org: "Wharton Undergraduate Finance Club",
-    date: "Oct 2025 -- Present",
+    date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
     summary: "Wharton's undergraduate finance club — markets coverage and company analysis.",
     points: [
@@ -269,7 +269,7 @@ export const atPenn = [
     website: "https://whartonhedgefundclub.com/",
     role: "Committee Member",
     org: "Wharton Hedge Fund Club",
-    date: "Oct 2025 -- Present",
+    date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
     summary: "The hedge fund club, covering the same markets work from the long/short side.",
     points: [
@@ -284,33 +284,21 @@ export const atPenn = [
 
 export const work = [
   {
-    id: "slimetime",
-    name: "SlimeTime",
+    id: "chrome-extension-project",
+    name: "Chrome Extension Project",
     kind: "Personal project",
     date: "2026",
     summary: "A personal gamified study tracker for passive logging.",
     body: [
-      "SlimeTime is a google chrome extension progress tracker. It has a stopwatch, a countdown, and a task list. It allows for passive tracking by reading through google calendar events and logging study time that way as well.",
+      "The Chrome Extension Project is a Google Chrome extension progress tracker. It has a stopwatch, a countdown, and a task list. It allows for passive tracking by reading through Google Calendar events and logging study time that way as well.",
       "The other half is the part that makes me open it: Focus time earns Dewdrops, Dewdrops buy items in a shop, and items feed attribute XP which level up a slime with a class and an adventurer rank.",
-    ],
-    images: [
-      {
-        src: "assets/img/slimetime-stats.png",
-        alt: "SlimeTime stats page showing focus hours, study streak, weekly study map, per-subject breakdown, and a radar chart",
-        caption: "The personal stats page.",
-      },
-      {
-        src: "assets/img/slimetime-home.png",
-        alt: "SlimeTime home screen showing the slime, its level, adventurer rank, and attribute XP bars",
-        caption: "Home page.",
-      },
     ],
   },
   {
     id: "solostep",
     name: "SoloStep",
     kind: "EMUiNVENT InvenTeam — Co-Team Lead & Community Outreach Lead",
-    date: "2023 -- 2024",
+    date: "2023 - 2024",
     place: "Ypsilanti, MI",
     summary:
       "A working, life-size mobility device for seniors, built with a Lemelson-MIT InvenTeam grant. Received a provisional patent and presented at MIT.",
@@ -345,11 +333,6 @@ export const work = [
         alt: "Four members of the EMUiNVENT InvenTeam standing beside the SoloStep poster at EurekaFest",
         caption: "The EMUiNVENT InvenTeam at EurekaFest, MIT.",
       },
-      {
-        src: "assets/img/solostep-sticker.jpg",
-        alt: "A SoloStep sticker: a line drawing of a foot stepping, above the words SoloStep — Seize the Movement",
-        caption: "Part of materials - our logo/sticker.",
-      },
     ],
   },
 ];
@@ -369,7 +352,7 @@ export const education = [
   {
     org: "Saline High School",
     place: "Saline, MI",
-    date: "2021 — 2025",
+    date: "2021 - 2025",
     points: [
       "4.4348 weighted GPA, 4.0 unweighted. Ranked 1 of 396 unweighted, 2 of 396 weighted.",
       "SAT 1560 — 800 math, 760 reading and writing.",
@@ -397,7 +380,7 @@ export const highSchool = [
     id: "science-olympiad",
     org: "Science Olympiad",
     role: "Captain",
-    date: "2021 — 2025",
+    date: "2021 - 2025",
     place: "Saline, MI",
     summary:
       "Four years of science events — mostly photos of light balsa bridges.",
@@ -416,19 +399,9 @@ export const highSchool = [
         caption: "Plans for a 47 \u00d7 14 cm build, drawn before cutting anything.",
       },
       {
-        src: "assets/img/bridge-load-test.jpg",
-        alt: "A balsa bridge on a test rig, loaded through a chain hung from its centre",
+        src: "assets/images/science-olympiad-load-test.jpg",
+        alt: "A balsa bridge on a test rig, loaded through a chain hung from its centre and a water bottle above",
         caption: "Load testing.",
-      },
-      {
-        src: "assets/img/science-olympiad-medals.jpg",
-        alt: "A pile of Science Olympiad medals, lanyards, and place ribbons spread across a table",
-        caption: "Science Olympiad medals.",
-      },
-      {
-        src: "assets/images/science-olympiad-workbench.jpg",
-        alt: "Alice at the workbench during a Science Olympiad bridge build session",
-        caption: "Another build session.",
       },
     ],
   },
@@ -436,7 +409,7 @@ export const highSchool = [
     id: "saline-nhs",
     org: "National Honor Society",
     role: "President",
-    date: "2021 — 2025",
+    date: "2021 - 2025",
     place: "Saline, MI",
     summary: "Running the chapter, and the volunteering that came with it.",
     points: [
@@ -444,11 +417,6 @@ export const highSchool = [
       "Raised $450 for the club banquet with a new fundraising model.",
     ],
     images: [
-      {
-        src: "assets/img/nhs-food-drive.jpg",
-        alt: "Students sorting donated cans and boxes into postal bins at a food pantry",
-        caption: "Sorting a food drive into the pantry\u2019s bins.",
-      },
       {
         src: "assets/images/nhs-auditorium.jpg",
         alt: "NHS members gathered at a school event",
@@ -460,7 +428,7 @@ export const highSchool = [
     id: "bpa",
     org: "Business Professionals of America",
     role: "President",
-    date: "2021 — 2025",
+    date: "2021 - 2025",
     place: "Saline, MI",
     summary: "Michigan\u2019s high school business competition circuit, and the chapter behind it.",
     points: [
@@ -472,7 +440,7 @@ export const highSchool = [
     id: "saline-youth-council",
     org: "Saline Youth Council",
     role: "Co-Chair",
-    date: "2021 — 2025",
+    date: "2021 - 2025",
     place: "Saline, MI",
     summary: "The city\u2019s youth council, focused on community service.",
     points: [
@@ -484,19 +452,19 @@ export const highSchool = [
     id: "music-for-seniors",
     org: "Music for Seniors",
     role: "Founder",
-    date: "2021 — 2025",
+    date: "2021 - 2025",
     place: "Saline, MI",
     summary: "Playing piano and flute for residents at retirement homes.",
     images: [
       {
-        src: "assets/img/music-for-seniors.jpg",
-        alt: "Alice playing flute from sheet music, seated in front of an audience in a common room",
-        caption: "Playing flute.",
+        src: "assets/img/senior-center-music.jpg",
+        alt: "The student musicians gathered with their instrument cases in a senior living community lobby",
+        caption: "A music session for senior residents.",
       },
       {
-        src: "assets/img/senior-center-music.jpg",
-        alt: "Alice playing flute for residents in a senior living community room",
-        caption: "A music session for senior residents.",
+        src: "assets/images/senior-center-group.jpg",
+        alt: "Six student musicians standing on the lawn outside a senior living community",
+        caption: "Outside one of the retirement homes we played at.",
       },
     ],
   },
@@ -504,7 +472,7 @@ export const highSchool = [
     id: "shs-ecommerce",
     org: "SHS E-commerce Club",
     role: "Co-Founder & President",
-    date: "2022 — 2025",
+    date: "2022 - 2025",
     place: "Saline, MI",
     summary: "A club for the thing I was already doing after school.",
     points: ["Mentored students on e-commerce and led teams in business competitions."],
@@ -559,26 +527,26 @@ export const awards = [
   {
     group: "Science Olympiad",
     items: [
-      { when: "2023—24", what: "Regionals: Anatomy & Physiology 1st, Experimental Design 1st, Forensics 2nd. States: Ecology 2nd." },
-      { when: "2022—23", what: "Regionals: Chemistry Lab 3rd, Bridge 3rd, Experimental Design 2nd, Forensics 2nd. States: Bridge 2nd, Forensics 7th." },
-      { when: "2021—22", what: "Regionals: Experimental Design 1st, Wright Stuff 1st, Bridge 2nd. States: Experimental Design 1st, Wright Stuff 4th, Bridge 7th." },
+      { when: "2023-24", what: "Regionals: Anatomy & Physiology 1st, Experimental Design 1st, Forensics 2nd. States: Ecology 2nd." },
+      { when: "2022-23", what: "Regionals: Chemistry Lab 3rd, Bridge 3rd, Experimental Design 2nd, Forensics 2nd. States: Bridge 2nd, Forensics 7th." },
+      { when: "2021-22", what: "Regionals: Experimental Design 1st, Wright Stuff 1st, Bridge 2nd. States: Experimental Design 1st, Wright Stuff 4th, Bridge 7th." },
       { when: "2021", what: "Caltech National Invitational: Bridge 18th." },
     ],
   },
   {
     group: "Business Professionals of America",
     items: [
-      { when: "2023—24", what: "Nationals: Start-Up Enterprise Team 3rd, as team captain." },
-      { when: "2023—24", what: "States: Health Administration Concepts 4th." },
-      { when: "2023—24", what: "Regionals: Administrative Support 1st; Management, Marketing and Human Resources Concepts 1st; Entrepreneurship 3rd." },
-      { when: "2022—23", what: "Regionals: Administrative Support 5th." },
+      { when: "2023-24", what: "Nationals: Start-Up Enterprise Team 3rd, as team captain." },
+      { when: "2023-24", what: "States: Health Administration Concepts 4th." },
+      { when: "2023-24", what: "Regionals: Administrative Support 1st; Management, Marketing and Human Resources Concepts 1st; Entrepreneurship 3rd." },
+      { when: "2022-23", what: "Regionals: Administrative Support 5th." },
     ],
   },
   {
     group: "Debate",
     items: [
-      { when: "2022—23", what: "U-M Debate Tournament: Octofinalist." },
-      { when: "2021—22", what: "Nationals: Pro-Con Challenge 5th. States: Pappas Invitational DUDL 2, Finalist." },
+      { when: "2022-23", what: "U-M Debate Tournament: Octofinalist." },
+      { when: "2021-22", what: "Nationals: Pro-Con Challenge 5th. States: Pappas Invitational DUDL 2, Finalist." },
     ],
   },
   {
@@ -680,19 +648,9 @@ export const about = {
     src: "assets/img/portrait.jpg",
     alt: "Alice Jiang, photographed in Florida",
   },
-  /* Photos shown under the About text. */
-  media: [
-    {
-      src: "assets/img/kayaking.jpg",
-      alt: "Alice paddling a green kayak through a stretch of whitewater on a wooded river",
-      caption: "The Rapids in Argo Park.",
-    },
-    {
-      src: "assets/img/fruit-tart.jpg",
-      alt: "A fruit tart topped with sliced strawberries, kiwi, and blueberries over pastry cream",
-      caption: "A freshly decorated fruit tart.",
-    },
-  ],
+  /* Photos shown under the About text. Empty for now — add objects here and the
+     strip appears on its own. */
+  media: [],
   /* Folded away behind a heading you click to open. Add another object here and
      you get another dropdown. */
   collections: [
@@ -701,19 +659,9 @@ export const about = {
       note: "Photos and clips of the builds.",
       media: [
         {
-          src: "assets/img/puzzle-magic-cello.jpg",
-          alt: "An assembled wooden Magic Cello music box, gears and carved leaves visible through the body, standing on a book-shaped base",
-          caption: "The bow moves and plays a Nocturne.",
-        },
-        {
-          src: "assets/img/puzzle-piano-bear.jpg",
-          alt: "The finished wooden grand piano music box, lid open on its gearing, beside a small teddy bear in a Penn shirt",
-          caption: "The piano plays Canon in D.",
-        },
-        {
-          src: "assets/img/puzzle-wiring.jpg",
-          alt: "Hands connecting a small circuit board to the motor and gearing inside a half-built wooden kit",
-          caption: "The Christmas special kit, wired up.",
+          src: "assets/images/puzzle-locomotive-kit.jpg",
+          alt: "The locomotive kit part-built: laser-cut sheets still on their sprues, the instruction booklet open, and the motor board wired up beside the frame",
+          caption: "The locomotive kit, partway through.",
         },
         {
           src: "assets/media/puzzle-piano.mp4",

@@ -8,23 +8,29 @@ images: [{ src: "assets/img/your-file.jpg", alt: "What it shows", caption: "Opti
 
 Until a file exists its figure removes itself, so the entry still looks finished.
 
-## Files these entries are waiting on
+## Two ways a photo silently fails
 
-| Path | What it is |
-| --- | --- |
-| `slimetime-stats.png` | SlimeTime stats page |
-| `slimetime-home.png` | SlimeTime home / slime screen |
-| `wuec-nyc-trek-group.jpg` | WUEC NYC trek, group outside the building |
-| `wuec-nyc-trek-boardroom.jpg` | WUEC NYC trek, boardroom |
-| `wuec-trek-poster.jpg` | The NY VC Trek sign-up poster |
-| `solostep-sticker.jpg` | The SoloStep sticker |
-| `science-olympiad-medals.jpg` | The box of medals and ribbons |
-| `bridge-load-test.jpg` | A bridge on the test rig, loaded from the centre |
-| `nhs-food-drive.jpg` | Sorting the food drive at the pantry |
-| `music-for-seniors.jpg` | Playing flute in the common room |
-| `puzzle-magic-cello.jpg` | The finished Magic Cello music box |
-| `puzzle-piano-bear.jpg` | The finished wooden piano, with the Penn bear |
-| `puzzle-wiring.jpg` | Wiring a board into a half-built kit |
-| `kayaking.jpg` | Paddling through whitewater |
-| `fruit-tart.jpg` | The fruit tart |
-| `portrait.jpg` | Portrait — shown in the About sidebar, above Contact |
+Both of these look fine on a Mac and break on the live site, so they're worth
+checking before you commit.
+
+**The name lies about the format.** A photo off an iPhone is often HEIC inside
+even when it's called `.png` or `.jpg`, and no browser except Safari will show
+it. `file` tells you what it really is:
+
+```sh
+file your-file.jpg          # want: "JPEG image data"
+sips -s format jpeg -Z 2000 in.png --out out.jpg
+```
+
+**The name is the wrong case.** macOS thinks `Photo.JPG` and `photo.jpg` are the
+same file. GitHub Pages runs on Linux and doesn't. `src` has to match the
+filename exactly.
+
+`npm run build` catches both — it checks each `src` against the real directory
+listing and prints anything that wouldn't resolve on the server.
+
+## Where the older photos live
+
+`assets/images/` holds the photos that were already in the repo. They're
+referenced the same way; there's nothing special about them beyond the folder
+name. `assets/media/` holds videos and their poster frames.

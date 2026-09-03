@@ -90,7 +90,7 @@ All 10 required questions passing:
 - Favorites (color, food, tea, season, holiday, restaurant, shows, movies, characters)
 - Interests (kayaking, tennis, piano, flute, thrifting, doodling, baking, puzzles)
 - Building competitive nature (structures, code, financial models)
-- Fun facts (11g bridge holding 15kg, soccer history, SlimeTime, HoloGlitterPacks, Applebee's)
+- Fun facts (11g bridge holding 15kg, soccer history, Chrome Extension Project, HoloGlitterPacks, Applebee's)
 - Work style (clear communication, dependable, organized, structured, mentoring)
 - Feedback example (PowerPoint presentations improved to "consulting level")
 - Mistake lesson (Golar LNG - importance of alignment before execution)

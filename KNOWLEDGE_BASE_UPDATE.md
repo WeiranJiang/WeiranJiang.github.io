@@ -121,7 +121,7 @@ All 10 required test questions verified and passing:
 | # | Question | Result |
 |----|----------|--------|
 | 1 | What is Alice's favorite color? | ✓ PASS (green) |
-| 2 | Tell me a fun fact about Alice. | ✓ PASS (bridge fact, SlimeTime) |
+| 2 | Tell me a fun fact about Alice. | ✓ PASS (bridge fact, Chrome Extension Project) |
 | 3 | What is Alice surprisingly competitive about? | ✓ PASS (building things) |
 | 4 | How does Alice respond to feedback? | ✓ PASS (PowerPoint example) |
 | 5 | Tell me about a mistake Alice made. | ✓ PASS (Golar LNG) |

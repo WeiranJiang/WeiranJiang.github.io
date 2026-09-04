@@ -67,7 +67,7 @@ export const intro = {
   links: [
     /* action: "ask" opens the assistant instead of navigating. */
     { label: "Ask about Alice", action: "ask" },
-    { label: "Résumé", href: "assets/files/alice-jiang-resume.pdf", external: true },
+    { label: "Résumé", href: "assets/files/Alice_Jiang's_Resume.pdf", external: true },
     { label: "GitHub", href: "https://github.com/WeiranJiang", external: true },
     { label: "Stock pitches", href: "pitches.html" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/weiran-jiang", external: true },
@@ -762,7 +762,7 @@ export const about = {
   contact: [
     { label: "Email", value: "wajiang@wharton.upenn.edu", href: "mailto:wajiang@wharton.upenn.edu" },
     { label: "LinkedIn", value: "weiran-jiang", href: "https://www.linkedin.com/in/weiran-jiang" },
-    { label: "Résumé", value: "PDF", href: "assets/files/alice-jiang-resume.pdf" },
+    { label: "Résumé", value: "PDF", href: "assets/files/Alice_Jiang's_Resume.pdf" },
   ],
 };
 

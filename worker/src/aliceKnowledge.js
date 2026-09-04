@@ -100,7 +100,7 @@ export const notes = [
     id: "favorites",
     title: "Favorites",
     keywords:
-      "favorite favourite likes enjoys loves hobby hobbies fun free time relax unwind weekend kayaking tennis piano flute music thrifting doodling baking puzzles wooden lego build color colour green blue tea coffee chai latte jasmine food chinese stir-fry tomato egg season fall autumn holiday christmas restaurant masala movie show avatar ghibli lloyd lego batman",
+      "favorite favourite likes enjoys loves hobby hobbies fun free time relax unwind weekend kayaking tennis piano flute music studio ghibli doodling baking puzzles wooden lego build color colour green blue tea coffee chai latte jasmine food chinese stir-fry tomato egg season fall autumn holiday christmas restaurant masala movie show avatar ghibli lloyd lego batman",
     use: "Casual questions want a casual answer. Give one or two specifics and stop — don't tie a hobby back to her career.",
     facts: [
       "Favorite color: green. She is also known for wearing a lot of blue.",
@@ -114,7 +114,7 @@ export const notes = [
       "Alice enjoyed watching Studio Ghibli films at KCECH at Penn.",
       "Kayaking when the weather allows, usually the rapids in Argo Park in Ann Arbor.",
       "Tennis and piano since she was small. She also plays flute — first division at MSBOA Solo and Ensemble in 2023, on both flute and piano.",
-      "Thrifting, doodling and baking — fruit tarts among other things, strawberries, kiwi and blueberries over pastry cream.",
+      "Studio Ghibli, doodling and baking — fruit tarts among other things, strawberries, kiwi and blueberries over pastry cream.",
       "3D wooden puzzles to relax, mostly mechanical music-box kits: a Magic Cello whose bow moves and plays a Nocturne, a grand piano that plays Canon in D, a locomotive, and a Christmas kit she wired up with LEDs.",
     ],
   },

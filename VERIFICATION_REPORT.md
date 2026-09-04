@@ -88,7 +88,7 @@ All 10 required questions passing:
 - Basic biographical information (name, school, year, program, hometown, siblings, pet)
 - Personality traits (down-to-earth, happy, upbeat, blue-wearing, planner, social)
 - Favorites (color, food, tea, season, holiday, restaurant, shows, movies, characters)
-- Interests (kayaking, tennis, piano, flute, thrifting, doodling, baking, puzzles)
+- Interests (kayaking, tennis, piano, flute, Studio Ghibli, doodling, baking, puzzles)
 - Building competitive nature (structures, code, financial models)
 - Fun facts (11g bridge holding 15kg, soccer history, Chrome Extension Project, HoloGlitterPacks, Applebee's)
 - Work style (clear communication, dependable, organized, structured, mentoring)

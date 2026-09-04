@@ -65,7 +65,7 @@ export const intro = {
   links: [
     /* action: "ask" opens the assistant instead of navigating. */
     { label: "Ask about Alice", action: "ask" },
-    { label: "Résumé", href: "assets/files/Alice_Jiang's_Resume.pdf", external: true },
+    { label: "Résumé", href: "assets/files/Alice_Jiang's_Resume.pdf?v=20260904", external: true },
     { label: "GitHub", href: "https://github.com/WeiranJiang", external: true },
     { label: "Stock pitches", href: "pitches.html" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/weiran-jiang", external: true },
@@ -94,7 +94,7 @@ export const intro = {
     },
     {
       label: "Otherwise",
-      lines: ["Kayaking, personal coding projects, wooden puzzles, tennis, piano, thrifting, doodling, baking"],
+      lines: ["Kayaking, personal coding projects, wooden puzzles, tennis, piano, Studio Ghibli, doodling, baking"],
     },
   ],
 };
@@ -688,7 +688,7 @@ export const pitches = [];
 export const about = {
   paragraphs: [
     "I grew up in Michigan and came to Penn for the M&T Program. I like exploring new things and learning how and why they work.",
-    "I also enjoy kayaking when the weather allows, tennis and piano, thrifting, doodling, baking, and 3D wooden puzzles.",
+    "I also enjoy kayaking when the weather allows, tennis and piano, Studio Ghibli, doodling, baking, and 3D wooden puzzles.",
   ],
   portrait: {
     /* The alt names her, because this is the picture image search returns for
@@ -760,7 +760,7 @@ export const about = {
   contact: [
     { label: "Email", value: "wajiang@wharton.upenn.edu", href: "mailto:wajiang@wharton.upenn.edu" },
     { label: "LinkedIn", value: "weiran-jiang", href: "https://www.linkedin.com/in/weiran-jiang" },
-    { label: "Résumé", value: "PDF", href: "assets/files/Alice_Jiang's_Resume.pdf" },
+    { label: "Résumé", value: "PDF", href: "assets/files/Alice_Jiang's_Resume.pdf?v=20260904" },
   ],
 };
 

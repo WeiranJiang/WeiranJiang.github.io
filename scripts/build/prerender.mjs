@@ -581,11 +581,25 @@ async function writeSitemap() {
 await rm(DIST, { recursive: true, force: true });
 await mkdir(DIST, { recursive: true });
 
+/* Things that live next to the site's files but are not the site. .DS_Store is
+   the one that matters: Finder writes a listing of the whole folder into it,
+   including files you have since deleted, and copying it into dist/ puts that
+   listing on the open web. The notes-to-self READMEs in assets/ are the same
+   idea, less costly. */
+const NOT_PUBLISHED = (source) => {
+  const name = path.basename(source);
+  return (
+    source.includes(`${path.sep}scripts${path.sep}build`) ||
+    name === ".DS_Store" ||
+    name === "Thumbs.db" ||
+    name.toLowerCase() === "readme.md"
+  );
+};
+
 for (const asset of ASSETS) {
   await cp(path.join(ROOT, asset), path.join(DIST, asset), {
     recursive: true,
-    /* The build itself isn't part of the site. */
-    filter: (source) => !source.includes(`${path.sep}scripts${path.sep}build`),
+    filter: (source) => !NOT_PUBLISHED(source),
   });
 }
 

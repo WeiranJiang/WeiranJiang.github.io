@@ -186,6 +186,8 @@ const CSS = `
   overflow: hidden;
 }
 
+/* The walk itself isn't here — createWalker builds it, because it can only be
+   written once the distance has been measured. See walkFrames() below. */
 .pixel-walk__runner {
   display: block;
   width: max-content;
@@ -204,6 +206,19 @@ const CSS = `
   --walk-state: paused;
 }
 
+/* Pointing at her stops her, so she can be clicked without chasing her. The
+   walk is stopped in createWalker, since a script animation doesn't answer to
+   animation-play-state; these rules are the rest of standing still, which is
+   planting both feet rather than marching on the spot. */
+.pixel-walk-wrap:hover .pixel-alice__legs,
+.pixel-walk:focus-visible .pixel-alice__legs {
+  animation: none;
+}
+.pixel-walk-wrap:hover .pixel-alice__legs--a,
+.pixel-walk:focus-visible .pixel-alice__legs--a { opacity: 1; }
+.pixel-walk-wrap:hover .pixel-alice__legs--b,
+.pixel-walk:focus-visible .pixel-alice__legs--b { opacity: 0; }
+
 /* She keeps facing the same way the whole time — no flip at the ends. */
 @keyframes pixel-alice-stroll {
   0%   { transform: translateX(0); }
@@ -218,6 +233,8 @@ const CSS = `
   .pixel-alice * { animation: none !important; }
   .pixel-alice__dots { opacity: 1; }
   .pixel-alice__legs--b { opacity: 0 !important; }
+  /* createWalker doesn't start the walk under this setting; the !important here
+     is the backstop, and it outranks a script animation. */
   .pixel-walk__runner { animation: none !important; transform: none !important; }
 }
 `;
@@ -336,6 +353,24 @@ export function createCharacter(options = {}) {
   return { node: svg, setState, setWalking, state: () => current };
 }
 
+/* One lap of the sidebar, and the shape of it: she walks to the far end, stands
+   there a beat, walks back, and stands a beat before setting off again. She
+   keeps facing the same way the whole time — no flip at the ends. */
+const WALK_MS = 26000;
+const WALK_BEAT = 0.04; // the standing-still beat, as a share of a lap
+
+function walkFrames(span) {
+  const home = "translateX(0px)";
+  const away = `translateX(${span}px)`;
+  return [
+    { offset: 0, transform: home },
+    { offset: WALK_BEAT, transform: home },
+    { offset: 0.48, transform: away },
+    { offset: 0.52, transform: away },
+    { offset: 1 - WALK_BEAT, transform: home },
+    { offset: 1, transform: home },
+  ];
+}
 /**
  * The strolling version, for the sidebar. She paces the width of whatever
  * you put her in, turns around at each end, and pauses when you point at her
@@ -372,13 +407,81 @@ export function createWalker(options = {}) {
   wrap.className = "pixel-walk-wrap";
   wrap.append(stage, tip);
 
+  const stillness =
+    typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const clock = () => document.timeline?.currentTime ?? 0;
+
   /* How far she can pace: the stage, less her own width. Measured rather than
-     guessed so the sidebar can be any width. */
+     guessed so the sidebar can be any width.
+
+     The walk begins here, since it can't be written down until that distance is
+     known. This function is first called a frame after the walker is put on the
+     page — until then the stage has no width, so there is nothing to walk
+     across and nothing to start. */
+  let span = 0;
+  let walk = null;
   function measure() {
-    const span = Math.max(0, stage.clientWidth - character.node.getBoundingClientRect().width);
-    stage.style.setProperty("--walk-span", `${Math.round(span)}px`);
+    const next = Math.round(Math.max(0, stage.clientWidth - character.node.getBoundingClientRect().width));
+    if (!next || next === span) return;
+    span = next;
+
+    /* A resized sidebar is just a longer or shorter lap. Handing the new
+       distance to the walk she is already doing keeps her where she is, rather
+       than teleporting her home to start again. */
+    if (walk) {
+      walk.effect.setKeyframes(walkFrames(span));
+      return;
+    }
+    if (stillness) return;
+
+    walk = runner.animate(walkFrames(span), {
+      duration: WALK_MS,
+      iterations: Infinity,
+      easing: "linear",
+    });
+    /* Saying outright when she set off, rather than leaving the browser to
+       settle that on some later frame. A start left to be scheduled is now and
+       then never made, and she stands there — running, by every measure the
+       page can take, and not going anywhere — until an unrelated restyle shakes
+       it loose. Pointing at her was one, which is why she used to wait to be
+       noticed before she'd walk.
+
+       Backdating it by the standing-still beat starts her already walking; she
+       still gets that beat at both ends of every lap after this one. */
+    walk.startTime = clock() - WALK_MS * WALK_BEAT;
   }
 
+  /* Something is holding her still if the pointer is on her, or if she has been
+     tabbed to — both so she can be clicked without having to be chased. */
+  const held = () => wrap.matches(":hover") || stage.matches(":focus-visible");
+
+  function hold() {
+    if (!walk || walk.playState !== "running") return;
+    const stopped = walk.currentTime ?? 0;
+    walk.pause();
+    /* Saying where she stopped, for the same reason release() says when she
+       starts again: left to itself, the stop is a request for a later frame to
+       carry out, and a request can go unanswered. */
+    walk.currentTime = stopped;
+  }
+
+  /* Picking up from where she stopped. Naming the start time again for the same
+     reason as above: asking to resume can sit unanswered just as asking to
+     start can. */
+  function release() {
+    if (!walk || walk.playState === "running" || held()) return;
+    walk.startTime = clock() - (walk.currentTime ?? 0);
+  }
+
+  wrap.addEventListener("pointerenter", hold);
+  wrap.addEventListener("pointerleave", release);
+  /* Clicking her focuses her too, and that shouldn't stop her — :focus-visible
+     is the browser's own answer to "did they arrive here from the keyboard". */
+  stage.addEventListener("focus", () => {
+    if (stage.matches(":focus-visible")) hold();
+  });
+  stage.addEventListener("blur", release);
   let observer = null;
   if ("ResizeObserver" in window) {
     observer = new ResizeObserver(measure);
@@ -386,7 +489,10 @@ export function createWalker(options = {}) {
   } else {
     window.addEventListener("resize", measure);
   }
-  measure();
+  /* The caller appends the walker straight after this returns, so the next
+     frame is the first one where there is a width to read. The observer covers
+     everything after that; this is only the start. */
+  if (typeof requestAnimationFrame === "function") requestAnimationFrame(measure);
 
   return {
     node: wrap,
@@ -394,6 +500,7 @@ export function createWalker(options = {}) {
     destroy() {
       observer?.disconnect();
       window.removeEventListener("resize", measure);
+      walk?.cancel();
       wrap.remove();
     },
   };

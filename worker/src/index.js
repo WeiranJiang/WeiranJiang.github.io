@@ -16,7 +16,6 @@
  */
 
 import { selectNotes } from "./aliceKnowledge.js";
-
 const DEFAULT_MODEL = "gemini-3.6-flash";
 
 const apiKeyFrom = (env) => env.GEMINI_API_KEY;
@@ -125,7 +124,9 @@ function buildPrompt(question, passages, notes) {
     .join("\n\n");
 
   const noteBlocks = notes
-    .map((n) => `<note title="${n.title}">\n${n.text}\n</note>`)
+    .map((n) => `<note title="${n.title}">
+${n.text}
+</note>`)
     .join("\n\n");
 
   return [
@@ -262,7 +263,6 @@ export default {
         title: n.title,
         text: n.text.slice(0, LIMITS.noteText),
       }));
-
       const model = env.MODEL || DEFAULT_MODEL;
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
 

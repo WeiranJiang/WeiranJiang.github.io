@@ -82,6 +82,7 @@ export const intro = {
         "BS Economics, Wharton — Finance",
         "BSE, SEAS — Computer Science",
         "Jerome Fisher M&T, expected 2029",
+        "GPA 3.86/4.0",
       ],
     },
     {
@@ -114,10 +115,9 @@ export const experience = [
     summary:
       "Sell-side and buy-side work for middle-market clients, with a focus on cross border M&A.",
     points: [
-      "Analyzed 4 acquisition targets for automotive clients on ownership structure, financial performance, and strategic fit.",
-      "Screened 57 potential buyers for an air spring company sale on fit, financial capacity, and acquisition rationale.",
-      "Built 3 presentations on target companies, researching business models and financials for the senior deal team.",
-      "Prepared materials supporting a legal dispute related to a prior M&A deal and de-SPAC transaction.",
+      "Screened 57 strategic and financial buyers for an air-spring company on revenue over $500M and EBITDA over $50M, and shortlisted 12.",
+      "Developed 3 target-company profiles benchmarking business models, revenue mix, and financials, and assessed customer-concentration risk across 3 major OEM relationships.",
+      "Built the courtroom presentation deck for a contractual advisory-fee dispute arising from a $700M de-SPAC, turning transaction and engagement documents into exhibits on the fee provisions at issue.",
     ],
   },
   {
@@ -185,6 +185,9 @@ export const experience = [
     date: "Aug 2024 - Jun 2025",
     place: "Ann Arbor, MI",
     summary: "Talked to a lot of cool people and levelled up at folding kid menus.",
+    points: [
+      "Managed guest seating, reservations, and waitlists while coordinating table assignments with servers during busy shifts.",
+    ],
   },
 ];
 
@@ -231,8 +234,8 @@ export const atPenn = [
     summary:
       "MTIF invests in student-founded companies at Penn and supports them afterwards.",
     points: [
-      "Evaluated 9 of 70 Penn startup applicants using standardized due diligence frameworks, helping direct $15K across 3 portfolio investments.",
-      "Served on the Cengine portfolio team during its Fortune 500 partnership with Cummins.",
+      "Ran diligence on 9 of 70 Penn startup applicants using standardized scoring frameworks, directing $15K across 3 investments.",
+      "Researched corporate customers and partners for portfolio company Cengine during its partnership with Cummins.",
     ],
   },
   {
@@ -246,8 +249,8 @@ export const atPenn = [
     summary:
       "A student investment team backing early-stage companies, with a Penn founder pipeline behind it.",
     points: [
-      "Evaluated 15 startups on business model, market opportunity, and competitive positioning.",
-      "Helped build a Penn founder pipeline by identifying student-led ventures and tracking investment opportunities.",
+      "Assessed 15 startups on business model, market opportunity, and competitive positioning, and advanced 3 to partner review.",
+      "Built a pipeline of 21 Penn student founders on a 5-person team, sourcing early-stage deal flow for Comma Capital.",
     ],
   },
   {
@@ -260,7 +263,7 @@ export const atPenn = [
     place: "Philadelphia, PA",
     summary: "Wharton's undergraduate finance club — markets coverage and company analysis.",
     points: [
-      "Produced weekly market updates and did practices on DCF and comparable-company valuation.",
+      "Built equity pitches using industry research, comparable-company analysis, and DCF valuation, and presented the recommendations to club members.",
     ],
   },
   {
@@ -273,7 +276,7 @@ export const atPenn = [
     place: "Philadelphia, PA",
     summary: "The hedge fund club, covering the same markets work from the long/short side.",
     points: [
-      "Produced weekly market updates and long/short recommendations using DCF and comparable-company valuation.",
+      "Built long/short equity pitches using industry research, comparable-company analysis, and DCF valuation, and presented the recommendations to club members.",
     ],
   },
 ];
@@ -284,14 +287,26 @@ export const atPenn = [
 
 export const work = [
   {
-    id: "chrome-extension-project",
-    name: "Chrome Extension Project",
+    id: "slimetime",
+    name: "SlimeTime",
     kind: "Personal project",
     date: "2026",
     summary: "A personal gamified study tracker for passive logging.",
     body: [
-      "The Chrome Extension Project is a Google Chrome extension progress tracker. It has a stopwatch, a countdown, and a task list. It allows for passive tracking by reading through Google Calendar events and logging study time that way as well.",
+      "SlimeTime is a google chrome extension progress tracker. It has a stopwatch, a countdown, and a task list. It allows for passive tracking by reading through google calendar events and logging study time that way as well.",
       "The other half is the part that makes me open it: Focus time earns Dewdrops, Dewdrops buy items in a shop, and items feed attribute XP which level up a slime with a class and an adventurer rank.",
+    ],
+    images: [
+      {
+        src: "assets/img/slimetime-stats.png",
+        alt: "SlimeTime stats page showing focus hours, study streak, weekly study map, per-subject breakdown, and a radar chart",
+        caption: "The personal stats page.",
+      },
+      {
+        src: "assets/img/slimetime-home.png",
+        alt: "SlimeTime home screen showing the slime, its level, adventurer rank, and attribute XP bars",
+        caption: "Home page.",
+      },
     ],
   },
   {
@@ -308,8 +323,9 @@ export const work = [
     ],
     points: [
       "Co-led the team and ran community outreach.",
-      "Interviewed senior centers and retirement homes (StoryPoint, Saline Senior Center, University Living).",
+      "Sourced the requirements from resident interviews at University Living, StoryPoint, and Saline Senior Center.",
       "Secured a $7,500 Lemelson-MIT InvenTeam grant and a further $1,500 from Saline Area Schools.",
+      "Ran 5 prototype iterations; named inventor on U.S. Provisional Patent 63/655,566.",
       "Presented at MIT’s EurekaFest, and won the Lemelson-MIT EurekaFest essay contest.",
     ],
     images: [
@@ -332,6 +348,11 @@ export const work = [
         src: "assets/images/MIT3.jpg",
         alt: "Four members of the EMUiNVENT InvenTeam standing beside the SoloStep poster at EurekaFest",
         caption: "The EMUiNVENT InvenTeam at EurekaFest, MIT.",
+      },
+      {
+        src: "assets/img/solostep-sticker.jpg",
+        alt: "A SoloStep sticker: a line drawing of a foot stepping, above the words SoloStep — Seize the Movement",
+        caption: "Part of materials - our logo/sticker.",
       },
     ],
   },
@@ -364,13 +385,13 @@ export const education = [
     org: "Oakland University Summer Mathematics Institute",
     place: "Rochester, MI",
     date: "2024",
-    points: ["Linear Algebra (MTH 2775) and Introduction to Advanced Mathematical Thinking (MTH 3002)."],
+    points: ["4.0 GPA. Linear Algebra (MTH 2775) and Introduction to Advanced Mathematical Thinking (MTH 3002)."],
   },
   {
     org: "Washtenaw Community College",
     place: "Ann Arbor, MI",
-    date: "2024",
-    points: ["Multivariable Calculus (MTH 293) and Introduction to Accounting Principles."],
+    date: "2024 — 2025",
+    points: ["4.0 GPA. Multivariable Calculus (MTH 293) and Introduction to Accounting Principles."],
   },
 ];
 
@@ -403,6 +424,21 @@ export const highSchool = [
         alt: "A balsa bridge on a test rig, loaded through a chain hung from its centre and a water bottle above",
         caption: "Load testing.",
       },
+      {
+        src: "assets/img/bridge-load-test.jpg",
+        alt: "A balsa bridge on a test rig, loaded through a chain hung from its centre",
+        caption: "Load testing.",
+      },
+      {
+        src: "assets/img/science-olympiad-medals.jpg",
+        alt: "A pile of Science Olympiad medals, lanyards, and place ribbons spread across a table",
+        caption: "Science Olympiad medals.",
+      },
+      {
+        src: "assets/images/science-olympiad-workbench.jpg",
+        alt: "Alice at the workbench during a Science Olympiad bridge build session",
+        caption: "Another build session.",
+      },
     ],
   },
   {
@@ -417,6 +453,11 @@ export const highSchool = [
       "Raised $450 for the club banquet with a new fundraising model.",
     ],
     images: [
+      {
+        src: "assets/img/nhs-food-drive.jpg",
+        alt: "Students sorting donated cans and boxes into postal bins at a food pantry",
+        caption: "Sorting a food drive into the pantry’s bins.",
+      },
       {
         src: "assets/images/nhs-auditorium.jpg",
         alt: "NHS members gathered at a school event",
@@ -457,14 +498,20 @@ export const highSchool = [
     summary: "Playing piano and flute for residents at retirement homes.",
     images: [
       {
+        src: "assets/img/music-for-seniors.jpg",
+        alt: "Alice playing flute from sheet music, seated in front of an audience in a common room",
+        caption: "Playing flute.",
+      },
+      {
         src: "assets/img/senior-center-music.jpg",
-        alt: "The student musicians gathered with their instrument cases in a senior living community lobby",
+        alt: "Alice playing flute for residents in a senior living community room",
         caption: "A music session for senior residents.",
       },
       {
-        src: "assets/images/senior-center-group.jpg",
-        alt: "Six student musicians standing on the lawn outside a senior living community",
-        caption: "Outside one of the retirement homes we played at.",
+        src: "assets/media/music-for-seniors.mp4",
+        poster: "assets/media/music-for-seniors.jpg",
+        alt: "Alice playing music for senior residents",
+        caption: "Playing music for senior residents.",
       },
     ],
   },
@@ -515,8 +562,11 @@ export const awards = [
   {
     group: "Academic",
     items: [
-      { when: "2025", what: "Swartz Scholarship for Entrepreneurs." },
-      { when: "2024", what: "National Merit Semifinalist." },
+      { when: "2025", what: "Swartz Scholarship for Entrepreneurs ($2,500)." },
+      { when: "2025", what: "National Merit Scholar." },
+      { when: "2024", what: "AP Scholar with Distinction." },
+      { when: "2024", what: "Lemelson-MIT EurekaFest essay winner." },
+      { when: "2024", what: "Lila Howard Make-a-Difference Scholarship." },
       { when: "2024", what: "AP Scholar with Distinction." },
       { when: "2024", what: "Lemelson-MIT EurekaFest essay winner." },
       { when: "2024", what: "Lila Howard Make-a-Difference Scholarship." },
@@ -648,9 +698,19 @@ export const about = {
     src: "assets/img/portrait.jpg",
     alt: "Alice Jiang, photographed in Florida",
   },
-  /* Photos shown under the About text. Empty for now — add objects here and the
-     strip appears on its own. */
-  media: [],
+  /* Photos shown under the About text. */
+  media: [
+    {
+      src: "assets/img/kayaking.jpg",
+      alt: "Alice paddling a green kayak through a stretch of whitewater on a wooded river",
+      caption: "The Rapids in Argo Park.",
+    },
+    {
+      src: "assets/img/fruit-tart.jpg",
+      alt: "A fruit tart topped with sliced strawberries, kiwi, and blueberries over pastry cream",
+      caption: "A freshly decorated fruit tart.",
+    },
+  ],
   /* Folded away behind a heading you click to open. Add another object here and
      you get another dropdown. */
   collections: [
@@ -662,6 +722,21 @@ export const about = {
           src: "assets/images/puzzle-locomotive-kit.jpg",
           alt: "The locomotive kit part-built: laser-cut sheets still on their sprues, the instruction booklet open, and the motor board wired up beside the frame",
           caption: "The locomotive kit, partway through.",
+        },
+        {
+          src: "assets/img/puzzle-magic-cello.jpg",
+          alt: "An assembled wooden Magic Cello music box, gears and carved leaves visible through the body, standing on a book-shaped base",
+          caption: "The bow moves and plays a Nocturne.",
+        },
+        {
+          src: "assets/img/puzzle-piano-bear.jpg",
+          alt: "The finished wooden grand piano music box, lid open on its gearing, beside a small teddy bear in a Penn shirt",
+          caption: "The piano plays Canon in D.",
+        },
+        {
+          src: "assets/img/puzzle-wiring.jpg",
+          alt: "Hands connecting a small circuit board to the motor and gearing inside a half-built wooden kit",
+          caption: "The Christmas special kit, wired up.",
         },
         {
           src: "assets/media/puzzle-piano.mp4",

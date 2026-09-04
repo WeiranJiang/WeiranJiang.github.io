@@ -1446,6 +1446,13 @@ figure.shot figcaption {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+.msg--user {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .msg__who {

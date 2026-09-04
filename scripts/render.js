@@ -63,19 +63,19 @@ function figure(media, onGone) {
      play — three clips on a page cost nothing to arrive at. */
   const inner = isVideo
     ? el("video", {
-        src: media.src,
-        poster: media.poster || null,
-        controls: true,
-        preload: "none",
-        playsinline: true,
-        "aria-label": media.alt || media.caption || "Video",
-      })
+      src: media.src,
+      poster: media.poster || null,
+      controls: true,
+      preload: "none",
+      playsinline: true,
+      "aria-label": media.alt || media.caption || "Video",
+    })
     : el("img", {
-        src: media.src,
-        alt: media.alt || "",
-        loading: "lazy",
-        decoding: "async",
-      });
+      src: media.src,
+      alt: media.alt || "",
+      loading: "lazy",
+      decoding: "async",
+    });
 
   const fig = el("figure", { class: isVideo ? "shot shot--video" : "shot" }, [
     inner,
@@ -198,24 +198,24 @@ function linkButtons(links, className = "entry__links") {
     links.map((link) =>
       link.action === "ask"
         ? el("button", { class: "btn", type: "button", "data-ask-alice": true }, [
-            link.label,
-            el("span", { class: "btn__glyph", text: "→", "aria-hidden": "true" }),
-          ])
+          link.label,
+          el("span", { class: "btn__glyph", text: "→", "aria-hidden": "true" }),
+        ])
         : el(
-            "a",
-            {
-              class: "btn",
-              href: link.href,
-              target: link.external ? "_blank" : null,
-              rel: link.external ? "noreferrer noopener" : null,
-            },
-            [
-              link.label,
-              link.external
-                ? el("span", { class: "btn__glyph", text: "↗", "aria-hidden": "true" })
-                : null,
-            ]
-          )
+          "a",
+          {
+            class: "btn",
+            href: link.href,
+            target: link.external ? "_blank" : null,
+            rel: link.external ? "noreferrer noopener" : null,
+          },
+          [
+            link.label,
+            link.external
+              ? el("span", { class: "btn__glyph", text: "↗", "aria-hidden": "true" })
+              : null,
+          ]
+        )
     )
   );
 }
@@ -364,9 +364,9 @@ export function renderDetailedEntries(items, press = []) {
         figuresFold([item.images, item.videos, item.media]),
         cited.length
           ? el("div", { class: "entry__press" }, [
-              el("p", { class: "label", text: "Press" }),
-              renderPressList(cited),
-            ])
+            el("p", { class: "label", text: "Press" }),
+            renderPressList(cited),
+          ])
           : null,
       ]);
 
@@ -398,12 +398,12 @@ export function renderGroups(groups) {
               el("span", { class: "archive-item__when", text: row.when || "" }),
               row.href
                 ? el("a", {
-                    class: "archive-item__what",
-                    href: row.href,
-                    text: row.what,
-                    target: "_blank",
-                    rel: "noreferrer noopener",
-                  })
+                  class: "archive-item__what",
+                  href: row.href,
+                  text: row.what,
+                  target: "_blank",
+                  rel: "noreferrer noopener",
+                })
                 : el("span", { class: "archive-item__what", text: row.what }),
               el("span", { class: "archive-item__tag", text: row.tag || "" }),
             ])
@@ -439,18 +439,14 @@ function clubCard(item, selected) {
     [
       el("div", { class: "card__head" }, [
         el("h3", { class: "card__title", text: item.org || item.name }),
-        /* A club's card is the whole club, so this link isn't for the reader —
-           it's so the club's own page isn't an orphan. A page nothing links to
-           is a page search engines quietly ignore. */
         el("div", { class: "card__links" }, [
-          el("a", { href: entryHref(item), text: "Details" }),
           item.website
             ? el("a", {
-                href: item.website,
-                target: "_blank",
-                rel: "noreferrer noopener",
-                text: "Website",
-              })
+              href: item.website,
+              target: "_blank",
+              rel: "noreferrer noopener",
+              text: "Website",
+            })
             : null,
         ]),
       ]),
@@ -553,12 +549,12 @@ export function renderAbout(about) {
                 el("span", { class: "k", text: row.label }),
                 row.href
                   ? el("a", {
-                      class: "v",
-                      href: row.href,
-                      text: row.value,
-                      target: /^https?:/.test(row.href) ? "_blank" : null,
-                      rel: /^https?:/.test(row.href) ? "noreferrer noopener" : null,
-                    })
+                    class: "v",
+                    href: row.href,
+                    text: row.value,
+                    target: /^https?:/.test(row.href) ? "_blank" : null,
+                    rel: /^https?:/.test(row.href) ? "noreferrer noopener" : null,
+                  })
                   : el("span", { class: "v", text: row.value }),
               ])
             )

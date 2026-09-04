@@ -16,11 +16,9 @@ export const site = {
   /* Shown in the header only. The page title and footer use `name`. */
   brand: "(Weiran) Alice Jiang",
   title: "Alice Jiang",
-  /* `title` is the heading on the page. This is the line a search result shows,
-     so it carries the program and the school as well as the name — that's what
-     someone searching "alice jiang m&t" is actually typing. Keep it under about
-     60 characters or Google truncates the end. */
-  metaTitle: "Alice Jiang — Jerome Fisher M&T, University of Pennsylvania",
+  /* `title` is the heading on the page. `metaTitle` is the line a search result
+     shows. Keep it under about 60 characters or Google truncates the end. */
+  metaTitle: "Alice Jiang - Personal Wesbite",
   tagline:
     "Student at Penn in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS.",
   description:
@@ -60,7 +58,7 @@ export const intro = {
   /* Each string is its own paragraph. */
   paragraphs: [
     "I’m a student at the University of Pennsylvania in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS. Most of what I do is somewhere between the two: analyzing company financials and building small software projects.",
-    "Right now I’m an investment banking summer analyst at Arbor Lake Capital, co-president of the Wharton Undergraduate Entrepreneurship Club, and on the team at the M&T Innovation Fund. Before college I spent five years running a small e-commerce business (HoloGlitterPacks), which is still the best hands-on experience I’ve had.",
+    "Right now I’m an investment banking summer analyst at Arbor Lake Capital, co-president of the Wharton Undergraduate Entrepreneurship Club, and on the team at the M&T Innovation Fund. Before college, I spent five years running a small e-commerce business, HoloGlitterPacks, which made me interested in understanding what drives growth and how companies can create long-term value.",
   ],
 
   /* Compact buttons under the introduction. */
@@ -96,7 +94,7 @@ export const intro = {
     },
     {
       label: "Otherwise",
-      lines: ["Kayaking, personal coding projects, wooden puzzles", "tennis, piano, thrifting, doodling, baking"],
+      lines: ["Kayaking, personal coding projects, wooden puzzles, tennis, piano, thrifting, doodling, baking"],
     },
   ],
 };
@@ -288,23 +286,23 @@ export const atPenn = [
 export const work = [
   {
     id: "slimetime",
-    name: "SlimeTime",
+    name: "Google Chrome Study Extension",
     kind: "Personal project",
     date: "2026",
     summary: "A personal gamified study tracker for passive logging.",
     body: [
-      "SlimeTime is a google chrome extension progress tracker. It has a stopwatch, a countdown, and a task list. It allows for passive tracking by reading through google calendar events and logging study time that way as well.",
-      "The other half is the part that makes me open it: Focus time earns Dewdrops, Dewdrops buy items in a shop, and items feed attribute XP which level up a slime with a class and an adventurer rank.",
+      "The Google Chrome Study Extension is a progress tracker with a stopwatch, a countdown, and a task list. It allows for passive tracking by reading through Google Calendar events and logging study time that way as well.",
+      "The other half is the part that makes me open it: Focus time earns currency, which buys items in a shop, and the items feed attribute XP that levels up a slime with a class and an adventurer rank.",
     ],
     images: [
       {
         src: "assets/img/slimetime-stats.png",
-        alt: "SlimeTime stats page showing focus hours, study streak, weekly study map, per-subject breakdown, and a radar chart",
+        alt: "Google Chrome Study Extension stats page showing focus hours, study streak, weekly study map, per-subject breakdown, and a radar chart",
         caption: "The personal stats page.",
       },
       {
         src: "assets/img/slimetime-home.png",
-        alt: "SlimeTime home screen showing the slime, its level, adventurer rank, and attribute XP bars",
+        alt: "Google Chrome Study Extension home screen showing the slime, its level, adventurer rank, and attribute XP bars",
         caption: "Home page.",
       },
     ],
@@ -689,8 +687,8 @@ export const pitches = [];
 
 export const about = {
   paragraphs: [
-    "I grew up in Michigan and came to Penn for the M&T Program. I like understanding how something actually works, whether that’s a capital structure or a codebase.",
-    "Outside of that, I enjoy kayaking when the weather allows, tennis and piano since I was small, thrifting, doodling, baking, and 3D wooden puzzles to relax.",
+    "I grew up in Michigan and came to Penn for the M&T Program. I like exploring new things and learning how and why they work.",
+    "I also enjoy kayaking when the weather allows, tennis and piano, thrifting, doodling, baking, and 3D wooden puzzles.",
   ],
   portrait: {
     /* The alt names her, because this is the picture image search returns for

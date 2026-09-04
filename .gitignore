@@ -1,6 +1,13 @@
 .DS_Store
 node_modules/
 .env
+.dev.vars
+.wrangler/
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
 *.log
 # Anchored, both of them. Unanchored `build/` also matches scripts/build/,
 # which is the build itself and very much wanted in the repo.

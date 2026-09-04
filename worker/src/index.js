@@ -126,9 +126,8 @@ function buildPrompt(question, passages) {
 
 /* Splits the model's trailing SOURCES: line off the answer. `cited` says
    whether there was a line at all, which is not the same as it being empty:
-   "SOURCES: none" is a claim that no passage was needed — true whenever the
-   answer came out of the notes — and the page uses it to leave the source links
-   off rather than guessing at them. */
+  "SOURCES: none" is a claim that no passage was needed, and the page uses it
+  to leave the source links off rather than guessing at them. */
 function splitSources(text) {
   const match = text.match(/\n?\s*SOURCES:\s*(.*)$/i);
   if (!match) return { answer: text.trim(), sources: [], cited: false };

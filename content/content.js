@@ -366,6 +366,23 @@ export const archivePage = {
   heading: "Archive",
 };
 
+/* ---------------------------------------------------------------------------
+ * 6. Blog — writing about technology and the products people use.
+ *
+ * Add posts to either list below. A post can link to a page on this site or to
+ * something published elsewhere; leave `href` out while a draft is not live.
+ * ------------------------------------------------------------------------ */
+
+export const blogPage = {
+  heading: "Blog",
+  intro: "Notes on technology, products, and how people use them.",
+};
+
+export const blog = {
+  tech: [],
+  consumer: [],
+};
+
 /* Schools and coursework. */
 export const education = [
   {
@@ -775,6 +792,7 @@ export const sections = [
   { id: "about", label: "About", heading: "About & Contact" },
   /* A page rather than a section: `href` sends the nav link elsewhere. */
   { id: "archive", label: "Archive", href: "archive.html" },
+  { id: "blog", label: "Blog", href: "blog.html" },
 ];
 
 /* An entry with `heading` is a section on the homepage; one with `href` is just

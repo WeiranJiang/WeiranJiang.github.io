@@ -16,6 +16,7 @@
  *   dist/index.html         the homepage, filled in
  *   dist/<entry id>.html    one real page per experience, club, and project
  *   dist/archive.html       the archive, filled in
+ *   dist/blog.html          the blog index, filled in
  *   dist/pitches.html       stock pitches, filled in
  *   dist/item.html          the old ?id= links, which forward to the above
  *   dist/sitemap.xml        every page above, written from the same data
@@ -52,7 +53,7 @@ const ASSETS = [
 ];
 
 /* An entry's id becomes a filename, so it can't be one we already use. */
-const RESERVED = new Set(["index", "item", "archive", "pitches", "robots", "sitemap", "styles", "404"]);
+const RESERVED = new Set(["index", "item", "archive", "blog", "pitches", "robots", "sitemap", "styles", "404"]);
 
 const abs = (relative) => new URL(relative, `${ORIGIN}/`).href;
 
@@ -472,6 +473,20 @@ async function buildArchive() {
   });
 }
 
+async function buildBlog() {
+  await build({
+    from: "blog.html",
+    to: "blog.html",
+    render: (document) => views.renderBlogPage(document.getElementById("main")),
+    head: {
+      title: `${views.blogPage.heading || "Blog"} — ${data.site.name}`,
+      description: views.blogPage.intro || `Technology and consumer writing by ${data.site.name}.`,
+      canonical: abs("blog.html"),
+      image: PORTRAIT,
+    },
+  });
+}
+
 async function buildPitches() {
   await build({
     from: "pitches.html",
@@ -606,13 +621,14 @@ for (const asset of ASSETS) {
 await buildHome();
 const entries = await buildEntries();
 await buildArchive();
+await buildBlog();
 await buildPitches();
 await buildItemShim();
 await build404();
 await writeSitemap();
 
 console.log(`Built ${pages.length} pages into dist/`);
-console.log(`  homepage, archive, pitches, and ${entries.length} entry pages`);
+console.log(`  homepage, archive, blog, pitches, and ${entries.length} entry pages`);
 console.log(`  ${entries.join(", ")}`);
 
 if (absentMedia.size) {

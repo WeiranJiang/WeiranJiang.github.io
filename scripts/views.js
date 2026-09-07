@@ -44,10 +44,12 @@ export const data = {
   awards: content.awards,
   about: content.about,
   press: content.press,
+  blog: content.blog,
   sections: content.sections,
 };
 
 export const archivePage = content.archivePage || {};
+export const blogPage = content.blogPage || {};
 export const pitchesPage = content.pitchesPage || {};
 export const pitches = content.pitches || [];
 
@@ -293,7 +295,68 @@ export function renderArchivePage(host) {
     ].filter(Boolean)
   );
 
-  renderNav(document.getElementById("site-nav"), data.sections, { absolute: true });
+  renderNav(document.getElementById("site-nav"), data.sections, { absolute: true, currentId: "archive" });
+}
+
+/* ---------- the blog ---------- */
+
+function blogRow(post) {
+  const title = el("h2", { class: "blog-entry__title" }, [
+    post.href
+      ? el("a", {
+          href: post.href,
+          target: post.external ? "_blank" : null,
+          rel: post.external ? "noreferrer noopener" : null,
+          text: post.title,
+        })
+      : post.title,
+  ]);
+
+  return el("article", { class: "blog-entry" }, [
+    el("div", { class: "blog-entry__meta" }, [
+      post.date ? el("span", { class: "meta", text: post.date }) : null,
+      post.readingTime ? el("span", { class: "label", text: post.readingTime }) : null,
+    ]),
+    el("div", { class: "blog-entry__main" }, [
+      title,
+      post.excerpt ? el("p", { class: "blog-entry__excerpt", text: post.excerpt }) : null,
+    ]),
+  ]);
+}
+
+function blogCategory(title, posts, description) {
+  const body = posts && posts.length
+    ? el("div", { class: "blog-list" }, posts.map(blogRow))
+    : el("p", { class: "blog-empty", text: "Entries coming soon." });
+
+  return el("section", { class: "blog-category", "aria-labelledby": `blog-${title.toLowerCase()}` }, [
+    el("div", { class: "blog-category__head" }, [
+      el("h2", { class: "blog-category__title", id: `blog-${title.toLowerCase()}`, text: title }),
+      el("p", { class: "blog-category__description", text: description }),
+    ]),
+    body,
+  ]);
+}
+
+export function renderBlogPage(host) {
+  const heading = blogPage.heading || "Blog";
+  applyChrome(`${heading} — ${data.site.name}`);
+
+  host.replaceChildren(
+    el("div", { class: "wrap item-head blog-head" }, [
+      backLink("index.html", "Home"),
+      el("div", { class: "item__headmain" }, [
+        el("h1", { class: "item__title", text: heading }),
+        blogPage.intro ? el("p", { class: "item__lede", text: blogPage.intro }) : null,
+      ]),
+    ]),
+    el("div", { class: "wrap blog-categories" }, [
+      blogCategory("Tech", data.blog?.tech || [], "Engineering, software, and the systems behind them."),
+      blogCategory("Consumer", data.blog?.consumer || [], "Products, behavior, and everyday experiences."),
+    ])
+  );
+
+  renderNav(document.getElementById("site-nav"), data.sections, { absolute: true, currentId: "blog" });
 }
 
 /* ---------- stock pitches ---------- */

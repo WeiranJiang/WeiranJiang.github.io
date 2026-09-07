@@ -15,6 +15,7 @@ assets/images/          older photos already in the repo
 index.html              the homepage
 item.html               the shell every entry page is built from
 archive.html            everything from before Penn
+blog.html               tech and consumer writing
 pitches.html            stock pitches
 scripts/views.js        assembles each page — used by the browser and the build
 scripts/render.js       turns content.js into the pieces of a page
@@ -43,7 +44,27 @@ and its page exists on the next push — nothing to create, nothing to link up.
 Give every entry a short, permanent `id`. It's the URL, so changing it later
 breaks any link anyone saved. It's also a filename, so it can't be `index`,
 `item`, `archive`, `pitches`, `robots`, `sitemap`, `styles`, or `404` — the
-build stops with an error rather than overwriting one of those.
+build stops with an error rather than overwriting one of those. `blog` is also
+reserved for the blog index.
+
+## Adding a blog entry
+
+The Blog page has two lists in `content/content.js`: `blog.tech` and
+`blog.consumer`. Add a post to the appropriate list; array order is page order.
+
+```js
+{
+  title: "Why this product decision matters",
+  date: "Sep 2026",
+  readingTime: "5 min read", // optional
+  excerpt: "A one-line preview of the argument.",
+  href: "posts/example.html", // an on-site page or full external URL
+  external: false,            // true opens it in a new tab
+}
+```
+
+Leave `href` out while a post is still a draft. Empty categories show a quiet
+“Entries coming soon” message.
 
 Links from before this changed, of the form `item.html?id=hologlitterpacks`,
 still work: `item.html` reads the id and forwards to the page.

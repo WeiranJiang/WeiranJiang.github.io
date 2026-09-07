@@ -192,18 +192,6 @@ const CSS = `
   display: block;
   width: max-content;
   transform-origin: center bottom;
-  animation: pixel-alice-stroll 26s linear infinite;
-}
-
-/* Stop her wandering off while someone is trying to click her. */
-.pixel-walk-wrap:hover .pixel-walk__runner,
-.pixel-walk:focus-visible .pixel-walk__runner {
-  animation-play-state: paused;
-}
-
-.pixel-walk:hover .pixel-alice,
-.pixel-walk:focus-visible .pixel-alice {
-  --walk-state: paused;
 }
 
 /* Pointing at her stops her, so she can be clicked without chasing her. The
@@ -218,16 +206,6 @@ const CSS = `
 .pixel-walk:focus-visible .pixel-alice__legs--a { opacity: 1; }
 .pixel-walk-wrap:hover .pixel-alice__legs--b,
 .pixel-walk:focus-visible .pixel-alice__legs--b { opacity: 0; }
-
-/* She keeps facing the same way the whole time — no flip at the ends. */
-@keyframes pixel-alice-stroll {
-  0%   { transform: translateX(0); }
-  4%   { transform: translateX(0); }
-  48%  { transform: translateX(var(--walk-span, 120px)); }
-  52%  { transform: translateX(var(--walk-span, 120px)); }
-  96%  { transform: translateX(0); }
-  100% { transform: translateX(0); }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .pixel-alice * { animation: none !important; }
@@ -458,20 +436,14 @@ export function createWalker(options = {}) {
 
   function hold() {
     if (!walk || walk.playState !== "running") return;
-    const stopped = walk.currentTime ?? 0;
     walk.pause();
-    /* Saying where she stopped, for the same reason release() says when she
-       starts again: left to itself, the stop is a request for a later frame to
-       carry out, and a request can go unanswered. */
-    walk.currentTime = stopped;
   }
 
-  /* Picking up from where she stopped. Naming the start time again for the same
-     reason as above: asking to resume can sit unanswered just as asking to
-     start can. */
+  /* Resume the same animation rather than rebuilding it, so leaving hover
+     continues from the exact pixel where she stopped. */
   function release() {
     if (!walk || walk.playState === "running" || held()) return;
-    walk.startTime = clock() - (walk.currentTime ?? 0);
+    walk.play();
   }
 
   wrap.addEventListener("pointerenter", hold);

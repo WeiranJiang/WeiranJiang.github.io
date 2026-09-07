@@ -603,12 +603,13 @@ export function renderSections(host, data) {
  * `specs` may mix sections (linked by anchor) and pages (linked by href).
  * `absolute` prefixes anchors with index.html, for use away from the homepage.
  */
-export function renderNav(host, specs, { absolute = false } = {}) {
+export function renderNav(host, specs, { absolute = false, currentId = null } = {}) {
   host.replaceChildren(
     ...specs.map((spec) =>
       el("a", {
         href: spec.href || `${absolute ? "index.html" : ""}#${spec.id}`,
         text: spec.label,
+        "aria-current": spec.id === currentId ? "page" : null,
       })
     )
   );

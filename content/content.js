@@ -58,14 +58,14 @@ export const intro = {
   /* Each string is its own paragraph. */
   paragraphs: [
     "I’m a student at the University of Pennsylvania in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS. Most of what I do is somewhere between the two: analyzing company financials and building small software projects.",
-    "Right now I’m an investment banking summer analyst at Arbor Lake Capital, co-president of the Wharton Undergraduate Entrepreneurship Club, and on the team at the M&T Innovation Fund. Before college, I spent five years running a small e-commerce business, HoloGlitterPacks, which made me interested in understanding what drives growth and how companies can create long-term value.",
+    "Right now I’m an investment banking summer analyst at Arbor Lake Capital, co-president of the Wharton Undergraduate Entrepreneurship Club, and on the team at the M&T Innovation Fund. For six years, from middle school through my first year at Penn, I ran a small e-commerce business, HoloGlitterPacks, which made me interested in understanding what drives growth and how companies can create long-term value.",
   ],
 
   /* Compact buttons under the introduction. */
   links: [
     /* action: "ask" opens the assistant instead of navigating. */
     { label: "Ask about Alice", action: "ask" },
-    { label: "Résumé", href: "assets/files/Alice_Jiang's_Resume.pdf?v=20260904b", external: true },
+    { label: "Résumé", href: "assets/files/Alice_Jiang's_Resume.pdf?v=20260924", external: true },
     { label: "GitHub", href: "https://github.com/WeiranJiang", external: true },
     { label: "Stock pitches", href: "pitches.html" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/weiran-jiang", external: true },
@@ -89,8 +89,12 @@ export const intro = {
         "IB Summer Analyst, Arbor Lake Capital",
         "Co-President, WUEC",
         "Team Member, MTIF",
-        "Investment Analyst, Moso Capital",
+        "VC Scout, Moso Capital",
       ],
+    },
+    {
+      label: "Programs",
+      lines: ["SEO Career — Investment Banking Track"],
     },
     {
       label: "Otherwise",
@@ -114,32 +118,28 @@ export const experience = [
       "Sell-side and buy-side work for middle-market clients, with a focus on cross border M&A.",
     points: [
       "Screened 57 strategic and financial buyers for an air-spring company on revenue over $500M and EBITDA over $50M, and shortlisted 12.",
-      "Developed 3 target-company profiles benchmarking business models, revenue mix, and financials, and assessed customer-concentration risk across 3 major OEM relationships.",
-      "Built the courtroom presentation deck for a contractual advisory-fee dispute arising from a $700M de-SPAC, turning transaction and engagement documents into exhibits on the fee provisions at issue.",
+      "Built financial profiles on 3 buyers, assessing revenue growth, EBITDA margins, trading multiples, and customer concentration.",
+      "Developed court-ready transaction timelines and deal-structure documents for advisory-fee litigation arising from a $700M de-SPAC.",
     ],
   },
   {
     id: "hologlitterpacks",
     role: "Founder",
     org: "HoloGlitterPacks",
-    date: "Aug 2020 - Jan 2026",
+    date: "Jul 2020 - Jun 2026",
     place: "Ann Arbor, MI",
     summary:
       "An e-commerce business I started in middle school and ran through my first year of college.",
     points: [
       "Grew from $50 of starting capital to $65K net profit across 15K orders, building the pricing and cost models and managing the full P&L.",
-      "Earned 2,500 five-star reviews by reading conversion and demand data to refine the product mix and listings.",
+      "Increased conversion from 1.3% to 5.0% and earned 2,500 five-star reviews by A/B testing listings, pricing, and product mix.",
+      "Owned sourcing, listings, pricing, fulfillment, service, and marketing, and launched made-to-order bundles that cut packaging waste.",
     ],
     images: [
       {
         src: "assets/images/hologlitterpacks-dashboard.png",
         alt: "HoloGlitterPacks seller dashboard",
         caption: "The shop dashboard.",
-      },
-      {
-        src: "assets/images/hologlitterpacks-packing.jpg",
-        alt: "Alice at a desk filling and sealing glitter packs, with sorted trays of colours in front of her",
-        caption: "Packing orders at the dining table.",
       },
       {
         src: "assets/images/hologlitterpacks-inventory.jpg",
@@ -170,17 +170,17 @@ export const experience = [
     org: "M&T Summer Institute",
     date: "Feb 2026 - Apr 2026",
     place: "Philadelphia, PA",
-    summary: "Read 86 applications for the M&T Summer Institute.",
+    summary: "Read 102 applications for the M&T Summer Institute.",
     points: [
-      "Read 86 applications (essays, recommendation letters, transcripts, extracurriculars) for the M&T Summer Institute.",
-      "Rated essays, recommendation letters, transcripts, and extracurriculars to be used for final review.",
+      "Read and scored 102 domestic and international applications (essays, recommendation letters, transcripts, extracurriculars) for the M&T Summer Institute.",
+      "Recommended 28 candidates with written comments for the 75-student cohort drawn from 3,000 applicants.",
     ],
   },
   {
     id: "applebees",
     role: "Host, part-time",
     org: "Applebee’s Neighborhood Grill + Bar",
-    date: "Aug 2024 - Jun 2025",
+    date: "Aug 2024 - Feb 2025",
     place: "Ann Arbor, MI",
     summary: "Talked to a lot of cool people and levelled up at folding kid menus.",
     points: [
@@ -202,16 +202,17 @@ export const atPenn = [
     id: "wuec",
     short: "WUEC",
     website: "https://whartonentrepreneurship.org/",
-    role: "Co-President, VC Committee Member",
+    role: "Co-President",
     org: "Wharton Undergraduate Entrepreneurship Club",
     date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
     summary:
       "WUEC runs Penn’s undergraduate entrepreneurship programming — conferences, treks, and pitch competitions.",
     points: [
+      "Co-led Penn’s largest entrepreneurship organization, overseeing programming, club events, budgets, sponsorships, and recruitment across 5 committees, 150 active members, and a 2,100-person alumni network of founders, operators, and investors.",
       "Organized and led a 26-student NYC venture trek with visits to a16z, Primary Venture Partners, Picus Capital, and M13.",
       "Wrote investment memos evaluating startups from an 80-applicant competition run with Center City Ventures.",
-      "Organized the Imagine.Dev hackathon for 50 participants and designed the project-evaluation criteria.",
+      "Started the 50-person Imagine.Dev hackathon: set the schedule, wrote the scoring rubric, and helped with marketing.",
     ],
     images: [
       {
@@ -232,23 +233,23 @@ export const atPenn = [
     summary:
       "MTIF invests in student-founded companies at Penn and supports them afterwards.",
     points: [
-      "Ran diligence on 9 of 70 Penn startup applicants using standardized scoring frameworks, directing $15K across 3 investments.",
-      "Researched corporate customers and partners for portfolio company Cengine during its partnership with Cummins.",
+      "Evaluated 9 of 70 Penn startup applicants through founder interviews and market sizing; 2 reached the 5-company $3K finalist round.",
+      "Produced a ranked corporate-customer outreach list for portfolio company Cengine during its Fortune 500 partnership with Cummins.",
     ],
   },
   {
     id: "moso-capital",
     short: "Moso",
     website: "https://www.mosocapital.org/",
-    role: "Investment Analyst, Comma Capital Team",
+    role: "VC Scout, Comma Capital Team",
     org: "Moso Capital",
     date: "Feb 2026 - Present",
     place: "Philadelphia, PA",
     summary:
       "A student investment team backing early-stage companies, with a Penn founder pipeline behind it.",
     points: [
-      "Assessed 15 startups on business model, market opportunity, and competitive positioning, and advanced 3 to partner review.",
-      "Built a pipeline of 21 Penn student founders on a 5-person team, sourcing early-stage deal flow for Comma Capital.",
+      "Wrote buy-or-pass memos on 15 pre-seed startups covering founders, market size, and competition; 3 advanced to partner review.",
+      "Sourced and tracked 21 Penn-founded startups through campus events, pitch competitions, accelerator cohorts, and alumni referrals, on a 5-person team.",
     ],
   },
   {
@@ -261,7 +262,8 @@ export const atPenn = [
     place: "Philadelphia, PA",
     summary: "Wharton's undergraduate finance club — markets coverage and company analysis.",
     points: [
-      "Built equity pitches using industry research, comparable-company analysis, and DCF valuation, and presented the recommendations to club members.",
+      "Delivered weekly market updates to club members.",
+      "Built DCF, comparable-company, and precedent transaction analyses for equity pitches, and presented the recommendations to club members.",
     ],
   },
   {
@@ -320,7 +322,7 @@ export const work = [
       "We presented at EurekaFest at MIT in June 2024, where I also won the Lemelson-MIT EurekaFest essay contest.",
     ],
     points: [
-      "Co-led the team and ran community outreach.",
+      "Co-led the 5-person InvenTeam and ran community outreach.",
       "Sourced the requirements from resident interviews at University Living, StoryPoint, and Saline Senior Center.",
       "Secured a $7,500 Lemelson-MIT InvenTeam grant and a further $1,500 from Saline Area Schools.",
       "Ran 5 prototype iterations; named inventor on U.S. Provisional Patent 63/655,566.",
@@ -390,7 +392,7 @@ export const education = [
     place: "Saline, MI",
     date: "2021 - 2025",
     points: [
-      "4.4348 weighted GPA, 4.0 unweighted. Ranked 1 of 396 unweighted, 2 of 396 weighted.",
+      "Salutatorian. 4.4348 weighted GPA, 4.0 unweighted. Ranked 1 of 396 unweighted, 2 of 396 weighted.",
       "SAT 1560 — 800 math, 760 reading and writing.",
       "AP exams: Calculus BC 5, Chemistry 5, Chinese 5, Computer Science 5, Language and Composition 5, U.S. Government 5, Psychology 5, U.S. History 4.",
       "Further AP coursework: Literature, Macroeconomics, Microeconomics, Physics C: Mechanics, Statistics.",
@@ -421,7 +423,7 @@ export const highSchool = [
     summary:
       "Four years of science events — mostly photos of light balsa bridges.",
     body: [
-      "56 placements across invitational, regional, state, and national competitions.",
+      "56 medals across invitational, regional, state, and national competitions, including 3 Michigan state championships.",
     ],
     points: [
       "Helped with practices and summer camps, and with the team\u2019s logistics, budget, and schedule.",
@@ -578,10 +580,7 @@ export const awards = [
     group: "Academic",
     items: [
       { when: "2025", what: "Swartz Scholarship for Entrepreneurs ($2,500)." },
-      { when: "2025", what: "National Merit Scholar." },
-      { when: "2024", what: "AP Scholar with Distinction." },
-      { when: "2024", what: "Lemelson-MIT EurekaFest essay winner." },
-      { when: "2024", what: "Lila Howard Make-a-Difference Scholarship." },
+      { when: "2025", what: "National Merit Scholar ($2,500)." },
       { when: "2024", what: "AP Scholar with Distinction." },
       { when: "2024", what: "Lemelson-MIT EurekaFest essay winner." },
       { when: "2024", what: "Lila Howard Make-a-Difference Scholarship." },
@@ -734,11 +733,6 @@ export const about = {
       note: "Photos and clips of the builds.",
       media: [
         {
-          src: "assets/images/puzzle-locomotive-kit.jpg",
-          alt: "The locomotive kit part-built: laser-cut sheets still on their sprues, the instruction booklet open, and the motor board wired up beside the frame",
-          caption: "The locomotive kit, partway through.",
-        },
-        {
           src: "assets/img/puzzle-magic-cello.jpg",
           alt: "An assembled wooden Magic Cello music box, gears and carved leaves visible through the body, standing on a book-shaped base",
           caption: "The bow moves and plays a Nocturne.",
@@ -777,7 +771,7 @@ export const about = {
   contact: [
     { label: "Email", value: "wajiang@wharton.upenn.edu", href: "mailto:wajiang@wharton.upenn.edu" },
     { label: "LinkedIn", value: "weiran-jiang", href: "https://www.linkedin.com/in/weiran-jiang" },
-    { label: "Résumé", value: "PDF", href: "assets/files/Alice_Jiang's_Resume.pdf?v=20260904b" },
+    { label: "Résumé", value: "PDF", href: "assets/files/Alice_Jiang's_Resume.pdf?v=20260924" },
   ],
 };
 

@@ -296,18 +296,6 @@ export const work = [
       "The Google Chrome Study Extension is a progress tracker with a stopwatch, a countdown, and a task list. It allows for passive tracking by reading through Google Calendar events and logging study time that way as well.",
       "The other half is the part that makes me open it: Focus time earns currency, which buys items in a shop, and the items feed attribute XP that levels up a slime with a class and an adventurer rank.",
     ],
-    images: [
-      {
-        src: "assets/img/slimetime-stats.png",
-        alt: "Google Chrome Study Extension stats page showing focus hours, study streak, weekly study map, per-subject breakdown, and a radar chart",
-        caption: "The personal stats page.",
-      },
-      {
-        src: "assets/img/slimetime-home.png",
-        alt: "Google Chrome Study Extension home screen showing the slime, its level, adventurer rank, and attribute XP bars",
-        caption: "Home page.",
-      },
-    ],
   },
   {
     id: "solostep",
@@ -348,11 +336,6 @@ export const work = [
         src: "assets/images/MIT3.jpg",
         alt: "Four members of the EMUiNVENT InvenTeam standing beside the SoloStep poster at EurekaFest",
         caption: "The EMUiNVENT InvenTeam at EurekaFest, MIT.",
-      },
-      {
-        src: "assets/img/solostep-sticker.jpg",
-        alt: "A SoloStep sticker: a line drawing of a foot stepping, above the words SoloStep — Seize the Movement",
-        caption: "Part of materials - our logo/sticker.",
       },
     ],
   },
@@ -441,21 +424,6 @@ export const highSchool = [
         alt: "A balsa bridge on a test rig, loaded through a chain hung from its centre and a water bottle above",
         caption: "Load testing.",
       },
-      {
-        src: "assets/img/bridge-load-test.jpg",
-        alt: "A balsa bridge on a test rig, loaded through a chain hung from its centre",
-        caption: "Load testing.",
-      },
-      {
-        src: "assets/img/science-olympiad-medals.jpg",
-        alt: "A pile of Science Olympiad medals, lanyards, and place ribbons spread across a table",
-        caption: "Science Olympiad medals.",
-      },
-      {
-        src: "assets/images/science-olympiad-workbench.jpg",
-        alt: "Alice at the workbench during a Science Olympiad bridge build session",
-        caption: "Another build session.",
-      },
     ],
   },
   {
@@ -470,11 +438,6 @@ export const highSchool = [
       "Raised $450 for the club banquet with a new fundraising model.",
     ],
     images: [
-      {
-        src: "assets/img/nhs-food-drive.jpg",
-        alt: "Students sorting donated cans and boxes into postal bins at a food pantry",
-        caption: "Sorting a food drive into the pantry’s bins.",
-      },
       {
         src: "assets/images/nhs-auditorium.jpg",
         alt: "NHS members gathered at a school event",
@@ -515,7 +478,7 @@ export const highSchool = [
     summary: "Playing piano and flute for residents at retirement homes.",
     images: [
       {
-        src: "assets/img/music-for-seniors.jpg",
+        src: "assets/media/music-for-seniors.jpg",
         alt: "Alice playing flute from sheet music, seated in front of an audience in a common room",
         caption: "Playing flute.",
       },
@@ -712,19 +675,6 @@ export const about = {
     src: "assets/img/portrait.jpg",
     alt: "Alice Jiang, photographed in Florida",
   },
-  /* Photos shown under the About text. */
-  media: [
-    {
-      src: "assets/img/kayaking.jpg",
-      alt: "Alice paddling a green kayak through a stretch of whitewater on a wooded river",
-      caption: "The Rapids in Argo Park.",
-    },
-    {
-      src: "assets/img/fruit-tart.jpg",
-      alt: "A fruit tart topped with sliced strawberries, kiwi, and blueberries over pastry cream",
-      caption: "A freshly decorated fruit tart.",
-    },
-  ],
   /* Folded away behind a heading you click to open. Add another object here and
      you get another dropdown. */
   collections: [
@@ -733,19 +683,24 @@ export const about = {
       note: "Photos and clips of the builds.",
       media: [
         {
-          src: "assets/img/puzzle-magic-cello.jpg",
-          alt: "An assembled wooden Magic Cello music box, gears and carved leaves visible through the body, standing on a book-shaped base",
-          caption: "The bow moves and plays a Nocturne.",
+          src: "assets/images/fun1.mp4",
+          alt: "A wooden music-box puzzle being demonstrated",
+          caption: "A wooden puzzle in motion.",
         },
         {
-          src: "assets/img/puzzle-piano-bear.jpg",
-          alt: "The finished wooden grand piano music box, lid open on its gearing, beside a small teddy bear in a Penn shirt",
-          caption: "The piano plays Canon in D.",
+          src: "assets/images/fun3.mp4",
+          alt: "A wooden music-box puzzle being demonstrated in a short video",
+          caption: "Another music-box build.",
         },
         {
-          src: "assets/img/puzzle-wiring.jpg",
-          alt: "Hands connecting a small circuit board to the motor and gearing inside a half-built wooden kit",
-          caption: "The Christmas special kit, wired up.",
+          src: "assets/images/fun4.mp4",
+          alt: "A wooden music-box puzzle with its mechanism moving",
+          caption: "The mechanism at work.",
+        },
+        {
+          src: "assets/images/CelloMusicBox.mov",
+          alt: "A wooden cello music box being demonstrated",
+          caption: "The cello music box.",
         },
         {
           src: "assets/media/puzzle-piano.mp4",

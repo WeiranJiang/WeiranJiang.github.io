@@ -18,7 +18,7 @@ export const site = {
   title: "Alice Jiang",
   /* `title` is the heading on the page. `metaTitle` is the line a search result
      shows. Keep it under about 60 characters or Google truncates the end. */
-  metaTitle: "Alice Jiang - Personal Wesbite",
+  metaTitle: "Alice Jiang - Personal Website",
   tagline:
     "Student at Penn in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS.",
   description:
@@ -58,7 +58,7 @@ export const intro = {
   /* Each string is its own paragraph. */
   paragraphs: [
     "I’m a student at the University of Pennsylvania in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS. Most of what I do is somewhere between the two: analyzing company financials and building small software projects.",
-    "Right now I’m an investment banking summer analyst at Arbor Lake Capital, co-president of the Wharton Undergraduate Entrepreneurship Club, and on the team at the M&T Innovation Fund. For six years, from middle school through my first year at Penn, I ran a small e-commerce business, HoloGlitterPacks, which made me interested in understanding what drives growth and how companies can create long-term value.",
+    "Right now I’m an investment banking summer analyst at Arbor Lake Capital, co-president of the Wharton Undergraduate Entrepreneurship Club, and on the team at the M&T Innovation Fund. For six years, from middle school through my first year at Penn, I ran a small e-commerce business, HoloGlitterPacks, and that’s where I got curious about why some businesses keep growing and others stall.",
   ],
 
   /* Compact buttons under the introduction. */
@@ -231,7 +231,7 @@ export const atPenn = [
     date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
     summary:
-      "MTIF invests in student-founded companies at Penn and supports them afterwards.",
+      "MTIF invests in companies Penn students start and keeps helping them after the check.",
     points: [
       "Evaluated 9 of 70 Penn startup applicants through founder interviews and market sizing; 2 reached the 5-company $3K finalist round.",
       "Produced a ranked corporate-customer outreach list for portfolio company Cengine during its Fortune 500 partnership with Cummins.",
@@ -246,7 +246,7 @@ export const atPenn = [
     date: "Feb 2026 - Present",
     place: "Philadelphia, PA",
     summary:
-      "A student investment team backing early-stage companies, with a Penn founder pipeline behind it.",
+      "A student-run fund that backs early-stage startups, a lot of them started by Penn students.",
     points: [
       "Wrote buy-or-pass memos on 15 pre-seed startups covering founders, market size, and competition; 3 advanced to partner review.",
       "Sourced and tracked 21 Penn-founded startups through campus events, pitch competitions, accelerator cohorts, and alumni referrals, on a 5-person team.",
@@ -260,7 +260,7 @@ export const atPenn = [
     org: "Wharton Undergraduate Finance Club",
     date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
-    summary: "Wharton's undergraduate finance club — markets coverage and company analysis.",
+    summary: "Wharton’s undergraduate finance club. We follow the markets and value companies.",
     points: [
       "Delivered weekly market updates to club members.",
       "Built DCF, comparable-company, and precedent transaction analyses for equity pitches, and presented the recommendations to club members.",
@@ -274,7 +274,7 @@ export const atPenn = [
     org: "Wharton Hedge Fund Club",
     date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
-    summary: "The hedge fund club, covering the same markets work from the long/short side.",
+    summary: "Wharton’s hedge fund club. We pitch stocks to go long or short.",
     points: [
       "Built long/short equity pitches using industry research, comparable-company analysis, and DCF valuation, and presented the recommendations to club members.",
     ],
@@ -291,10 +291,10 @@ export const work = [
     name: "Google Chrome Study Extension",
     kind: "Personal project",
     date: "2026",
-    summary: "A personal gamified study tracker for passive logging.",
+    summary: "A study tracker I built for myself, with a slime that levels up when I focus.",
     body: [
-      "The Google Chrome Study Extension is a progress tracker with a stopwatch, a countdown, and a task list. It allows for passive tracking by reading through Google Calendar events and logging study time that way as well.",
-      "The other half is the part that makes me open it: Focus time earns currency, which buys items in a shop, and the items feed attribute XP that levels up a slime with a class and an adventurer rank.",
+      "It’s a Chrome extension with a stopwatch, a countdown, and a task list. It also reads my Google Calendar and logs study time on its own, so I don’t have to remember to start a timer.",
+      "The other half is the reason I actually open it: focus time earns coins, coins buy items in a shop, and the items give XP to a slime that has its own class and adventurer rank.",
     ],
   },
   {
@@ -304,9 +304,9 @@ export const work = [
     date: "2023 - 2024",
     place: "Ypsilanti, MI",
     summary:
-      "A working, life-size mobility device for seniors, built with a Lemelson-MIT InvenTeam grant. Received a provisional patent and presented at MIT.",
+      "A life-size mobility device for seniors that our team built with a Lemelson-MIT InvenTeam grant. We got a provisional patent and presented it at MIT.",
     body: [
-      "SoloStep came out of our EMUiNVENT InvenTeam: a device to help people with limited mobility move between sitting, standing, and lying down. Through lots of resources and mentorship we built a working, life-size prototype. We also hold a provisional patent, thanks to Microsoft’s Make What’s Next program.",
+      "SoloStep came out of our EMUiNVENT InvenTeam. It helps people with limited mobility move between sitting, standing, and lying down. With a lot of help from our mentors, we built a working, life-size prototype, and Microsoft’s Make What’s Next program helped us file a provisional patent.",
       "We presented at EurekaFest at MIT in June 2024, where I also won the Lemelson-MIT EurekaFest essay contest.",
     ],
     points: [
@@ -404,7 +404,7 @@ export const highSchool = [
     date: "2021 - 2025",
     place: "Saline, MI",
     summary:
-      "Four years of science events — mostly photos of light balsa bridges.",
+      "Four years of science competitions. The photos are mostly balsa bridges.",
     body: [
       "56 medals across invitational, regional, state, and national competitions, including 3 Michigan state championships.",
     ],
@@ -432,9 +432,9 @@ export const highSchool = [
     role: "President",
     date: "2021 - 2025",
     place: "Saline, MI",
-    summary: "Running the chapter, and the volunteering that came with it.",
+    summary: "I ran our chapter and organized a lot of volunteering.",
     points: [
-      "Helped lead chapter meetings and committee meetings, and managed 70+ volunteering opportunities a year.",
+      "Led chapter and committee meetings, and managed 70+ volunteering opportunities a year.",
       "Raised $450 for the club banquet with a new fundraising model.",
     ],
     images: [
@@ -485,13 +485,13 @@ export const highSchool = [
       {
         src: "assets/img/senior-center-music.jpg",
         alt: "Alice playing flute for residents in a senior living community room",
-        caption: "A music session for senior residents.",
+        caption: "Playing for residents in the community room.",
       },
       {
         src: "assets/media/music-for-seniors.mp4",
         poster: "assets/media/music-for-seniors.jpg",
         alt: "Alice playing music for senior residents",
-        caption: "Playing music for senior residents.",
+        caption: "A short clip from one of the visits.",
       },
     ],
   },
@@ -680,45 +680,31 @@ export const about = {
   collections: [
     {
       label: "3D wooden puzzles",
-      note: "Photos and clips of the builds.",
+      note: "Some of the ones I’ve built.",
       media: [
-        {
-          src: "assets/images/fun1.mp4",
-          alt: "A wooden music-box puzzle being demonstrated",
-          caption: "A wooden puzzle in motion.",
-        },
-        {
-          src: "assets/images/fun3.mp4",
-          alt: "A wooden music-box puzzle being demonstrated in a short video",
-          caption: "Another music-box build.",
-        },
-        {
-          src: "assets/images/fun4.mp4",
-          alt: "A wooden music-box puzzle with its mechanism moving",
-          caption: "The mechanism at work.",
-        },
-        {
-          src: "assets/images/CelloMusicBox.mov",
-          alt: "A wooden cello music box being demonstrated",
-          caption: "The cello music box.",
-        },
         {
           src: "assets/media/puzzle-piano.mp4",
           poster: "assets/media/puzzle-piano.jpg",
           alt: "A finished laser-cut wooden grand piano music box with a candelabra and bench",
-          caption: "The grand piano music box lid details.",
+          caption: "The grand piano, candelabra and bench included.",
+        },
+        {
+          src: "assets/media/puzzle-cello.mp4",
+          poster: "assets/media/puzzle-cello.jpg",
+          alt: "A wooden cello music box playing on its stand",
+          caption: "The cello music box, playing.",
         },
         {
           src: "assets/media/puzzle-train.mp4",
           poster: "assets/media/puzzle-train.jpg",
           alt: "The inside of a wooden model locomotive, showing a motor and circuit board wired in",
-          caption: "The locomotive kit’s major components.",
+          caption: "Inside the locomotive: motor and circuit board.",
         },
         {
           src: "assets/media/puzzle-1.mp4",
           poster: "assets/media/puzzle-1.jpg",
           alt: "A wooden kit with gearing, a driver board, and a string of LEDs lighting up",
-          caption: "Wiring up the lights on a build.",
+          caption: "Getting the lights to work.",
         },
       ],
     },

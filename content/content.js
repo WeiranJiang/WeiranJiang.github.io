@@ -687,8 +687,8 @@ export const about = {
           caption: "Inside the locomotive: motor and circuit board.",
         },
         {
-          src: "assets/media/puzzle-1.mp4",
-          poster: "assets/media/puzzle-1.jpg",
+          src: "assets/media/puzzle-lights.mp4",
+          poster: "assets/media/puzzle-lights.jpg",
           alt: "A wooden kit with gearing, a driver board, and a string of LEDs lighting up",
           caption: "Getting the lights to work.",
         },

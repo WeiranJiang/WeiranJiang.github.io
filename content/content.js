@@ -57,7 +57,7 @@ export const site = {
 export const intro = {
   /* Each string is its own paragraph. */
   paragraphs: [
-    "I’m a student at the University of Pennsylvania in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS. Most of my work sits between the two. I read company financials, and I build small software projects.",
+    "I’m a student at the University of Pennsylvania in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS. I enjoy work that sits between the two, like reading company financials and building small software projects.",
     "Right now I’m an investment banking summer analyst at Arbor Lake Capital. At Penn, I co-lead the Wharton Undergraduate Entrepreneurship Club and work on the M&T Innovation Fund. Before that, I spent six years running an online glitter shop called HoloGlitterPacks, from middle school through my first year of college. Running it is how I got interested in why some businesses grow and others stall.",
   ],
 
@@ -115,11 +115,11 @@ export const experience = [
     date: "May 2026 - Present",
     place: "Ann Arbor, MI",
     summary:
-      "Arbor Lake helps mid-sized companies buy and sell businesses, often across borders. I find buyers, research them, and prepare deal documents.",
+      "Arbor Lake advises mid-sized companies on buying and selling businesses, often across borders. I help find potential buyers, research them, and prepare deal documents.",
     points: [
       "Screened 57 strategic and financial buyers for an air-spring company on revenue over $500M and EBITDA over $50M, and shortlisted 12.",
       "Built financial profiles on 3 buyers, assessing revenue growth, EBITDA margins, trading multiples, and customer concentration.",
-      "Developed court-ready transaction timelines and deal-structure documents for advisory-fee litigation arising from a $700M de-SPAC.",
+      "Prepared transaction timelines and deal-structure documents for advisory-fee litigation arising from a $700M de-SPAC.",
     ],
   },
   {
@@ -131,9 +131,9 @@ export const experience = [
     summary:
       "An online glitter shop I started in middle school with $50 and ran through my first year of college.",
     points: [
-      "Grew from $50 of starting capital to $65K net profit across 15K orders, building the pricing and cost models and managing the full P&L.",
+      "Grew the shop from $50 of starting capital to $65K in net profit across 15K orders, building the pricing and cost models and managing the P&L.",
       "Increased conversion from 1.3% to 5.0% and earned 2,500 five-star reviews by A/B testing listings, pricing, and product mix.",
-      "Owned sourcing, listings, pricing, fulfillment, service, and marketing, and launched made-to-order bundles that cut packaging waste.",
+      "Handled sourcing, listings, pricing, fulfillment, service, and marketing, and launched made-to-order bundles that cut packaging waste.",
     ],
     images: [
       {
@@ -159,7 +159,6 @@ export const experience = [
     org: "University of Pennsylvania Student Federal Credit Union",
     date: "Feb 2026 - May 2026",
     place: "Philadelphia, PA",
-    summary: "A credit union run entirely by Penn students, with $6M in assets.",
     points: [
       "Processed deposits, withdrawals, and account services, and monitored transaction activity under federal regulations.",
     ],
@@ -170,7 +169,6 @@ export const experience = [
     org: "M&T Summer Institute",
     date: "Feb 2026 - Apr 2026",
     place: "Philadelphia, PA",
-    summary: "A summer program for high schoolers run by Penn’s M&T Program. I helped decide who got in.",
     points: [
       "Read and scored 102 domestic and international applications (essays, recommendation letters, transcripts, extracurriculars) for the M&T Summer Institute.",
       "Recommended 28 candidates with written comments for the 75-student cohort drawn from 3,000 applicants.",
@@ -207,10 +205,10 @@ export const atPenn = [
     date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
     summary:
-      "Penn’s largest undergraduate entrepreneurship club. We run conferences, pitch competitions, and trips to meet investors.",
+      "An undergraduate entrepreneurship club at Penn. We host conferences, pitch competitions, and trips to meet investors.",
     points: [
-      "Co-led Penn’s largest entrepreneurship organization, overseeing programming, club events, budgets, sponsorships, and recruitment across 5 committees, 150 active members, and a 2,100-person alumni network of founders, operators, and investors.",
-      "Organized and led a 26-student NYC venture trek with visits to a16z, Primary Venture Partners, Picus Capital, and M13.",
+      "Co-lead the club, helping oversee programming, club events, budgets, sponsorships, and recruitment across 5 committees, 150 active members, and a 2,100-person alumni network of founders, operators, and investors.",
+      "Organized a 26-student NYC venture trek with visits to a16z, Primary Venture Partners, Picus Capital, and M13.",
       "Wrote investment memos evaluating startups from an 80-applicant competition run with Center City Ventures.",
       "Started the 50-person Imagine.Dev hackathon: set the schedule, wrote the scoring rubric, and helped with marketing.",
     ],
@@ -246,7 +244,7 @@ export const atPenn = [
     date: "Feb 2026 - Present",
     place: "Philadelphia, PA",
     summary:
-      "A student-run venture fund. My job is to find promising startups early, many of them from Penn, and write up whether we should invest.",
+      "A student-run venture fund. I help find early-stage startups, many of them from Penn, and write up whether the fund should invest.",
     points: [
       "Wrote buy-or-pass memos on 15 pre-seed startups covering founders, market size, and competition; 3 advanced to partner review.",
       "Sourced and tracked 21 Penn-founded startups through campus events, pitch competitions, accelerator cohorts, and alumni referrals, on a 5-person team.",
@@ -294,7 +292,7 @@ export const work = [
     summary: "A study tracker I built for myself, with a slime that levels up when I focus.",
     body: [
       "It’s a Chrome extension with a stopwatch, a countdown, and a task list. Most study timers only work if you remember to start them, so this one also reads my Google Calendar and logs study blocks on its own.",
-      "The other half is the reason I actually open it. Focus time earns coins, coins buy items in a shop, and items give XP to a pet slime. The slime has a class and an adventurer rank, and it levels up as I study.",
+      "The other half is what keeps me coming back to it. Focus time earns coins, coins buy items in a shop, and items give XP to a pet slime. The slime has a class and an adventurer rank, and it levels up as I study.",
     ],
   },
   {
@@ -304,7 +302,7 @@ export const work = [
     date: "2023 - 2024",
     place: "Ypsilanti, MI",
     summary:
-      "A life-size mobility device for seniors that our team built with a Lemelson-MIT InvenTeam grant. We got a provisional patent and presented it at MIT.",
+      "A life-size mobility device for seniors that our team built with a Lemelson-MIT InvenTeam grant. We received a provisional patent and presented our work at MIT.",
     body: [
       "SoloStep came out of our EMUiNVENT InvenTeam. It’s a motorized device that helps people with limited mobility move between sitting, standing, and lying down without someone lifting them. With a lot of help from our mentors, we built a working, life-size prototype, and Microsoft’s Make What’s Next program helped us file a provisional patent.",
       "We presented at EurekaFest at MIT in June 2024, where I also won the Lemelson-MIT EurekaFest essay contest.",
@@ -312,7 +310,7 @@ export const work = [
     points: [
       "Co-led the 5-person InvenTeam and ran community outreach.",
       "Sourced the requirements from resident interviews at University Living, StoryPoint, and Saline Senior Center.",
-      "Secured a $7,500 Lemelson-MIT InvenTeam grant and a further $1,500 from Saline Area Schools.",
+      "Helped win a $7,500 Lemelson-MIT InvenTeam grant and an additional $1,500 from Saline Area Schools.",
       "Ran 5 prototype iterations; named inventor on U.S. Provisional Patent 63/655,566.",
       "Presented at MIT’s EurekaFest, and won the Lemelson-MIT EurekaFest essay contest.",
     ],
@@ -375,7 +373,7 @@ export const education = [
     place: "Saline, MI",
     date: "2021 - 2025",
     points: [
-      "Salutatorian. 4.4348 weighted GPA, 4.0 unweighted. Ranked 1 of 396 unweighted, 2 of 396 weighted.",
+      "Salutatorian. 4.4348 weighted GPA, 4.0 unweighted.",
       "SAT 1560 — 800 math, 760 reading and writing.",
       "AP exams: Calculus BC 5, Chemistry 5, Chinese 5, Computer Science 5, Language and Composition 5, U.S. Government 5, Psychology 5, U.S. History 4.",
       "Further AP coursework: Literature, Macroeconomics, Microeconomics, Physics C: Mechanics, Statistics.",
@@ -404,7 +402,7 @@ export const highSchool = [
     date: "2021 - 2025",
     place: "Saline, MI",
     summary:
-      "A team that competes in science events, from anatomy to building balsa bridges that hold as much weight as possible.",
+      "A team that competes in science events, from anatomy to building balsa bridges.",
     body: [
       "56 medals across invitational, regional, state, and national competitions, including 3 Michigan state championships.",
     ],
@@ -422,7 +420,7 @@ export const highSchool = [
       {
         src: "assets/images/science-olympiad-load-test.jpg",
         alt: "A balsa bridge on a test rig, loaded through a chain hung from its center and a water bottle above",
-        caption: "Loading the bridge until it breaks.",
+        caption: "Load testing a bridge.",
       },
     ],
   },
@@ -451,7 +449,7 @@ export const highSchool = [
     role: "President",
     date: "2021 - 2025",
     place: "Saline, MI",
-    summary: "A national business competition for high school students. I ran our school’s chapter.",
+    summary: "A national business competition for high school students. I served as our chapter’s president.",
     points: [
       "Ran meetings, prepared members for competitions, and mentored newer students.",
     ],
@@ -477,20 +475,9 @@ export const highSchool = [
     summary: "A group I started that plays piano and flute at local retirement homes.",
     images: [
       {
-        src: "assets/media/music-for-seniors.jpg",
-        alt: "Alice playing flute from sheet music, seated in front of an audience in a common room",
-        caption: "Playing flute.",
-      },
-      {
         src: "assets/img/senior-center-music.jpg",
         alt: "Alice playing flute for residents in a senior living community room",
         caption: "Playing for residents in the community room.",
-      },
-      {
-        src: "assets/media/music-for-seniors.mp4",
-        poster: "assets/media/music-for-seniors.jpg",
-        alt: "Alice playing music for senior residents",
-        caption: "A short clip from one of the visits.",
       },
     ],
   },

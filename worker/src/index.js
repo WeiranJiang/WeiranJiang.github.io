@@ -98,11 +98,12 @@ function corsHeaders(request, env) {
     .map((s) => s.trim())
     .filter(Boolean);
   const origin = request.headers.get("Origin") || "";
-  const ok = allowed.length === 0 || allowed.includes(origin);
+  /* Fails closed: if ALLOWED_ORIGINS is ever lost on deploy, nothing gets in. */
+  const ok = allowed.includes(origin);
   return {
     ok,
     headers: {
-      "Access-Control-Allow-Origin": ok && origin ? origin : allowed[0] || "*",
+      "Access-Control-Allow-Origin": ok ? origin : allowed[0] || "null",
       "Access-Control-Allow-Methods": "POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
       "Access-Control-Max-Age": "86400",

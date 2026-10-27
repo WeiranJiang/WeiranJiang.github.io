@@ -57,8 +57,8 @@ export const site = {
 export const intro = {
   /* Each string is its own paragraph. */
   paragraphs: [
-    "I’m a student in Penn’s Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS. I’m still learning where the two meet. So far, that has meant reading company financials and building small software projects.",
-    "Right now I’m an investment banking summer analyst at Arbor Lake Capital. At Penn, I’m co-president of the Wharton Undergraduate Entrepreneurship Club, a member of the M&T Innovation Fund, and a VC scout at Moso Capital. I also ran a small online glitter shop, HoloGlitterPacks, from middle school through my first year at Penn. It’s where I first got curious about why some businesses grow and others don’t.",
+    "I’m a student in Penn’s Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS.",
+    "Right now I’m an investment banking analyst at Arbor Lake Capital. At Penn, I co-lead the Wharton Undergraduate Entrepreneurship Club and work with the M&T Innovation Fund, Moso Capital, and the Wharton Undergraduate Finance Club.",
   ],
 
   /* Compact buttons under the introduction. */

@@ -57,8 +57,8 @@ export const site = {
 export const intro = {
   /* Each string is its own paragraph. */
   paragraphs: [
-    "I’m a student at the University of Pennsylvania in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS. Most of what I do is somewhere between the two: analyzing company financials and building small software projects.",
-    "Right now I’m an investment banking summer analyst at Arbor Lake Capital, co-president of the Wharton Undergraduate Entrepreneurship Club, and on the team at the M&T Innovation Fund. For six years, from middle school through my first year at Penn, I ran a small e-commerce business, HoloGlitterPacks, and that’s where I got curious about why some businesses keep growing and others stall.",
+    "I’m a student at the University of Pennsylvania in the Jerome Fisher M&T Program, studying finance at Wharton and computer science at SEAS. Most of my work sits between the two. I read company financials, and I build small software projects.",
+    "Right now I’m an investment banking summer analyst at Arbor Lake Capital. At Penn, I co-lead the Wharton Undergraduate Entrepreneurship Club and work on the M&T Innovation Fund. Before that, I spent six years running an online glitter shop called HoloGlitterPacks, from middle school through my first year of college. Running it is how I got interested in why some businesses grow and others stall.",
   ],
 
   /* Compact buttons under the introduction. */
@@ -115,7 +115,7 @@ export const experience = [
     date: "May 2026 - Present",
     place: "Ann Arbor, MI",
     summary:
-      "Sell-side and buy-side work for middle-market clients, with a focus on cross border M&A.",
+      "Arbor Lake helps mid-sized companies buy and sell businesses, often across borders. I find buyers, research them, and prepare deal documents.",
     points: [
       "Screened 57 strategic and financial buyers for an air-spring company on revenue over $500M and EBITDA over $50M, and shortlisted 12.",
       "Built financial profiles on 3 buyers, assessing revenue growth, EBITDA margins, trading multiples, and customer concentration.",
@@ -129,7 +129,7 @@ export const experience = [
     date: "Jul 2020 - Jun 2026",
     place: "Ann Arbor, MI",
     summary:
-      "An e-commerce business I started in middle school and ran through my first year of college.",
+      "An online glitter shop I started in middle school with $50 and ran through my first year of college.",
     points: [
       "Grew from $50 of starting capital to $65K net profit across 15K orders, building the pricing and cost models and managing the full P&L.",
       "Increased conversion from 1.3% to 5.0% and earned 2,500 five-star reviews by A/B testing listings, pricing, and product mix.",
@@ -139,17 +139,17 @@ export const experience = [
       {
         src: "assets/images/hologlitterpacks-dashboard.png",
         alt: "HoloGlitterPacks seller dashboard",
-        caption: "The shop dashboard.",
+        caption: "The seller dashboard.",
       },
       {
         src: "assets/images/hologlitterpacks-inventory.jpg",
-        alt: "Nine hand-labelled bags of pastel holographic glitter laid out in two rows",
-        caption: "The colour range, weighed out and labelled.",
+        alt: "Nine hand-labeled bags of pastel holographic glitter laid out in two rows",
+        caption: "Every color, weighed out and labeled by hand.",
       },
       {
         src: "assets/images/hologlitterpacks-glitter.jpg",
         alt: "Close-up of pastel holographic glitter flakes scattered across a dark surface",
-        caption: "The product itself.",
+        caption: "The glitter up close.",
       },
     ],
   },
@@ -159,7 +159,7 @@ export const experience = [
     org: "University of Pennsylvania Student Federal Credit Union",
     date: "Feb 2026 - May 2026",
     place: "Philadelphia, PA",
-    summary: "Day-to-day operations for a $6M AUM student-run financial institution.",
+    summary: "A credit union run entirely by Penn students, with $6M in assets.",
     points: [
       "Processed deposits, withdrawals, and account services, and monitored transaction activity under federal regulations.",
     ],
@@ -170,7 +170,7 @@ export const experience = [
     org: "M&T Summer Institute",
     date: "Feb 2026 - Apr 2026",
     place: "Philadelphia, PA",
-    summary: "Read 102 applications for the M&T Summer Institute.",
+    summary: "A summer program for high schoolers run by Penn’s M&T Program. I helped decide who got in.",
     points: [
       "Read and scored 102 domestic and international applications (essays, recommendation letters, transcripts, extracurriculars) for the M&T Summer Institute.",
       "Recommended 28 candidates with written comments for the 75-student cohort drawn from 3,000 applicants.",
@@ -182,7 +182,7 @@ export const experience = [
     org: "Applebee’s Neighborhood Grill + Bar",
     date: "Aug 2024 - Feb 2025",
     place: "Ann Arbor, MI",
-    summary: "Talked to a lot of cool people and levelled up at folding kid menus.",
+    summary: "A part-time job during my senior year of high school.",
     points: [
       "Managed guest seating, reservations, and waitlists while coordinating table assignments with servers during busy shifts.",
     ],
@@ -207,7 +207,7 @@ export const atPenn = [
     date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
     summary:
-      "WUEC runs Penn’s undergraduate entrepreneurship programming — conferences, treks, and pitch competitions.",
+      "Penn’s largest undergraduate entrepreneurship club. We run conferences, pitch competitions, and trips to meet investors.",
     points: [
       "Co-led Penn’s largest entrepreneurship organization, overseeing programming, club events, budgets, sponsorships, and recruitment across 5 committees, 150 active members, and a 2,100-person alumni network of founders, operators, and investors.",
       "Organized and led a 26-student NYC venture trek with visits to a16z, Primary Venture Partners, Picus Capital, and M13.",
@@ -231,7 +231,7 @@ export const atPenn = [
     date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
     summary:
-      "MTIF invests in companies Penn students start and keeps helping them after the check.",
+      "A student-run fund that invests in startups founded by Penn students, then keeps working with them.",
     points: [
       "Evaluated 9 of 70 Penn startup applicants through founder interviews and market sizing; 2 reached the 5-company $3K finalist round.",
       "Produced a ranked corporate-customer outreach list for portfolio company Cengine during its Fortune 500 partnership with Cummins.",
@@ -246,7 +246,7 @@ export const atPenn = [
     date: "Feb 2026 - Present",
     place: "Philadelphia, PA",
     summary:
-      "A student-run fund that backs early-stage startups, a lot of them started by Penn students.",
+      "A student-run venture fund. My job is to find promising startups early, many of them from Penn, and write up whether we should invest.",
     points: [
       "Wrote buy-or-pass memos on 15 pre-seed startups covering founders, market size, and competition; 3 advanced to partner review.",
       "Sourced and tracked 21 Penn-founded startups through campus events, pitch competitions, accelerator cohorts, and alumni referrals, on a 5-person team.",
@@ -260,7 +260,7 @@ export const atPenn = [
     org: "Wharton Undergraduate Finance Club",
     date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
-    summary: "Wharton’s undergraduate finance club. We follow the markets and value companies.",
+    summary: "Wharton’s undergraduate finance club. We follow the markets and figure out what companies are worth.",
     points: [
       "Delivered weekly market updates to club members.",
       "Built DCF, comparable-company, and precedent transaction analyses for equity pitches, and presented the recommendations to club members.",
@@ -274,7 +274,7 @@ export const atPenn = [
     org: "Wharton Hedge Fund Club",
     date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
-    summary: "Wharton’s hedge fund club. We pitch stocks to go long or short.",
+    summary: "Wharton’s hedge fund club. We pitch stocks we think will rise (long) or fall (short).",
     points: [
       "Built long/short equity pitches using industry research, comparable-company analysis, and DCF valuation, and presented the recommendations to club members.",
     ],
@@ -293,8 +293,8 @@ export const work = [
     date: "2026",
     summary: "A study tracker I built for myself, with a slime that levels up when I focus.",
     body: [
-      "It’s a Chrome extension with a stopwatch, a countdown, and a task list. It also reads my Google Calendar and logs study time on its own, so I don’t have to remember to start a timer.",
-      "The other half is the reason I actually open it: focus time earns coins, coins buy items in a shop, and the items give XP to a slime that has its own class and adventurer rank.",
+      "It’s a Chrome extension with a stopwatch, a countdown, and a task list. Most study timers only work if you remember to start them, so this one also reads my Google Calendar and logs study blocks on its own.",
+      "The other half is the reason I actually open it. Focus time earns coins, coins buy items in a shop, and items give XP to a pet slime. The slime has a class and an adventurer rank, and it levels up as I study.",
     ],
   },
   {
@@ -306,7 +306,7 @@ export const work = [
     summary:
       "A life-size mobility device for seniors that our team built with a Lemelson-MIT InvenTeam grant. We got a provisional patent and presented it at MIT.",
     body: [
-      "SoloStep came out of our EMUiNVENT InvenTeam. It helps people with limited mobility move between sitting, standing, and lying down. With a lot of help from our mentors, we built a working, life-size prototype, and Microsoft’s Make What’s Next program helped us file a provisional patent.",
+      "SoloStep came out of our EMUiNVENT InvenTeam. It’s a motorized device that helps people with limited mobility move between sitting, standing, and lying down without someone lifting them. With a lot of help from our mentors, we built a working, life-size prototype, and Microsoft’s Make What’s Next program helped us file a provisional patent.",
       "We presented at EurekaFest at MIT in June 2024, where I also won the Lemelson-MIT EurekaFest essay contest.",
     ],
     points: [
@@ -325,12 +325,12 @@ export const work = [
       {
         src: "assets/images/emuinvent-team-1.jpg",
         alt: "The EMUiNVENT InvenTeam gathered around the SoloStep prototype in the lab",
-        caption: "Playing around in the shop.",
+        caption: "The team in the lab with the prototype.",
       },
       {
         src: "assets/images/emuinvent-team-2.jpg",
         alt: "EMUiNVENT team members standing together after a build session with the mobility device",
-        caption: "Playing with dishes.",
+        caption: "After a build session.",
       },
       {
         src: "assets/images/MIT3.jpg",
@@ -404,13 +404,13 @@ export const highSchool = [
     date: "2021 - 2025",
     place: "Saline, MI",
     summary:
-      "Four years of science competitions. The photos are mostly balsa bridges.",
+      "A team that competes in science events, from anatomy to building balsa bridges that hold as much weight as possible.",
     body: [
       "56 medals across invitational, regional, state, and national competitions, including 3 Michigan state championships.",
     ],
     points: [
-      "Helped with practices and summer camps, and with the team\u2019s logistics, budget, and schedule.",
-      "Set up the Extracurricular Night table with air trajectory demos and bridge tests.",
+      "Helped run practices and summer camps, and handled the team’s budget and schedule.",
+      "Ran the team’s table at the school’s extracurricular night, with launcher and bridge-breaking demos.",
       "Spoke at the STEAM building groundbreaking and at annual Saline School Board meetings.",
     ],
     images: [
@@ -421,8 +421,8 @@ export const highSchool = [
       },
       {
         src: "assets/images/science-olympiad-load-test.jpg",
-        alt: "A balsa bridge on a test rig, loaded through a chain hung from its centre and a water bottle above",
-        caption: "Load testing.",
+        alt: "A balsa bridge on a test rig, loaded through a chain hung from its center and a water bottle above",
+        caption: "Loading the bridge until it breaks.",
       },
     ],
   },
@@ -432,10 +432,10 @@ export const highSchool = [
     role: "President",
     date: "2021 - 2025",
     place: "Saline, MI",
-    summary: "I ran our chapter and organized a lot of volunteering.",
+    summary: "Our school’s chapter of the National Honor Society, which is mostly about volunteering.",
     points: [
       "Led chapter and committee meetings, and managed 70+ volunteering opportunities a year.",
-      "Raised $450 for the club banquet with a new fundraising model.",
+      "Raised $450 for the end-of-year banquet.",
     ],
     images: [
       {
@@ -451,10 +451,9 @@ export const highSchool = [
     role: "President",
     date: "2021 - 2025",
     place: "Saline, MI",
-    summary: "Michigan\u2019s high school business competition circuit, and the chapter behind it.",
+    summary: "A national business competition for high school students. I ran our school’s chapter.",
     points: [
-      "Ran club meetings, organized resources, mentored students, and built bonding events.",
-      "Implemented a Google Drive system for team resources.",
+      "Ran meetings, prepared members for competitions, and mentored newer students.",
     ],
   },
   {
@@ -463,10 +462,10 @@ export const highSchool = [
     role: "Co-Chair",
     date: "2021 - 2025",
     place: "Saline, MI",
-    summary: "The city\u2019s youth council, focused on community service.",
+    summary: "High school students who plan service projects for the city of Saline.",
     points: [
-      "Set agendas and oversaw council activities.",
-      "Started and ran a snow-shovelling program for senior citizens.",
+      "Ran meetings and set the agenda.",
+      "Started a program where students shovel snow for older residents.",
     ],
   },
   {
@@ -475,7 +474,7 @@ export const highSchool = [
     role: "Founder",
     date: "2021 - 2025",
     place: "Saline, MI",
-    summary: "Playing piano and flute for residents at retirement homes.",
+    summary: "A group I started that plays piano and flute at local retirement homes.",
     images: [
       {
         src: "assets/media/music-for-seniors.jpg",
@@ -501,7 +500,7 @@ export const highSchool = [
     role: "Co-Founder & President",
     date: "2022 - 2025",
     place: "Saline, MI",
-    summary: "A club for the thing I was already doing after school.",
+    summary: "A club I started to teach other students how to run an online store.",
     points: ["Mentored students on e-commerce and led teams in business competitions."],
   },
 ];
@@ -666,8 +665,8 @@ export const pitches = [];
 
 export const about = {
   paragraphs: [
-    "I grew up in Michigan and came to Penn for the M&T Program. I like exploring new things and learning how and why they work.",
-    "I also enjoy kayaking when the weather allows, tennis and piano, Studio Ghibli, doodling, baking, and 3D wooden puzzles.",
+    "I grew up in Michigan and came to Penn for the M&T Program. I like understanding how things work, from a company’s finances to the gears inside a music box.",
+    "Outside of class, I kayak when the weather allows, play tennis and piano, bake, doodle, and rewatch Studio Ghibli movies. I also build 3D wooden puzzles. Some have working motors and music-box mechanisms inside.",
   ],
   portrait: {
     /* The alt names her, because this is the picture image search returns for

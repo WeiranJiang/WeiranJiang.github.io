@@ -86,7 +86,7 @@ export const notes = [
     use: "Thin on purpose. What's below is how she describes and writes about herself, which is not the same as a character assessment — don't extrapolate one from her CV.",
     facts: [
       "In her own words on the site: \"I like understanding how something actually works, whether that's a capital structure or a codebase.\"",
-      "Her own site copy is plain and a little dry rather than grand. Her line about a year of hosting at Applebee's reads, in full: \"Talked to a lot of cool people and levelled up at folding kid menus.\" That register is worth matching.",
+      "Her own site copy is plain and direct rather than grand: short sentences that say what something is and what she did. That register is worth matching.",
       "People often tell Alice she is more down-to-earth and grounded than they initially expected.",
       "Her friends associate her with being happy, upbeat, and frequently dressed in blue.",
       "Alice naturally becomes the planner in her friend group — often the person who turns ideas in a group chat into actual plans.",
@@ -147,7 +147,7 @@ export const notes = [
       "Alice becomes surprisingly competitive when she is building something — whether that's physical structures, coding projects, or financial models for stock pitches. Once she can measure the result and identify ways to improve it, she becomes deeply invested.",
       "Alice can build an 11-gram bridge that holds 15,000 grams — roughly the weight of two sheets of paper supporting the weight of a mountain bike. This skill came from Science Olympiad. Four years of Science Olympiad, with 56 placements across invitational, regional, state and national competitions. She drew full plans, down to member sizes on a 47 by 14 cm build, before cutting anything.",
       "She started HoloGlitterPacks in middle school with $50 of starting capital and ran it until January 2026, halfway through her first year at Penn.",
-      "She hosted at Applebee's through her last year of high school, and describes the job as talking to a lot of cool people and levelling up at folding kid menus.",
+      "She hosted at Applebee's through her last year of high school, seating guests and managing reservations and the waitlist on busy shifts.",
       "She holds a provisional patent on SoloStep, the senior mobility device, obtained through Microsoft's Make What's Next programme.",
       "She played travel soccer from first through fifth grade.",
       "Also in the mix at high school: poetry club, debate, varsity tennis and JV co-captain, and co-leading TEDxYouth.",

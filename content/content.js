@@ -114,8 +114,6 @@ export const experience = [
     org: "Arbor Lake Capital",
     date: "May 2026 - Present",
     place: "Ann Arbor, MI",
-    summary:
-      "Arbor Lake advises mid-sized companies on buying and selling businesses, often across borders. I help find potential buyers, research them, and prepare deal documents.",
     points: [
       "Screened 57 strategic and financial buyers for an air-spring company on revenue over $500M and EBITDA over $50M, and shortlisted 12.",
       "Built financial profiles on 3 buyers, assessing revenue growth, EBITDA margins, trading multiples, and customer concentration.",
@@ -128,8 +126,6 @@ export const experience = [
     org: "HoloGlitterPacks",
     date: "Jul 2020 - Jun 2026",
     place: "Ann Arbor, MI",
-    summary:
-      "An online glitter shop I started in middle school with $50 and ran through my first year of college.",
     points: [
       "Grew the shop from $50 of starting capital to $65K in net profit across 15K orders, building the pricing and cost models and managing the P&L.",
       "Increased conversion from 1.3% to 5.0% and earned 2,500 five-star reviews by A/B testing listings, pricing, and product mix.",
@@ -180,7 +176,6 @@ export const experience = [
     org: "Applebee’s Neighborhood Grill + Bar",
     date: "Aug 2024 - Feb 2025",
     place: "Ann Arbor, MI",
-    summary: "A part-time job during my senior year of high school.",
     points: [
       "Managed guest seating, reservations, and waitlists while coordinating table assignments with servers during busy shifts.",
     ],
@@ -211,13 +206,6 @@ export const atPenn = [
       "Organized a 26-student NYC venture trek with visits to a16z, Primary Venture Partners, Picus Capital, and M13.",
       "Wrote investment memos evaluating startups from an 80-applicant competition run with Center City Ventures.",
       "Started the 50-person Imagine.Dev hackathon: set the schedule, wrote the scoring rubric, and helped with marketing.",
-    ],
-    images: [
-      {
-        src: "assets/images/wuec-trek-poster.png",
-        alt: "Poster for the WUEC NY VC Trek on April 3rd, listing visits to Primary Ventures, a16z, M13, and Picus Capital",
-        caption: "The sign-up poster.",
-      },
     ],
   },
   {
@@ -254,7 +242,7 @@ export const atPenn = [
     id: "wufc",
     short: "WUFC",
     website: "https://www.whartonfinanceclub.com/",
-    role: "Committee Member",
+    role: "Investments Committee",
     org: "Wharton Undergraduate Finance Club",
     date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
@@ -267,7 +255,7 @@ export const atPenn = [
     id: "whfc",
     short: "WHFC",
     website: "https://whartonhedgefundclub.com/",
-    role: "Committee Member",
+    role: "L/S Committee",
     org: "Wharton Hedge Fund Club",
     date: "Oct 2025 - Present",
     place: "Philadelphia, PA",

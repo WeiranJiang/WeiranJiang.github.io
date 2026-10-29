@@ -334,6 +334,57 @@ export function renderEntries(items) {
   return el("div", { class: "entries" }, items.map(entryRow));
 }
 
+/* Experience opens in place instead of going to the entry's own page. The
+   panel is in the HTML from the start (just hidden), so the build still
+   publishes the bullets for search engines. Clicking anywhere on the row
+   toggles it, except inside the open panel or on a link. */
+function expandableRow(item) {
+  const id = entryId(item);
+  const panelId = `${id}-detail`;
+
+  const rail = el("div", { class: "entry__rail" }, [
+    item.date ? el("span", { class: "meta", text: item.date }) : null,
+    item.place ? el("span", { class: "label", text: item.place }) : null,
+  ]);
+
+  const toggle = el(
+    "button",
+    { class: "entry__toggle", type: "button", "aria-expanded": "false", "aria-controls": panelId },
+    [item.org || item.name, el("span", { class: "entry__chevron", "aria-hidden": "true" })]
+  );
+
+  const panel = el("div", { class: "entry__detail", id: panelId, hidden: true }, [
+    paragraphs(item.body, "entry__body"),
+    bullets(item.points),
+    figuresFold([item.images, item.videos, item.media]),
+  ]);
+
+  const main = el("div", { class: "entry__main" }, [
+    el("h3", { class: "entry__title" }, [toggle]),
+    item.role || item.kind ? el("p", { class: "entry__role", text: item.role || item.kind }) : null,
+    item.summary ? el("p", { class: "entry__summary", text: item.summary }) : null,
+    tags(item.tags),
+    panel,
+  ]);
+
+  const row = el("article", { class: "entry entry--expandable", id }, [rail, main]);
+
+  function setOpen(open) {
+    toggle.setAttribute("aria-expanded", String(open));
+    panel.hidden = !open;
+  }
+  row.addEventListener("click", (event) => {
+    if (event.target.closest("a, .entry__detail")) return;
+    setOpen(panel.hidden);
+  });
+
+  return row;
+}
+
+export function renderExpandableEntries(items) {
+  return el("div", { class: "entries" }, items.map(expandableRow));
+}
+
 /**
  * Entries shown in full, in place — no title link, nothing behind them. Used on
  * the archive page, where there are no separate pages to click through to.
@@ -438,7 +489,17 @@ function clubCard(item, selected) {
     },
     [
       el("div", { class: "card__head" }, [
-        el("h3", { class: "card__title", text: item.org || item.name }),
+        el("h3", { class: "card__title" }, [
+          item.website
+            ? el("a", {
+              class: "card__title-link",
+              href: item.website,
+              target: "_blank",
+              rel: "noreferrer noopener",
+              text: item.org || item.name,
+            })
+            : item.org || item.name,
+        ]),
         el("div", { class: "card__links" }, [
           item.website
             ? el("a", {
@@ -574,7 +635,7 @@ export function renderSections(host, data) {
   const built = [];
 
   const bodies = {
-    experience: () => (experience.length ? renderEntries(experience) : null),
+    experience: () => (experience.length ? renderExpandableEntries(experience) : null),
     penn: () => (atPenn.length ? renderClubs(atPenn) : null),
     work: () => (work.length ? renderEntries(work) : null),
     about: () => renderAbout(about),

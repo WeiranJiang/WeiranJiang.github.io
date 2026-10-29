@@ -1884,3 +1884,83 @@ figure.shot figcaption {
 .missing-art__bridge svg {
   display: block;
 }
+
+/* ---------- experience rows that open in place ---------- */
+
+.entry--expandable {
+  cursor: pointer;
+}
+
+.entry--expandable .entry__detail {
+  cursor: auto;
+}
+
+.entry__toggle {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.entry--expandable:hover .entry__toggle,
+.entry__toggle:focus-visible {
+  color: var(--muted);
+  text-decoration-color: var(--line-strong);
+}
+
+.entry__toggle:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Same chevron as the fold headings: points right when shut, down when open. */
+.entry__chevron {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 9px;
+  border-right: 1px solid var(--faint);
+  border-bottom: 1px solid var(--faint);
+  transform: translateY(-2px) rotate(-45deg);
+  transition: transform 0.18s ease;
+}
+
+.entry__toggle[aria-expanded="true"] .entry__chevron {
+  transform: translateY(-3px) rotate(45deg);
+}
+
+.entry__detail .fold {
+  margin-top: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry__chevron { transition: none; }
+}
+
+/* Club names link to the club's own site. */
+.card__title-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.card__title-link:hover,
+.card__title-link:focus-visible {
+  color: var(--muted);
+  text-decoration-color: var(--line-strong);
+}

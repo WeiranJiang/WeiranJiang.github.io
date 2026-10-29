@@ -205,7 +205,7 @@ export const atPenn = [
       "Co-lead the club, helping oversee programming, club events, budgets, sponsorships, and recruitment across 5 committees, 150 active members, and a 2,100-person alumni network of founders, operators, and investors.",
       "Organized a 26-student NYC venture trek with visits to a16z, Primary Venture Partners, Picus Capital, and M13.",
       "Wrote investment memos evaluating startups from an 80-applicant competition run with Center City Ventures.",
-      "Started the 50-person Imagine.Dev hackathon: set the schedule, wrote the scoring rubric, and helped with marketing.",
+      "Organized the 50-person Imagine.Dev hackathon: set the schedule, wrote the scoring rubric, and helped with marketing.",
     ],
   },
   {

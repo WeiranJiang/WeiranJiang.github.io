@@ -393,7 +393,7 @@ export function renderExpandableEntries(items) {
  * the archive page, where there are no separate pages to click through to.
  * `press` is the whole press list; each entry picks out the articles naming it.
  */
-/* Small blank squares under the date and place, one per news article. The
+/* Small blank squares beside the entry name, one per news article. The
    article's name shows on hover (title) and is read out by screen readers. */
 function pressTiles(rows) {
   if (!rows.length) return null;
@@ -424,11 +424,13 @@ export function renderDetailedEntries(items, press = []) {
       const rail = el("div", { class: "entry__rail" }, [
         item.date ? el("span", { class: "meta", text: item.date }) : null,
         item.place ? el("span", { class: "label", text: item.place }) : null,
-        pressTiles(cited),
       ]);
 
       const main = el("div", { class: "entry__main" }, [
-        el("h3", { class: "entry__title", text: item.org || item.name }),
+        el("div", { class: "entry__titlerow" }, [
+          el("h3", { class: "entry__title", text: item.org || item.name }),
+          pressTiles(cited),
+        ]),
         item.role || item.kind
           ? el("p", { class: "entry__role", text: item.role || item.kind })
           : null,

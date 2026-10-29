@@ -1972,13 +1972,19 @@ figure.shot figcaption {
   text-decoration-color: var(--line-strong);
 }
 
-/* ---------- archive: news-article squares under the location ---------- */
+/* ---------- archive: news-article squares beside the entry name ---------- */
+
+.entry__titlerow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
 .press-tiles {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
-  margin-top: 10px;
 }
 
 .press-tile {

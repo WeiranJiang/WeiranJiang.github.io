@@ -232,7 +232,7 @@ export const atPenn = [
       "A student-run fund that invests in startups founded by Penn students, then keeps working with them.",
     points: [
       "Evaluated 9 of 70 Penn startup applicants through founder interviews and market sizing; 2 reached the 5-company $3K finalist round.",
-      "Produced a ranked corporate-customer outreach list for portfolio company Cengine during its Fortune 500 partnership with Cummins.",
+      "Supported portfolio company Cengine during its Fortune 500 partnership with Cummins, building a ranked list of potential corporate customers.",
     ],
   },
   {

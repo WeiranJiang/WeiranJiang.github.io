@@ -292,7 +292,7 @@ export const work = [
     summary: "A study tracker I built for myself, with a slime that levels up when I focus.",
     body: [
       "It’s a Chrome extension with a stopwatch, a countdown, and a task list. Most study timers only work if you remember to start them, so this one also reads my Google Calendar and logs study blocks on its own.",
-      "The other half is what keeps me coming back to it. Focus time earns coins, coins buy items in a shop, and items give XP to a pet slime. The slime has a class and an adventurer rank, and it levels up as I study.",
+      "Focus time earns coins, coins buy items in a shop, and items give XP to a pet slime. The slime has a class and an adventurer rank, and it levels up as I study.",
     ],
   },
   {

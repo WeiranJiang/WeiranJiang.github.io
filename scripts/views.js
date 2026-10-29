@@ -41,7 +41,6 @@ export const data = {
   education: content.education,
   highSchool: content.highSchool,
   alsoDid: content.alsoDid,
-  summerPrograms: content.summerPrograms,
   awards: content.awards,
   about: content.about,
   press: content.press,
@@ -311,7 +310,6 @@ export function renderArchivePage(host) {
     ...[
       block("Activities", renderDetailedEntries(data.highSchool || [], data.press)),
       block("Education", renderDetailedEntries(data.education || [])),
-      block("Summer programs", renderDetailedEntries(data.summerPrograms || [])),
       block("Also", renderPlainList(data.alsoDid)),
       block("Awards", renderGroups(data.awards)),
       block(

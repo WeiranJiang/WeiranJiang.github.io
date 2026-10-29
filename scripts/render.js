@@ -77,7 +77,10 @@ function figure(media, onGone) {
       decoding: "async",
     });
 
-  const fig = el("figure", { class: isVideo ? "shot shot--video" : "shot" }, [
+  const fig = el("figure", {
+    class: isVideo ? "shot shot--video" : media.fit === "contain" ? "shot shot--contain" : "shot",
+    style: media.focus ? `--focus: ${media.focus}` : null,
+  }, [
     inner,
     media.caption ? el("figcaption", { text: media.caption }) : null,
   ]);
@@ -390,6 +393,26 @@ export function renderExpandableEntries(items) {
  * the archive page, where there are no separate pages to click through to.
  * `press` is the whole press list; each entry picks out the articles naming it.
  */
+/* Small squares under the date and place, each opening a news article. */
+function pressTiles(rows) {
+  if (!rows.length) return null;
+  return el(
+    "div",
+    { class: "press-tiles" },
+    rows.map((row) =>
+      el("a", {
+        class: "press-tile",
+        href: row.href,
+        target: "_blank",
+        rel: "noreferrer noopener",
+        title: row.title,
+        "aria-label": `${row.publication}: ${row.title}`,
+        text: row.publication,
+      })
+    )
+  );
+}
+
 export function renderDetailedEntries(items, press = []) {
   return el(
     "div",
@@ -401,6 +424,7 @@ export function renderDetailedEntries(items, press = []) {
       const rail = el("div", { class: "entry__rail" }, [
         item.date ? el("span", { class: "meta", text: item.date }) : null,
         item.place ? el("span", { class: "label", text: item.place }) : null,
+        pressTiles(cited),
       ]);
 
       const main = el("div", { class: "entry__main" }, [
@@ -413,12 +437,6 @@ export function renderDetailedEntries(items, press = []) {
         bullets(item.points),
         tags(item.tags),
         figuresFold([item.images, item.videos, item.media]),
-        cited.length
-          ? el("div", { class: "entry__press" }, [
-            el("p", { class: "label", text: "Press" }),
-            renderPressList(cited),
-          ])
-          : null,
       ]);
 
       return el("article", { class: "entry", id }, [rail, main]);

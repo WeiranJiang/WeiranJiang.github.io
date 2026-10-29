@@ -61,7 +61,7 @@
   --danger: #e09292;
   --shadow-near: rgba(0, 0, 0, 0.5);
   --shadow-far: rgba(0, 0, 0, 0.55);
-  --pa-hair: #3d3a46;
+  --pa-hair: #ffffff;
 }
 
 *,
@@ -800,6 +800,7 @@ button:focus-visible,
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 16px;
+  align-items: start;
   margin-top: 20px;
 }
 
@@ -828,16 +829,32 @@ figure.shot {
   margin: 0;
 }
 
+/* Every picture gets the same frame so a row lines up: photos 4:3, cropped
+   from the center unless the entry sets `focus`; phone videos are upright, so
+   they get a 9:16 frame of their own. `fit: "contain"` keeps a diagram whole. */
 figure.shot img {
+  display: block;
   width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: var(--focus, center);
   border: 1px solid var(--line);
+  border-radius: 6px;
   background: var(--tint);
+}
+
+figure.shot--contain img {
+  object-fit: contain;
 }
 
 figure.shot video {
   width: 100%;
   display: block;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
   border: 1px solid var(--line);
+  border-radius: 6px;
   background: var(--media-bg);
 }
 
@@ -942,16 +959,6 @@ figure.shot figcaption {
 .archive-intro {
   margin-top: 14px;
   max-width: 42em;
-}
-
-.entry__press {
-  margin-top: 20px;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
-}
-
-.entry__press .label {
-  margin-bottom: 8px;
 }
 
 /* --------------------------------------------------------------------------
@@ -1963,4 +1970,38 @@ figure.shot figcaption {
 .card__title-link:focus-visible {
   color: var(--muted);
   text-decoration-color: var(--line-strong);
+}
+
+/* ---------- archive: news-article squares under the location ---------- */
+
+.press-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.press-tile {
+  width: 60px;
+  height: 60px;
+  padding: 6px;
+  display: flex;
+  align-items: flex-end;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--tint);
+  color: var(--ink-soft);
+  font: 500 9.5px/1.2 var(--sans);
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.press-tile:hover,
+.press-tile:focus-visible {
+  border-color: var(--ink);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .press-tile { transition: none; }
 }

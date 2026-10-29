@@ -93,10 +93,6 @@ export const intro = {
       ],
     },
     {
-      label: "Programs",
-      lines: ["SEO Career — Investment Banking Track"],
-    },
-    {
       label: "Otherwise",
       lines: ["Kayaking, personal coding projects, wooden puzzles, tennis, piano, Studio Ghibli, doodling, baking"],
     },
@@ -144,6 +140,7 @@ export const experience = [
       },
       {
         src: "assets/images/hologlitterpacks-glitter.jpg",
+        focus: "center 40%",
         alt: "Close-up of pastel holographic glitter flakes scattered across a dark surface",
         caption: "The glitter up close.",
       },
@@ -302,6 +299,7 @@ export const work = [
     images: [
       {
         src: "assets/images/MIT1.png",
+        fit: "contain",
         alt: "Wiring diagram of the SoloStep control system: an Arduino board connected to ultrasonic sensors and four motors",
         caption: "The control wiring of the miniature prototype.",
       },
@@ -332,6 +330,7 @@ export const work = [
 /* `intro` is optional — without one the page opens straight into the entries. */
 export const archivePage = {
   heading: "Archive",
+  intro: "A personal record of what I did before Penn.",
 };
 
 /* ---------------------------------------------------------------------------
@@ -373,12 +372,13 @@ export const education = [
   {
     org: "Washtenaw Community College",
     place: "Ann Arbor, MI",
-    date: "2024 — 2025",
+    date: "2024 - 2025",
     points: ["4.0 GPA. Multivariable Calculus (MTH 293) and Introduction to Accounting Principles."],
   },
 ];
 
-/* Activities, shown in full — there are no separate pages behind these. */
+/* Activities: just the name, role, and dates. Press about one shows as a
+   square under its location (see `press` below). */
 export const highSchool = [
   {
     id: "science-olympiad",
@@ -386,28 +386,6 @@ export const highSchool = [
     role: "Captain",
     date: "2021 - 2025",
     place: "Saline, MI",
-    summary:
-      "A team that competes in science events, from anatomy to building balsa bridges.",
-    body: [
-      "56 medals across invitational, regional, state, and national competitions, including 3 Michigan state championships.",
-    ],
-    points: [
-      "Helped run practices and summer camps, and handled the team’s budget and schedule.",
-      "Ran the team’s table at the school’s extracurricular night, with launcher and bridge-breaking demos.",
-      "Spoke at the STEAM building groundbreaking and at annual Saline School Board meetings.",
-    ],
-    images: [
-      {
-        src: "assets/images/bridge2.png",
-        alt: "Hand-drawn top, side, and bottom views of a bridge with dimensions and member sizes",
-        caption: "Plans for a 47 \u00d7 14 cm build, drawn before cutting anything.",
-      },
-      {
-        src: "assets/images/science-olympiad-load-test.jpg",
-        alt: "A balsa bridge on a test rig, loaded through a chain hung from its center and a water bottle above",
-        caption: "Load testing a bridge.",
-      },
-    ],
   },
   {
     id: "saline-nhs",
@@ -415,18 +393,6 @@ export const highSchool = [
     role: "President",
     date: "2021 - 2025",
     place: "Saline, MI",
-    summary: "Our school’s chapter of the National Honor Society, which is mostly about volunteering.",
-    points: [
-      "Led chapter and committee meetings, and managed 70+ volunteering opportunities a year.",
-      "Raised $450 for the end-of-year banquet.",
-    ],
-    images: [
-      {
-        src: "assets/images/nhs-auditorium.jpg",
-        alt: "NHS members gathered at a school event",
-        caption: "NHS at a school assembly.",
-      },
-    ],
   },
   {
     id: "bpa",
@@ -434,10 +400,6 @@ export const highSchool = [
     role: "President",
     date: "2021 - 2025",
     place: "Saline, MI",
-    summary: "A national business competition for high school students. I served as our chapter’s president.",
-    points: [
-      "Ran meetings, prepared members for competitions, and mentored newer students.",
-    ],
   },
   {
     id: "saline-youth-council",
@@ -445,11 +407,6 @@ export const highSchool = [
     role: "Co-Chair",
     date: "2021 - 2025",
     place: "Saline, MI",
-    summary: "High school students who plan service projects for the city of Saline.",
-    points: [
-      "Ran meetings and set the agenda.",
-      "Started a program where students shovel snow for older residents.",
-    ],
   },
   {
     id: "music-for-seniors",
@@ -457,14 +414,6 @@ export const highSchool = [
     role: "Founder",
     date: "2021 - 2025",
     place: "Saline, MI",
-    summary: "A group I started that plays piano and flute at local retirement homes.",
-    images: [
-      {
-        src: "assets/img/senior-center-music.jpg",
-        alt: "Alice playing flute for residents in a senior living community room",
-        caption: "Playing for residents in the community room.",
-      },
-    ],
   },
   {
     id: "shs-ecommerce",
@@ -472,40 +421,17 @@ export const highSchool = [
     role: "Co-Founder & President",
     date: "2022 - 2025",
     place: "Saline, MI",
-    summary: "A club I started to teach other students how to run an online store.",
-    points: ["Mentored students on e-commerce and led teams in business competitions."],
   },
 ];
 
 /* Everything else, as one short list. */
 export const alsoDid = [
   "SHS Debate",
-  "SHS Tennis — Varsity, JV Co-Captain",
-  "SHS TEDxYouth — Co-leader",
+  "SHS Tennis",
   "Washtenaw County Youth Commission — Saline District Commissioner",
-  "Tech Town Hall — Founder",
-  "ALLY, Asian Youth Liberty League — Secretary",
+  "Tech Town Hall",
+  "ALLY, Asian Youth Liberty League",
   "SHS Poetry Club",
-];
-
-export const summerPrograms = [
-  {
-    org: "Wharton Global Youth Program",
-    date: "2022",
-    points: ["Essentials of Leadership."],
-  },
-  {
-    org: "University of Michigan Summer Discovery",
-    date: "2023",
-    points: [
-      "Personal Finance and Entrepreneurship, Public Speaking and Presentation Skills, College Essay Writing, and Social Psychology.",
-    ],
-  },
-  {
-    org: "MIDAS, University of Michigan",
-    date: "2024",
-    points: ["Introduction to Data Science and AI."],
-  },
 ];
 
 /* Awards, grouped. `when` is the small left column. */
@@ -515,9 +441,9 @@ export const awards = [
     items: [
       { when: "2025", what: "Swartz Scholarship for Entrepreneurs ($2,500)." },
       { when: "2025", what: "National Merit Scholar ($2,500)." },
+      { when: "2025", what: "Lila Howard Make-a-Difference Scholarship." },
       { when: "2024", what: "AP Scholar with Distinction." },
       { when: "2024", what: "Lemelson-MIT EurekaFest essay winner." },
-      { when: "2024", what: "Lila Howard Make-a-Difference Scholarship." },
       { when: "2024", what: "Michigan Impact Award, for volunteering." },
       { when: "2022", what: "Global Seal of Biliteracy \u2014 Gold Seal, Chinese and English." },
     ],
@@ -657,25 +583,21 @@ export const about = {
           src: "assets/media/puzzle-piano.mp4",
           poster: "assets/media/puzzle-piano.jpg",
           alt: "A finished laser-cut wooden grand piano music box with a candelabra and bench",
-          caption: "The grand piano, candelabra and bench included.",
         },
         {
           src: "assets/media/puzzle-cello.mp4",
           poster: "assets/media/puzzle-cello.jpg",
           alt: "A wooden cello music box playing on its stand",
-          caption: "The cello music box, playing.",
         },
         {
           src: "assets/media/puzzle-train.mp4",
           poster: "assets/media/puzzle-train.jpg",
           alt: "The inside of a wooden model locomotive, showing a motor and circuit board wired in",
-          caption: "Inside the locomotive: motor and circuit board.",
         },
         {
           src: "assets/media/puzzle-lights.mp4",
           poster: "assets/media/puzzle-lights.jpg",
           alt: "A wooden kit with gearing, a driver board, and a string of LEDs lighting up",
-          caption: "Getting the lights to work.",
         },
       ],
     },

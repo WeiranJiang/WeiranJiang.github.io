@@ -287,10 +287,9 @@ export const work = [
     name: "Google Chrome Study Extension",
     kind: "Personal project",
     date: "2026",
-    summary: "A study tracker I built for myself, with a slime that levels up when I focus.",
+    summary: "A Chrome extension I built to track my study time.",
     body: [
       "It’s a Chrome extension with a stopwatch, a countdown, and a task list. Most study timers only work if you remember to start them, so this one also reads my Google Calendar and logs study blocks on its own.",
-      "Focus time earns coins, coins buy items in a shop, and items give XP to a pet slime. The slime has a class and an adventurer rank, and it levels up as I study.",
     ],
   },
   {

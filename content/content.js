@@ -239,12 +239,12 @@ export const atPenn = [
     id: "moso-capital",
     short: "Moso",
     website: "https://www.mosocapital.org/",
-    role: "VC Scout, Comma Capital Team",
+    role: "VC Scout",
     org: "Moso Capital",
     date: "Feb 2026 - Present",
     place: "Philadelphia, PA",
     summary:
-      "A student-run venture fund. I help find early-stage startups, many of them from Penn, and write up whether the fund should invest.",
+      "Moso Capital helps venture capital firms find startups to invest in. I started on the Comma Capital team, working with its co-founder, and now source startups for Stage 2 Capital.",
     points: [
       "Wrote buy-or-pass memos on 15 pre-seed startups covering founders, market size, and competition; 3 advanced to partner review.",
       "Sourced and tracked 21 Penn-founded startups through campus events, pitch competitions, accelerator cohorts, and alumni referrals, on a 5-person team.",

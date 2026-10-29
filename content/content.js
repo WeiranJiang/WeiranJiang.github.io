@@ -258,7 +258,6 @@ export const atPenn = [
     org: "Wharton Undergraduate Finance Club",
     date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
-    summary: "Wharton’s undergraduate finance club. We follow the markets and figure out what companies are worth.",
     points: [
       "Delivered weekly market updates to club members.",
       "Built DCF, comparable-company, and precedent transaction analyses for equity pitches, and presented the recommendations to club members.",
@@ -272,7 +271,6 @@ export const atPenn = [
     org: "Wharton Hedge Fund Club",
     date: "Oct 2025 - Present",
     place: "Philadelphia, PA",
-    summary: "Wharton’s hedge fund club. We pitch stocks we think will rise (long) or fall (short).",
     points: [
       "Built long/short equity pitches using industry research, comparable-company analysis, and DCF valuation, and presented the recommendations to club members.",
     ],

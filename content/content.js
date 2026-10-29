@@ -513,6 +513,12 @@ export const press = [
   },
   {
     publication: "The Saline Post",
+    title: "Saline Science Olympiad takes 3rd at State Championship, capping most successful season yet",
+    href: "https://thesalinepost.com/g/saline-mi/n/80810/saline-science-olympiad-takes-3rd-state-championship-capping-most-successful",
+    item: "science-olympiad",
+  },
+  {
+    publication: "The Saline Post",
     title: "Saline High School Science Olympiad qualifies for states",
     href: "https://thesalinepost.com/g/saline-mi/n/150372/saline-high-school-science-olympiad-qualifies-states-saline-middle-school-team",
     item: "science-olympiad",

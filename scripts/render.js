@@ -393,7 +393,8 @@ export function renderExpandableEntries(items) {
  * the archive page, where there are no separate pages to click through to.
  * `press` is the whole press list; each entry picks out the articles naming it.
  */
-/* Small squares under the date and place, each opening a news article. */
+/* Small blank squares under the date and place, one per news article. The
+   article's name shows on hover (title) and is read out by screen readers. */
 function pressTiles(rows) {
   if (!rows.length) return null;
   return el(
@@ -407,7 +408,6 @@ function pressTiles(rows) {
         rel: "noreferrer noopener",
         title: row.title,
         "aria-label": `${row.publication}: ${row.title}`,
-        text: row.publication,
       })
     )
   );

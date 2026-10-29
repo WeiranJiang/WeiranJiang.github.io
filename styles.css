@@ -1977,28 +1977,23 @@ figure.shot figcaption {
 .press-tiles {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   margin-top: 12px;
 }
 
 .press-tile {
-  width: 60px;
-  height: 60px;
-  padding: 6px;
-  display: flex;
-  align-items: flex-end;
+  width: 40px;
+  height: 40px;
   border: 1px solid var(--line-strong);
   border-radius: 6px;
   background: var(--tint);
-  color: var(--ink-soft);
-  font: 500 9.5px/1.2 var(--sans);
-  text-decoration: none;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
 }
 
 .press-tile:hover,
 .press-tile:focus-visible {
   border-color: var(--ink);
+  background: var(--select);
   transform: translateY(-1px);
 }
 

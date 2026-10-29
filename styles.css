@@ -1870,3 +1870,17 @@ figure.shot figcaption {
     padding: 24pt;
   }
 }
+
+/* ---------- 404: Pixel Alice and a snapped bridge ---------- */
+
+.missing-art {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  margin: 8px 0 20px;
+  color: var(--ink);
+}
+
+.missing-art__bridge svg {
+  display: block;
+}

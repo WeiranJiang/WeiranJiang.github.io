@@ -29,6 +29,7 @@ import {
   renderPlainList,
   renderGroups,
 } from "./render.js";
+import { createCharacter } from "./character.js";
 
 /** The one bundle every page passes around, the assistant included. */
 export const data = {
@@ -230,16 +231,42 @@ export function renderEntryPage(host, { group, item, index }) {
   return meta;
 }
 
+/* A balsa bridge snapped in the middle, drawn on the same pixel grid as Pixel
+   Alice. Static markup, so the `html` option is safe here. The end blocks use
+   currentColor so they follow the theme. */
+const SNAPPED_BRIDGE = `<svg viewBox="0 0 40 16" width="160" height="64" shape-rendering="crispEdges">
+  <g fill="currentColor" opacity="0.28">
+    <rect x="0" y="8" width="4" height="8"/><rect x="36" y="8" width="4" height="8"/>
+  </g>
+  <g fill="#d4b483">
+    <rect x="1" y="7" width="6" height="1"/><rect x="7" y="8" width="4" height="1"/>
+    <rect x="11" y="9" width="4" height="1"/><rect x="15" y="10" width="3" height="1"/>
+    <rect x="4" y="5" width="1" height="2"/><rect x="8" y="6" width="1" height="2"/><rect x="12" y="7" width="1" height="2"/>
+    <rect x="4" y="5" width="9" height="1"/>
+    <rect x="33" y="7" width="6" height="1"/><rect x="29" y="8" width="4" height="1"/>
+    <rect x="25" y="9" width="4" height="1"/><rect x="22" y="10" width="3" height="1"/>
+    <rect x="35" y="5" width="1" height="2"/><rect x="31" y="6" width="1" height="2"/><rect x="27" y="7" width="1" height="2"/>
+    <rect x="27" y="5" width="9" height="1"/>
+  </g>
+  <g fill="#b8955f">
+    <rect x="19" y="12" width="1" height="1"/><rect x="21" y="13" width="1" height="1"/><rect x="20" y="15" width="1" height="1"/>
+  </g>
+</svg>`;
+
 export function renderMissingPage(host) {
   applyChrome(`Not found — ${data.site.name}`);
   host.replaceChildren(
     el("div", { class: "wrap item-head" }, [
       backLink("index.html", "Home"),
       el("div", { class: "item__headmain" }, [
-        el("h1", { class: "item__title", text: "Nothing here" }),
+        el("div", { class: "missing-art", "aria-hidden": "true" }, [
+          createCharacter({ size: 44, label: "" }).node,
+          el("span", { class: "missing-art__bridge", html: SNAPPED_BRIDGE }),
+        ]),
+        el("h1", { class: "item__title", text: "This page didn’t hold the load." }),
         el("p", {
           class: "item__role",
-          text: "That link doesn’t point at anything on this site — it may be old, or mistyped. Everything Alice has published is on the homepage.",
+          text: "The link may be old or mistyped. Everything Alice has published is on the homepage.",
         }),
         el("div", { class: "entry__links" }, [
           el("a", { class: "btn", href: "index.html", text: "Back to the homepage" }),

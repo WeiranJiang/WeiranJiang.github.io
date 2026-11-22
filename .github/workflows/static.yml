@@ -31,6 +31,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Setup Node
@@ -48,8 +50,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Only the built site. The Worker source, the notes, and node_modules
-          # stay in the repository and off the web.
+          # Only the built site is part of the Pages deployment.
           path: 'dist'
       - name: Deploy to GitHub Pages
         id: deployment

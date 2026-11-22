@@ -33,7 +33,7 @@
 
 import { execFileSync } from "node:child_process";
 import { readdirSync } from "node:fs";
-import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
+import { cp, lstat, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseHTML } from "linkedom";
@@ -46,7 +46,7 @@ const ORIGIN = "https://weiranjiang.github.io";
 const ASSETS = [
   "styles.css",
   "scripts",
-  "content",
+  "content/content.js",
   "assets",
   "robots.txt",
   "google25c28f57d641c7eb.html", // Search Console ownership. Removing it un-verifies the site.
@@ -56,6 +56,11 @@ const ASSETS = [
 const RESERVED = new Set(["index", "item", "archive", "blog", "pitches", "robots", "sitemap", "styles", "404"]);
 
 const abs = (relative) => new URL(relative, `${ORIGIN}/`).href;
+
+const PUBLIC_MEDIA = new Set([
+  ".avif", ".gif", ".ico", ".jpeg", ".jpg", ".m4v", ".mov", ".mp4", ".pdf", ".png",
+  ".svg", ".webm", ".webp",
+]);
 
 /* ---------------------------------------------------------------------------
  * A DOM good enough to render into
@@ -107,9 +112,28 @@ function installDom(html) {
 }
 
 /* The renderer reads the globals above when it runs, so they go in first. */
-installDom("<!DOCTYPE html><html><head></head><body></body></html>");
+const { window: buildWindow } = installDom("<!DOCTYPE html><html><head></head><body></body></html>");
+await import("../config.js");
 const views = await import("../views.js");
 const { data } = views;
+
+const assistantOrigin = new URL(buildWindow.ALICE_CONFIG?.assistantEndpoint || "/", ORIGIN).origin;
+const connectSources = ["'self'"];
+if (assistantOrigin !== ORIGIN && /^https?:\/\//.test(assistantOrigin)) {
+  connectSources.push(assistantOrigin);
+}
+const CONTENT_POLICY = [
+  "default-src 'self'",
+  "base-uri 'none'",
+  "object-src 'none'",
+  "frame-src 'none'",
+  "form-action 'none'",
+  "script-src 'self'",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data:",
+  `connect-src ${connectSources.join(" ")}`,
+].join("; ");
 
 /* ---------------------------------------------------------------------------
  * Pictures that aren't there yet
@@ -229,6 +253,14 @@ const property = (document, prop, content) =>
 function applyHead(document, page) {
   const { title, description, canonical, image, jsonLd, noindex } = page;
 
+  // Pages cannot set custom response headers. Put the policy before subresources.
+  const policy = document.createElement("meta");
+  policy.setAttribute("http-equiv", "Content-Security-Policy");
+  policy.setAttribute("content", CONTENT_POLICY);
+  const charset = document.head.querySelector("meta[charset]");
+  if (charset) charset.after(policy);
+  else document.head.prepend(policy);
+
   if (title) {
     upsert(document, "title", "title", {}).textContent = title;
     property(document, "og:title", title);
@@ -253,7 +285,7 @@ function applyHead(document, page) {
   if (jsonLd) {
     const script = document.createElement("script");
     script.setAttribute("type", "application/ld+json");
-    script.textContent = JSON.stringify(jsonLd, null, 2);
+    script.textContent = JSON.stringify(jsonLd, null, 2).replace(/</g, "\\u003c");
     document.head.append(script);
   }
 }
@@ -596,25 +628,26 @@ async function writeSitemap() {
 await rm(DIST, { recursive: true, force: true });
 await mkdir(DIST, { recursive: true });
 
-/* Things that live next to the site's files but are not the site. .DS_Store is
-   the one that matters: Finder writes a listing of the whole folder into it,
-   including files you have since deleted, and copying it into dist/ puts that
-   listing on the open web. The notes-to-self READMEs in assets/ are the same
-   idea, less costly. */
-const NOT_PUBLISHED = (source) => {
-  const name = path.basename(source);
-  return (
-    source.includes(`${path.sep}scripts${path.sep}build`) ||
-    name === ".DS_Store" ||
-    name === "Thumbs.db" ||
-    name.toLowerCase() === "readme.md"
-  );
-};
+async function isPublicAsset(source) {
+  const relative = path.relative(ROOT, source);
+  const parts = relative.split(path.sep);
+  if (parts.some((part) => part.startsWith("."))) return false;
+  if (parts[0] === "scripts" && parts[1] === "build") return false;
+
+  const entry = await lstat(source);
+  if (entry.isDirectory()) return true;
+  if (!entry.isFile()) return false;
+
+  const extension = path.extname(source).toLowerCase();
+  if (parts[0] === "assets") return PUBLIC_MEDIA.has(extension);
+  if (parts[0] === "scripts") return extension === ".js";
+  return true;
+}
 
 for (const asset of ASSETS) {
   await cp(path.join(ROOT, asset), path.join(DIST, asset), {
     recursive: true,
-    filter: (source) => !NOT_PUBLISHED(source),
+    filter: isPublicAsset,
   });
 }
 

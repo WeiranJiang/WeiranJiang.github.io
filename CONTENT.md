@@ -330,15 +330,12 @@ videos in the same array.
 enable written answers; leave it blank and the assistant quotes the page instead
 and says so. Set `assistantEnabled: false` to remove it entirely.
 
-The assistant reads `content/content.js`, so it can repeat anything published
-here. **If you don't want it said, don't put it in `content.js`.**
-
-It also reads a second, private file that isn't part of the site:
-`worker/src/aliceKnowledge.js`, Alice's own notes about herself — hometown,
-favourites, how she works, how to answer a recruiter. Those live in the Worker
-so they're never downloadable from the page, and they only change when the
-Worker is redeployed. Both files, and the deployment and cost notes, are covered
-in `worker/README.md`.
+The assistant answers from the published `content/content.js` bundled with the
+Worker. Redeploy the Worker after updating site content to refresh its answers.
+When enabled, it sends questions and recent chat messages to Gemini, as
+described in the chat panel and `worker/README.md`. Only commit content and
+media you intend to share publicly. Strip location metadata from media before
+uploading it.
 
 ## Stock pitches
 
@@ -387,9 +384,8 @@ Out of it come the homepage, the archive, the pitches page, one real page per
 entry, and `sitemap.xml`, all with their titles, descriptions, and link
 previews filled in from `content.js`.
 
-GitHub Actions runs it on every push and publishes `dist/`. That also means the
-Worker source and these notes are no longer served to the web — only the built
-site is.
+GitHub Actions builds and publishes `dist/` on pushes to `main`. Files in
+the public repository can also be downloaded directly from GitHub.
 
 To see it locally:
 

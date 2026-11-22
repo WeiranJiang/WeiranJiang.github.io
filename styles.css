@@ -1660,9 +1660,9 @@ figure.shot figcaption {
 .assistant-foot {
   padding: 0 12px 10px;
   font-family: var(--sans);
-  font-size: 10.5px;
+  font-size: 11px;
   line-height: 1.5;
-  color: var(--faint);
+  color: var(--muted);
 }
 
 /* --------------------------------------------------------------------------

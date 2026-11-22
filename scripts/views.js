@@ -349,20 +349,6 @@ function blogRow(post) {
   ]);
 }
 
-function blogCategory(title, posts, description) {
-  const body = posts && posts.length
-    ? el("div", { class: "blog-list" }, posts.map(blogRow))
-    : el("p", { class: "blog-empty", text: "Entries coming soon." });
-
-  return el("section", { class: "blog-category", "aria-labelledby": `blog-${title.toLowerCase()}` }, [
-    el("div", { class: "blog-category__head" }, [
-      el("h2", { class: "blog-category__title", id: `blog-${title.toLowerCase()}`, text: title }),
-      el("p", { class: "blog-category__description", text: description }),
-    ]),
-    body,
-  ]);
-}
-
 export function renderBlogPage(host) {
   const heading = blogPage.heading || "Blog";
   applyChrome(`${heading} — ${data.site.name}`);
@@ -372,13 +358,11 @@ export function renderBlogPage(host) {
       backLink("index.html", "Home"),
       el("div", { class: "item__headmain" }, [
         el("h1", { class: "item__title", text: heading }),
-        blogPage.intro ? el("p", { class: "item__lede", text: blogPage.intro }) : null,
       ]),
     ]),
-    el("div", { class: "wrap blog-categories" }, [
-      blogCategory("Tech", data.blog?.tech || [], "Engineering, software, and the systems behind them."),
-      blogCategory("Consumer", data.blog?.consumer || [], "Products, behavior, and everyday experiences."),
-    ])
+    data.blog?.length
+      ? el("div", { class: "wrap blog-list" }, data.blog.map(blogRow))
+      : null
   );
 
   renderNav(document.getElementById("site-nav"), data.sections, { absolute: true, currentId: "blog" });

@@ -49,8 +49,7 @@ reserved for the blog index.
 
 ## Adding a blog entry
 
-The Blog page has two lists in `content/content.js`: `blog.tech` and
-`blog.consumer`. Add a post to the appropriate list; array order is page order.
+Add posts to the `blog` list in `content/content.js`. Array order is page order.
 
 ```js
 {
@@ -63,8 +62,7 @@ The Blog page has two lists in `content/content.js`: `blog.tech` and
 }
 ```
 
-Leave `href` out while a post is still a draft. Empty categories show a quiet
-“Entries coming soon” message.
+Leave `href` out while a post is still a draft.
 
 Links from before this changed, of the form `item.html?id=hologlitterpacks`,
 still work: `item.html` reads the id and forwards to the page.

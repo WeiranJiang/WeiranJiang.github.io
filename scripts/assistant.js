@@ -1,30 +1,5 @@
-/**
- * "Ask about Alice" — a small grounded assistant.
- *
- * How it works
- *   1. The knowledge base is built from content/content.js at load, so the
- *      assistant can only ever talk about what is already published on this page.
- *      A few facts are worked out from it rather than published — today's date,
- *      her year of school, which roles are still running — so that questions a
- *      step to the side of the page ("what year is she in?") have something to
- *      land on. See "derived facts" below.
- *   2. The question is matched against those passages locally, and the best few
- *      are sent to a Cloudflare Worker along with the question.
- *   3. The Worker holds the Gemini API key and asks the model to answer using
- *      only those passages, plus — on questions that call for them — a few of
- *      Alice's own notes, which live in the Worker and never come near the
- *      browser (worker/src/aliceKnowledge.js). No key is ever present here.
- *   4. The passages used are shown under the answer as links into the page. An
- *      answer written out of the notes has no section to point at, and shows
- *      no links rather than the nearest guess.
- *
- * With no Worker configured (window.ALICE_CONFIG.assistantEndpoint === ""), it
- * runs in local mode: it still answers from the same passages, but by quoting
- * them rather than writing prose, and it says so.
- *
- * The character artwork comes from scripts/character.js and is not part of this
- * file's job.
- */
+/* Ask about Alice uses published site content to ground Gemini's replies.
+   The Cloudflare Worker holds the API key and generates the answers. */
 
 import { createCharacter } from "./character.js";
 import { el, entryHref } from "./render.js";
@@ -35,7 +10,8 @@ import { el, entryHref } from "./render.js";
 const HOME = /\/(index\.html)?$/.test(location.pathname) ? "" : "index.html";
 
 const MAX_QUESTION = 500;
-const MAX_PASSAGES = 6;
+const MAX_PASSAGES = 8;
+const MAX_REQUEST_BYTES = 24_000;
 const MAX_HISTORY = 8;
 
 const STOPWORDS = new Set(
@@ -222,6 +198,17 @@ export function buildKnowledge(data) {
       item.place ? `Location: ${item.place}.` : "",
     ]);
 
+  // Give the model a map of the portfolio for broad and comparative questions.
+  for (const [section, href, items, keywords] of [
+    ["Experience overview", `${HOME}#experience`, experience, "career jobs internships employers roles finance banking compare"],
+    ["At Penn overview", `${HOME}#penn`, atPenn, "clubs campus college involvement extracurricular activities leadership compare"],
+    ["Projects overview", `${HOME}#work`, work, "projects project software built builds tools apps coding compare"],
+  ]) {
+    out.push(passage(section, href, section, items.map((item) =>
+      `${item.org || item.name}: ${item.summary || item.role || item.kind || ""}`
+    ), keywords));
+  }
+
   for (const item of experience) out.push(entryPassage(item, "Experience"));
   for (const item of atPenn) out.push(entryPassage(item, "At Penn"));
   for (const item of work) out.push(entryPassage(item, "Selected work"));
@@ -285,51 +272,69 @@ export function buildKnowledge(data) {
 }
 
 function tokenize(value) {
-  return String(value)
-    .toLowerCase()
-    .split(/[^a-z0-9&]+/)
-    .filter((t) => t.length > 2 && !STOPWORDS.has(t));
+  return new Set(
+    value.toLowerCase().match(/[a-z0-9]+/g)?.filter(
+      (term) => term.length > 2 && !STOPWORDS.has(term)
+    ) || []
+  );
 }
 
-function retrieve(knowledge, question, limit = MAX_PASSAGES) {
+function rankPassages(knowledge, question) {
   const terms = tokenize(question);
-  if (!terms.length) return knowledge.slice(0, 3);
-
-  const scored = knowledge.map((item) => {
-    const haystack = `${item.title} ${item.section} ${item.keywords || ""} ${item.text}`.toLowerCase();
-    let score = 0;
-    for (const term of terms) {
-      if (!haystack.includes(term)) continue;
-      score += 1;
-      if (item.title.toLowerCase().includes(term)) score += 2;
-    }
-    return { item, score };
-  });
-
-  return scored
-    .filter((row) => row.score > 0)
+  return knowledge
+    .map((item) => {
+      const title = tokenize(item.title);
+      const topics = tokenize(`${item.section} ${item.keywords}`);
+      const body = tokenize(item.text);
+      let score = 0;
+      for (const term of terms) {
+        if (title.has(term)) score += 5;
+        else if (topics.has(term)) score += 3;
+        else if (body.has(term)) score += 1;
+      }
+      return { item, score };
+    })
+    .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score)
-    .slice(0, limit)
-    .map((row) => row.item);
+    .map(({ item }) => item);
 }
 
-/**
- * What actually gets sent. Retrieval decides what's relevant, but the derived
- * facts go along regardless: the model needs today's date to reason about "now",
- * and a question like "is she still doing that?" carries no word that would ever
- * match the passage holding the answer.
- *
- * Retrieval itself is left alone, so local mode can still tell a question it
- * knows nothing about from one it does.
- */
-function withDerived(knowledge, matches) {
-  const pinned = knowledge.filter((item) => item.pinned && !matches.includes(item));
-  return [...pinned, ...matches];
+export function selectPassages(knowledge, question, history, previousSources) {
+  const latest = rankPassages(knowledge, question);
+  const previousQuestion = history.at(-2)?.content || "";
+  const earlier = rankPassages(knowledge, previousQuestion);
+  const overview = knowledge.find(({ title }) => title === "Introduction");
+
+  // Keep the newest question in charge while reserving space for the topic
+  // of short follow-ups such as “How did she get into that?”
+  return [...new Set([
+    ...knowledge.filter(({ pinned }) => pinned),
+    ...latest.slice(0, 3),
+    ...previousSources.slice(0, 2),
+    ...earlier.slice(0, 2),
+    ...(overview ? [overview] : []),
+    ...latest.slice(3),
+  ])].slice(0, MAX_PASSAGES);
+}
+
+export function buildRequest(question, history, passages) {
+  const body = {
+    question,
+    history: history.slice(-MAX_HISTORY),
+    passages: passages.map(({ title, text }) => ({ title, text: text.slice(0, 2400) })),
+  };
+  const encoder = new TextEncoder();
+  let serialized = JSON.stringify(body);
+  while (encoder.encode(serialized).length > MAX_REQUEST_BYTES && body.passages.length) {
+    body.passages.pop();
+    serialized = JSON.stringify(body);
+  }
+  return { serialized, sent: passages.slice(0, body.passages.length) };
 }
 
 /* ---------------- local (no-backend) answering ---------------- */
 
-function localAnswer(matches, question) {
+function localAnswer(matches) {
   if (!matches.length) {
     return {
       text:
@@ -345,7 +350,7 @@ function localAnswer(matches, question) {
     })
     .join("\n\n");
   return {
-    text: `${lead}\n\nThat’s quoted from the page rather than written for your question — the part that writes answers isn’t switched on yet.`,
+    text: `${lead}\n\nHere’s what Alice’s site says.`,
     sources: matches.slice(0, 3),
   };
 }
@@ -367,6 +372,7 @@ export function mountAssistant(root, data) {
   const knowledge = buildKnowledge(data);
   const endpoint = (config.assistantEndpoint || "").trim();
   const history = [];
+  let previousSources = [];
   let busy = false;
 
   /* ---- launcher ---- */
@@ -486,7 +492,7 @@ export function mountAssistant(root, data) {
 
   addMessage(
     "assistant",
-    "Hi — I’m an AI assistant for Alice’s site. Ask me anything, and I’ll answer from what’s written here and point you to the section it came from."
+    "Hi! Ask me about Alice’s work, projects, or life at Penn. You can ask follow-up questions, too."
   );
 
   /* ---- asking ---- */
@@ -500,7 +506,7 @@ export function mountAssistant(root, data) {
     input.value = "";
     addMessage("user", trimmed);
 
-    const matches = retrieve(knowledge, trimmed);
+    const matches = rankPassages(knowledge, trimmed);
     panelCharacter.setState("thinking");
     launcherCharacter.setState("thinking");
     const pending = addMessage("assistant", "Looking through the page…");
@@ -508,71 +514,46 @@ export function mountAssistant(root, data) {
     try {
       let result;
       if (!endpoint) {
-        result = localAnswer(matches, trimmed);
+        result = localAnswer(matches);
       } else {
+        const passages = selectPassages(knowledge, trimmed, history, previousSources);
+        const { serialized, sent } = buildRequest(trimmed, history, passages);
         const response = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            question: trimmed,
-            history: history.slice(-MAX_HISTORY),
-            passages: withDerived(knowledge, matches).map((m) => ({
-              title: m.title,
-              section: m.section,
-              text: m.text,
-            })),
-          }),
+          body: serialized,
+          signal: AbortSignal.timeout(30_000),
         });
-
-        if (!response.ok) {
-          const detail = await response.json().catch(() => ({}));
-          const failure = new Error(detail.error || `The assistant service returned ${response.status}.`);
-          /* Some failures don't clear by trying again — a spent daily quota, for
-             one. The Worker says which, and the advice below follows it. */
-          failure.retryable = detail.retryable !== false;
-          throw failure;
+        const payload = await response.json().catch(() => null);
+        if (!response.ok || !payload?.answer?.trim()) {
+          throw new Error(payload?.error || "I couldn’t get an answer right now. Try again in a moment.");
         }
 
-        const payload = await response.json();
-        if (!payload.answer) throw new Error("The assistant service sent an empty answer.");
-
-        /* The answer names the passages it used. An empty list is only worth
-           believing when the backend says the model actually gave one: not
-           every answer comes off the page — the Worker holds notes of Alice's
-           own that have no section to link to — and "nothing on the page"
-           should show no links rather than the nearest three. Without a list at
-           all, the old guess is still the best available. */
-        const cited = new Set((payload.sources || []).map(String));
-        const listed = payload.cited === true;
+        const cited = new Set(payload.sources || []);
         result = {
           text: payload.answer,
-          sources: cited.size
-            ? matches.filter((m) => cited.has(m.title))
-            : listed
-              ? []
-              : matches.slice(0, 3),
+          sources: sent.filter(({ title }) => cited.has(title)),
         };
+        if (result.sources.length) previousSources = result.sources;
       }
 
       pending.remove();
       addMessage("assistant", result.text, result.sources);
       history.push({ role: "user", content: trimmed });
-      history.push({ role: "assistant", content: result.text });
+      history.push({ role: "assistant", content: result.text.slice(0, 2_000) });
     } catch (error) {
       pending.remove();
-      /* Nothing to add when the failure won't clear by retrying — the Worker's
-         own message already says everything useful. */
-      const advice =
-        error.retryable === false
-          ? ""
-          : " Nothing was lost — try again in a moment, or read the section directly. If it keeps failing, the assistant service is probably down.";
-      addMessage("error", `${error.message || "Something went wrong."}${advice}`);
+      const message = error.name === "TimeoutError" || error instanceof TypeError
+        ? "I couldn’t reach the assistant. Try again in a moment."
+        : error.message;
+      addMessage("error", message, matches.slice(0, 3));
+      if (!input.value) input.value = trimmed;
     } finally {
       busy = false;
       sendButton.disabled = false;
       panelCharacter.setState("idle");
       launcherCharacter.setState("idle");
-      input.focus();
+      if (!panel.hidden) input.focus();
     }
   }
 

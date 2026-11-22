@@ -4,6 +4,11 @@ compatibility_date = "2026-08-01"
 # No nodejs_compat: the Worker talks to Gemini over plain fetch and pulls in
 # nothing from npm.
 
+[[ratelimits]]
+name = "ASK_RATE_LIMITER"
+namespace_id = "573957"
+simple = { limit = 12, period = 60 }
+
 [vars]
 # Sites allowed to call this Worker. Leave the list tight — an open endpoint is
 # an open API bill. Add "http://localhost:8000" while developing locally.

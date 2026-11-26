@@ -66,7 +66,6 @@ export const intro = {
     /* action: "ask" opens the assistant instead of navigating. */
     { label: "Ask about Alice", action: "ask" },
     { label: "Résumé", href: "assets/files/Alice_Jiang's_Resume.pdf?v=20260924", external: true },
-    { label: "GitHub", href: "https://github.com/WeiranJiang", external: true },
     { label: "Stock pitches", href: "pitches.html" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/weiran-jiang", external: true },
     { label: "Email", href: "mailto:wajiang@wharton.upenn.edu" },

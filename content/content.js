@@ -335,19 +335,15 @@ export const archivePage = {
 /* ---------------------------------------------------------------------------
  * 6. Blog — writing about technology and the products people use.
  *
- * Add posts to either list below. A post can link to a page on this site or to
+ * Add posts to the list below. A post can link to a page on this site or to
  * something published elsewhere; leave `href` out while a draft is not live.
  * ------------------------------------------------------------------------ */
 
 export const blogPage = {
   heading: "Blog",
-  intro: "Notes on technology, products, and how people use them.",
 };
 
-export const blog = {
-  tech: [],
-  consumer: [],
-};
+export const blog = [];
 
 /* Schools and coursework. */
 export const education = [

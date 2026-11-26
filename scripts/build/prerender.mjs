@@ -512,7 +512,7 @@ async function buildBlog() {
     render: (document) => views.renderBlogPage(document.getElementById("main")),
     head: {
       title: `${views.blogPage.heading || "Blog"} — ${data.site.name}`,
-      description: views.blogPage.intro || `Technology and consumer writing by ${data.site.name}.`,
+      description: `Blog by ${data.site.name}.`,
       canonical: abs("blog.html"),
       image: PORTRAIT,
     },
